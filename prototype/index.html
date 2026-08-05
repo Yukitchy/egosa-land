@@ -130,6 +130,19 @@ h2 small{font-weight:600;color:var(--sub);font-size:13px}
 .today{margin-top:8px;font-size:13.5px}
 .today li{list-style:none;display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid var(--rule)}
 .today .t{font-variant-numeric:tabular-nums;font-weight:800;color:var(--accent);font-size:13px;flex:none}
+.map-wrap{position:relative}
+.recenter-btn{position:absolute;top:8px;left:50%;transform:translateX(-50%);z-index:5;background:var(--surface);
+  border:none;border-radius:999px;padding:7px 16px;font-size:13px;font-weight:800;color:var(--ink);
+  box-shadow:0 3px 10px rgba(29,33,37,.16);cursor:pointer}
+.tag.filt{cursor:pointer;border:none}
+.tag.filt.off{background:var(--rule);color:var(--sub)}
+.carousel{display:flex;gap:10px;overflow-x:auto;padding:10px 2px 8px;margin-top:2px}
+.mcard{position:relative;flex:none;width:128px;background:var(--surface);border-radius:14px;padding:12px 12px 10px;
+  box-shadow:0 2px 10px rgba(29,33,37,.1);cursor:pointer}
+.mcard.on{background:var(--accent-tint)}
+.mcard b{display:block;font-size:14px;margin-top:6px}
+.mcard .mn{position:absolute;top:8px;right:8px;background:var(--accent);color:#fff;font-size:12px;font-weight:800;
+  border-radius:999px;padding:1px 7px}
 /* directory tab */
 .port{display:flex;gap:12px}
 .port .avatar{width:52px;height:52px;font-size:23px}
@@ -262,10 +275,12 @@ h2 small{font-weight:600;color:var(--sub);font-size:13px}
 <section id="tab-map">
   <h2>🗺 秋葉原エリア <small>箱・スタジオ・空き時間物件</small></h2>
   <div class="legend">
-    <span class="tag pk">🎤 ライブハウス・箱</span>
-    <span class="tag tl">🎧 練習スタジオ</span>
-    <span class="tag gd">☕ 空き時間物件</span>
+    <button class="tag filt pk" data-tag="pk">🎤 ライブハウス・箱</button>
+    <button class="tag filt tl" data-tag="tl">🎧 練習スタジオ</button>
+    <button class="tag filt gd" data-tag="gd">☕ 空き時間物件</button>
   </div>
+  <div class="map-wrap">
+  <button class="recenter-btn" id="recenter-btn">🔄 この場所で再検索</button>
   <div class="map">
     <svg viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg" font-family="Hiragino Maru Gothic ProN,sans-serif">
       <rect width="600" height="340" fill="#EFF0F2"/>
@@ -282,52 +297,70 @@ h2 small{font-weight:600;color:var(--sub);font-size:13px}
         <filter id="pinBlur" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.2"/></filter>
         <path id="pinpath" d="M-13,-15A13,13 0 1,1 13,-15L0,3Z"/>
       </defs>
-      <g class="pin" data-id="box1" tabindex="0" role="button" aria-label="ライブハウス GEKKO" transform="translate(200,115)">
+      <g class="pin" data-id="box1" data-tag="pk" tabindex="0" role="button" aria-label="ライブハウス GEKKO 今週42件の言及" transform="translate(200,115)">
         <g class="pinhover">
         <ellipse cy="6" rx="10" ry="3" fill="rgba(29,33,37,.18)" filter="url(#pinBlur)"/>
         <use href="#pinpath" class="pinshape" fill="#CE2B5F"/>
         <text y="-11" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">箱</text>
+        <rect x="-11" y="-48" width="22" height="15" rx="7.5" fill="#CE2B5F"/>
+        <text y="-37" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">42</text>
         <rect class="pinlabel" x="16" y="-24" width="54" height="18" rx="9" fill="#fff" stroke="#D5D9DD"/>
         <text x="43" y="-11" font-size="12" text-anchor="middle" fill="#1D2125" font-weight="700">GEKKO</text>
         </g>
       </g>
-      <g class="pin" data-id="box2" tabindex="0" role="button" aria-label="イベントスペース 雷鳴" transform="translate(350,220)">
+      <g class="pin" data-id="box2" data-tag="pk" tabindex="0" role="button" aria-label="イベントスペース 雷鳴 今週18件の言及" transform="translate(350,220)">
         <g class="pinhover">
         <ellipse cy="6" rx="10" ry="3" fill="rgba(29,33,37,.18)" filter="url(#pinBlur)"/>
         <use href="#pinpath" class="pinshape" fill="#CE2B5F"/>
         <text y="-11" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">箱</text>
+        <rect x="-11" y="-48" width="22" height="15" rx="7.5" fill="#CE2B5F"/>
+        <text y="-37" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">18</text>
         <rect class="pinlabel" x="16" y="-24" width="38" height="18" rx="9" fill="#fff" stroke="#D5D9DD"/>
         <text x="35" y="-11" font-size="12" text-anchor="middle" fill="#1D2125" font-weight="700">雷鳴</text>
         </g>
       </g>
-      <g class="pin" data-id="stu1" tabindex="0" role="button" aria-label="スタジオ・ネイロ" transform="translate(90,290)">
+      <g class="pin" data-id="stu1" data-tag="tl" tabindex="0" role="button" aria-label="スタジオ・ネイロ 今週9件の言及" transform="translate(90,290)">
         <g class="pinhover">
         <ellipse cy="6" rx="10" ry="3" fill="rgba(29,33,37,.18)" filter="url(#pinBlur)"/>
         <use href="#pinpath" class="pinshape" fill="#0E7C77"/>
         <text y="-11" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">練</text>
+        <rect x="-8" y="-48" width="16" height="15" rx="7.5" fill="#CE2B5F"/>
+        <text y="-37" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">9</text>
         <rect class="pinlabel" x="16" y="-24" width="51" height="18" rx="9" fill="#fff" stroke="#D5D9DD"/>
         <text x="41" y="-11" font-size="12" text-anchor="middle" fill="#1D2125" font-weight="700">ネイロ</text>
         </g>
       </g>
-      <g class="pin" data-id="idle1" tabindex="0" role="button" aria-label="喫茶ロータス" transform="translate(420,110)">
+      <g class="pin" data-id="idle1" data-tag="gd" tabindex="0" role="button" aria-label="喫茶ロータス 今週5件の言及" transform="translate(420,110)">
         <g class="pinhover">
         <ellipse cy="6" rx="10" ry="3" fill="rgba(29,33,37,.18)" filter="url(#pinBlur)"/>
         <use href="#pinpath" class="pinshape" fill="#B98A2E"/>
         <text y="-11" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">空</text>
+        <rect x="-8" y="-48" width="16" height="15" rx="7.5" fill="#CE2B5F"/>
+        <text y="-37" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">5</text>
         <rect class="pinlabel" x="16" y="-24" width="64" height="18" rx="9" fill="#fff" stroke="#D5D9DD"/>
         <text x="48" y="-11" font-size="12" text-anchor="middle" fill="#1D2125" font-weight="700">ロータス</text>
         </g>
       </g>
-      <g class="pin" data-id="idle2" tabindex="0" role="button" aria-label="まぜ麺店 2F" transform="translate(180,215)">
+      <g class="pin" data-id="idle2" data-tag="gd" tabindex="0" role="button" aria-label="まぜ麺店 2F 今週3件の言及" transform="translate(180,215)">
         <g class="pinhover">
         <ellipse cy="6" rx="10" ry="3" fill="rgba(29,33,37,.18)" filter="url(#pinBlur)"/>
         <use href="#pinpath" class="pinshape" fill="#B98A2E"/>
         <text y="-11" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">空</text>
+        <rect x="-8" y="-48" width="16" height="15" rx="7.5" fill="#CE2B5F"/>
+        <text y="-37" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">3</text>
         <rect class="pinlabel" x="16" y="-24" width="64" height="18" rx="9" fill="#fff" stroke="#D5D9DD"/>
         <text x="48" y="-11" font-size="12" text-anchor="middle" fill="#1D2125" font-weight="700">まぜ麺店</text>
         </g>
       </g>
     </svg>
+  </div>
+  </div>
+  <div class="carousel">
+    <div class="mcard" data-id="box1" data-tag="pk" tabindex="0" role="button" aria-label="GEKKO の詳細"><span class="mn">42</span><span class="tag pk">🎤 箱</span><b>GEKKO</b></div>
+    <div class="mcard" data-id="box2" data-tag="pk" tabindex="0" role="button" aria-label="雷鳴 の詳細"><span class="mn">18</span><span class="tag pk">🎤 箱</span><b>雷鳴</b></div>
+    <div class="mcard" data-id="stu1" data-tag="tl" tabindex="0" role="button" aria-label="ネイロ の詳細"><span class="mn">9</span><span class="tag tl">🎧 練習</span><b>ネイロ</b></div>
+    <div class="mcard" data-id="idle1" data-tag="gd" tabindex="0" role="button" aria-label="ロータス の詳細"><span class="mn">5</span><span class="tag gd">☕ 空き</span><b>ロータス</b></div>
+    <div class="mcard" data-id="idle2" data-tag="gd" tabindex="0" role="button" aria-label="まぜ麺店 の詳細"><span class="mn">3</span><span class="tag gd">☕ 空き</span><b>まぜ麺店</b></div>
   </div>
   <div id="map-detail"><div class="card" style="text-align:center;color:var(--sub);font-size:13px">ピンをタップすると詳細が出ます</div></div>
   <p class="note">※ 地図・店舗はすべて架空のサンプルです</p>
@@ -410,17 +443,39 @@ var SPOTS={
  stu1:{t:'🎧 スタジオ・ネイロ（サンプル）',tag:'tl',body:'コスパフォ練習OK ／ 鏡張り ／ 1h ¥2,400',list:[['本日','15:00〜 空きあり']],cta:'予約する'},
  idle1:{t:'☕ 喫茶ロータス（サンプル）',tag:'gd',body:'アイドルタイム 15:00-18:00 貸出OK ／ 「ササキチカフェ」のような貸切イベント歓迎',list:[['8月','土日の午後に空きあり']],cta:'問い合わせる'},
  idle2:{t:'☕ まぜ麺店 2F（サンプル）',tag:'gd',body:'平日昼のみ ／ 15席 ／ 撮影利用の相談可',list:[],cta:'問い合わせる'}};
-document.querySelectorAll('.pin').forEach(function(p){p.addEventListener('click',function(){
-  document.querySelectorAll('.pin').forEach(function(x){x.classList.remove('sel')});p.classList.add('sel');
-  var s=SPOTS[p.dataset.id];
+function selectSpot(id){
+  document.querySelectorAll('.pin').forEach(function(x){x.classList.toggle('sel',x.dataset.id===id)});
+  document.querySelectorAll('.mcard').forEach(function(x){x.classList.toggle('on',x.dataset.id===id)});
+  var s=SPOTS[id];
   var rows=s.list.map(function(r){return '<li><span class="t">'+r[0]+'</span><span>'+r[1]+'</span></li>'}).join('');
   document.getElementById('map-detail').innerHTML=
    '<div class="card"><span class="tag '+s.tag+'">'+s.t+'</span><p style="font-size:13px;margin-top:7px">'+s.body+'</p>'+
    (rows?'<ul class="today">'+rows+'</ul>':'')+
    '<div class="actions" style="margin-top:10px"><button class="main offer">'+s.cta+'</button></div></div>';
-  bindOffers();});
-p.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();p.click();}});});
-document.querySelector('.pin').dispatchEvent(new MouseEvent('click',{bubbles:true}));
+  bindOffers();
+}
+document.querySelectorAll('.pin').forEach(function(p){
+  p.addEventListener('click',function(){selectSpot(p.dataset.id)});
+  p.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();p.click();}});
+});
+document.querySelectorAll('.mcard').forEach(function(c){
+  c.addEventListener('click',function(){selectSpot(c.dataset.id)});
+  c.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();c.click();}});
+});
+selectSpot('box1');
+// recenter button (mock)
+document.getElementById('recenter-btn').addEventListener('click',function(){
+  alert('（モック）範囲内のピンが更新されました');});
+// legend filter chips
+var activeTags=new Set(['pk','tl','gd']);
+document.querySelectorAll('.legend .filt').forEach(function(c){c.addEventListener('click',function(){
+  var t=c.dataset.tag;
+  if(activeTags.has(t))activeTags.delete(t);else activeTags.add(t);
+  c.classList.toggle('off',!activeTags.has(t));
+  var show=activeTags.size?activeTags:new Set(['pk','tl','gd']);
+  document.querySelectorAll('.pin').forEach(function(p){p.style.display=show.has(p.dataset.tag)?'':'none';});
+  document.querySelectorAll('.mcard').forEach(function(x){x.style.display=show.has(x.dataset.tag)?'':'none';});
+});});
 // generic mock buttons
 function bindOffers(){document.querySelectorAll('.offer').forEach(function(b){
   if(b.dataset.bound)return;b.dataset.bound=1;
