@@ -117,10 +117,14 @@ h2 small{font-weight:600;color:var(--sub);font-size:13px}
 .map{overflow-x:auto;padding:8px 0}
 .map svg{display:block;width:100%;min-width:420px;height:auto}
 .legend{display:flex;gap:8px;margin:10px 0;flex-wrap:wrap}
-.pin{cursor:pointer}
-.pin circle{transition:r .15s var(--spring)}
-.pin:hover circle{r:15}
-.pin.sel circle{stroke:var(--ink);stroke-width:2.5}
+.pin{cursor:pointer;transition:transform .12s var(--ease-out)}
+.pin .pinshape{transition:filter .12s var(--ease-out)}
+.pin:hover{transform:translateY(-3px)}
+.pin:hover .pinshape{filter:drop-shadow(0 5px 6px rgba(29,33,37,.4))}
+.pin:active{transform:scale(.95)}
+.pin:focus-visible{outline:none}
+.pin:focus-visible .pinshape{stroke:var(--accent);stroke-width:3px}
+.pin.sel .pinshape{stroke:var(--ink);stroke-width:2.5px}
 #map-detail .card{margin-top:2px}
 .today{margin-top:8px;font-size:13.5px}
 .today li{list-style:none;display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid var(--rule)}
@@ -273,11 +277,45 @@ h2 small{font-weight:600;color:var(--sub);font-size:13px}
       <rect x="110" y="82" width="26" height="168" fill="#fff" stroke="#D5D9DD"/>
       <rect x="500" y="100" width="80" height="40" rx="4" fill="#DDE0E3"/>
       <text x="540" y="124" font-size="10" text-anchor="middle" fill="#8A9099">駅</text>
-      <g class="pin" data-id="box1"><circle cx="200" cy="115" r="13" fill="#CE2B5F"/><text x="200" y="120" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">箱</text></g>
-      <g class="pin" data-id="box2"><circle cx="350" cy="220" r="13" fill="#CE2B5F"/><text x="350" y="225" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">箱</text></g>
-      <g class="pin" data-id="stu1"><circle cx="90" cy="290" r="13" fill="#0E7C77"/><text x="90" y="295" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">練</text></g>
-      <g class="pin" data-id="idle1"><circle cx="420" cy="110" r="13" fill="#B98A2E"/><text x="420" y="115" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">空</text></g>
-      <g class="pin" data-id="idle2"><circle cx="180" cy="215" r="13" fill="#B98A2E"/><text x="180" y="220" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">空</text></g>
+      <defs>
+        <filter id="pinBlur" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.2"/></filter>
+        <path id="pinpath" d="M-13,-15A13,13 0 1,1 13,-15L0,3Z"/>
+      </defs>
+      <g class="pin" data-id="box1" tabindex="0" role="button" aria-label="ライブハウス GEKKO" transform="translate(200,115)">
+        <ellipse cy="6" rx="10" ry="3" fill="rgba(29,33,37,.18)" filter="url(#pinBlur)"/>
+        <use href="#pinpath" class="pinshape" fill="#CE2B5F"/>
+        <text y="-11" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">箱</text>
+        <rect class="pinlabel" x="16" y="-24" width="54" height="18" rx="9" fill="#fff" stroke="#D5D9DD"/>
+        <text x="43" y="-11" font-size="12" text-anchor="middle" fill="#1D2125" font-weight="700">GEKKO</text>
+      </g>
+      <g class="pin" data-id="box2" tabindex="0" role="button" aria-label="イベントスペース 雷鳴" transform="translate(350,220)">
+        <ellipse cy="6" rx="10" ry="3" fill="rgba(29,33,37,.18)" filter="url(#pinBlur)"/>
+        <use href="#pinpath" class="pinshape" fill="#CE2B5F"/>
+        <text y="-11" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">箱</text>
+        <rect class="pinlabel" x="16" y="-24" width="38" height="18" rx="9" fill="#fff" stroke="#D5D9DD"/>
+        <text x="35" y="-11" font-size="12" text-anchor="middle" fill="#1D2125" font-weight="700">雷鳴</text>
+      </g>
+      <g class="pin" data-id="stu1" tabindex="0" role="button" aria-label="スタジオ・ネイロ" transform="translate(90,290)">
+        <ellipse cy="6" rx="10" ry="3" fill="rgba(29,33,37,.18)" filter="url(#pinBlur)"/>
+        <use href="#pinpath" class="pinshape" fill="#0E7C77"/>
+        <text y="-11" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">練</text>
+        <rect class="pinlabel" x="16" y="-24" width="51" height="18" rx="9" fill="#fff" stroke="#D5D9DD"/>
+        <text x="41" y="-11" font-size="12" text-anchor="middle" fill="#1D2125" font-weight="700">ネイロ</text>
+      </g>
+      <g class="pin" data-id="idle1" tabindex="0" role="button" aria-label="喫茶ロータス" transform="translate(420,110)">
+        <ellipse cy="6" rx="10" ry="3" fill="rgba(29,33,37,.18)" filter="url(#pinBlur)"/>
+        <use href="#pinpath" class="pinshape" fill="#B98A2E"/>
+        <text y="-11" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">空</text>
+        <rect class="pinlabel" x="16" y="-24" width="64" height="18" rx="9" fill="#fff" stroke="#D5D9DD"/>
+        <text x="48" y="-11" font-size="12" text-anchor="middle" fill="#1D2125" font-weight="700">ロータス</text>
+      </g>
+      <g class="pin" data-id="idle2" tabindex="0" role="button" aria-label="まぜ麺店 2F" transform="translate(180,215)">
+        <ellipse cy="6" rx="10" ry="3" fill="rgba(29,33,37,.18)" filter="url(#pinBlur)"/>
+        <use href="#pinpath" class="pinshape" fill="#B98A2E"/>
+        <text y="-11" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">空</text>
+        <rect class="pinlabel" x="16" y="-24" width="64" height="18" rx="9" fill="#fff" stroke="#D5D9DD"/>
+        <text x="48" y="-11" font-size="12" text-anchor="middle" fill="#1D2125" font-weight="700">まぜ麺店</text>
+      </g>
     </svg>
   </div>
   <div id="map-detail"><div class="card" style="text-align:center;color:var(--sub);font-size:13px">ピンをタップすると詳細が出ます</div></div>
@@ -369,7 +407,9 @@ document.querySelectorAll('.pin').forEach(function(p){p.addEventListener('click'
    '<div class="card"><span class="tag '+s.tag+'">'+s.t+'</span><p style="font-size:13px;margin-top:7px">'+s.body+'</p>'+
    (rows?'<ul class="today">'+rows+'</ul>':'')+
    '<div class="actions" style="margin-top:10px"><button class="main offer">'+s.cta+'</button></div></div>';
-  bindOffers();})});
+  bindOffers();});
+p.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();p.click();}});});
+document.querySelector('.pin').dispatchEvent(new MouseEvent('click',{bubbles:true}));
 // generic mock buttons
 function bindOffers(){document.querySelectorAll('.offer').forEach(function(b){
   if(b.dataset.bound)return;b.dataset.bound=1;
