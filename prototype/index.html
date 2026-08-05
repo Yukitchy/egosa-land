@@ -1,0 +1,382 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>エゴサランド プロトタイプ</title>
+<style>
+:root{
+  --bg:#ECEEF0; --surface:#FFFFFF; --ink:#1D2125; --sub:#666E76;
+  --rule:#D5D9DD; --rule-strong:#B9BFC6; --accent:#CE2B5F; --accent-tint:#F6E6EC;
+  --teal:#0E7C77; --deco:rgba(29,33,37,.055);
+  --gold:#9C6F1A; --gold-tint:#F5E6C8; --blue:#3E6D96; --blue-tint:#DCE6EE;
+  --spring:cubic-bezier(.34,1.56,.64,1); --ease-out:cubic-bezier(.22,1,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.9;font-size:15px;-webkit-font-smoothing:antialiased}
+body,p,li,td,div,span,b,small,button{word-break:auto-phrase;line-break:strict;overflow-wrap:anywhere}
+h1,h2,h3,.tag,.chip,button{text-wrap:balance;font-family:"Hiragino Maru Gothic ProN","M PLUS Rounded 1c",-apple-system,sans-serif}
+.app{max-width:760px;margin:0 auto;padding:0 16px 90px;transition:max-width .3s var(--ease-out)}
+body.sp .app{max-width:412px}
+#devbar{position:fixed;right:14px;bottom:14px;z-index:100;background:var(--ink);color:#fff;border:none;
+  border-radius:999px;padding:10px 17px;font-weight:800;font-size:13px;cursor:pointer;box-shadow:0 6px 18px rgba(29,33,37,.3)}
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(236,238,240,.9);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--rule);margin:0 -16px;padding:12px 16px 0}
+.hrow{display:flex;align-items:center;gap:10px;max-width:728px;margin:0 auto}
+.logo{font-weight:800;font-size:19px;letter-spacing:.02em}
+.logo span{color:var(--accent)}
+.logo small{font-size:13px;color:var(--sub);font-weight:600}
+.me{margin-left:auto;display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--rule);
+  border-radius:999px;padding:4px 12px 4px 4px;font-size:13px;font-weight:700}
+.avatar{width:30px;height:30px;border-radius:22%;display:grid;place-items:center;color:#fff;font-weight:800;font-size:14px;flex:none;
+  font-family:"Hiragino Maru Gothic ProN",sans-serif}
+.tabs{display:flex;gap:2px;max-width:728px;margin:10px auto 0;overflow-x:auto}
+.tabs button{flex:1;border:none;background:none;font-size:13.5px;font-weight:800;color:var(--sub);
+  padding:9px 6px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+.tabs button.on{color:var(--accent);border-bottom-color:var(--accent)}
+main section{display:none;padding-top:16px;position:relative;overflow:hidden}
+main section.on{display:block;animation:in .35s var(--ease-out) both}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+/* あしらい：意味のない図形。中身ではなく並び順(4画面)で種類を固定 */
+main section::before{content:"";position:absolute;pointer-events:none;z-index:0}
+main section:nth-of-type(4n+1)::before{top:-30px;right:-50px;width:180px;height:180px;background:var(--deco);border-radius:0 0 0 100%}
+main section:nth-of-type(4n+2)::before{bottom:20px;right:0;width:160px;height:120px;
+  background-image:radial-gradient(var(--deco) 2px,transparent 2px);background-size:16px 16px}
+main section:nth-of-type(4n+3)::before{top:50px;right:-60px;width:170px;height:170px;border-radius:50%;border:12px solid var(--deco)}
+main section:nth-of-type(4n+4)::before{top:36px;right:-30px;width:130px;height:22px;border-radius:999px;background:var(--deco);
+  box-shadow:0 44px 0 -4px var(--deco),0 88px 0 8px var(--deco)}
+main section>*{position:relative;z-index:1}
+/* cards：枠線も影もなし。区切りは罫線1本+余白だけ */
+.card{border-top:1px solid var(--rule);padding:16px 0;margin-bottom:0}
+.card:first-child{border-top:none}
+.tag{display:inline-block;font-size:13px;font-weight:800;border-radius:999px;padding:2px 9px;letter-spacing:.04em}
+.tag.pk{background:var(--accent-tint);color:var(--accent)}.tag.gd{background:var(--gold-tint);color:var(--gold)}
+.tag.tl{background:#DCEEEC;color:var(--teal)}.tag.bl{background:var(--blue-tint);color:var(--blue)}
+.tag.prem{background:var(--accent);color:#fff}
+h2{font-size:17px;margin:14px 0 10px}
+h2 small{font-weight:600;color:var(--sub);font-size:13px}
+.note{font-size:13px;color:var(--sub);text-align:center;margin-top:8px}
+/* egosa tab */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:4px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.stat{border-left:1px solid var(--rule);padding:12px 6px;text-align:center}
+.stat:first-child{border-left:none}
+.stat b{display:block;font-size:22px;font-variant-numeric:tabular-nums;color:var(--accent);line-height:1.2}
+.stat.gold b{color:var(--gold)}.stat.teal b{color:var(--teal)}
+.stat small{font-size:13px;color:var(--sub);font-weight:700}
+.chips{display:flex;gap:8px;margin:14px 0 10px;flex-wrap:wrap}
+.chip{border:1.5px solid var(--rule);background:none;border-radius:999px;padding:5px 14px;font-size:13px;font-weight:800;color:var(--sub);cursor:pointer}
+.chip.on{border-color:var(--accent);color:var(--accent);background:var(--accent-tint)}
+.m-head{display:flex;align-items:center;gap:9px}
+.m-head .nm{font-weight:800;font-size:13.5px}
+.m-head .src{margin-left:auto;flex:none}
+.m-body{font-size:15px;margin:7px 0 9px}
+.m-body mark{background:var(--accent-tint);color:inherit;padding:0 2px}
+.m-foot{display:flex;align-items:center;gap:10px}
+.m-foot time{font-size:13px;color:var(--sub)}
+.bizbtn{margin-left:auto;border:1.5px solid var(--rule);background:none;border-radius:999px;
+  padding:4px 13px;font-size:13px;font-weight:800;color:var(--sub);cursor:pointer;transition:transform .12s var(--spring)}
+.bizbtn:hover{transform:translateY(-1px)}
+.bizbtn.added{background:var(--accent);border-color:var(--accent);color:#fff}
+.negwrap{display:none}body.showneg .negwrap{display:block}
+.neg .m-body{filter:blur(5px);user-select:none}
+.neg.revealed .m-body{filter:none}
+.negbar{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--sub);margin-top:8px;flex-wrap:wrap}
+.negbar button{border:1px solid var(--rule);background:none;border-radius:8px;padding:3px 10px;font-size:13px;font-weight:700;cursor:pointer;color:var(--sub)}
+.sendbar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);
+  border-top:1px solid var(--rule);padding:10px 16px;display:flex;align-items:center;gap:12px;justify-content:center}
+.sendbar b{font-size:13px}.sendbar b span{color:var(--accent);font-size:17px;font-variant-numeric:tabular-nums}
+.send{border:none;background:var(--accent);color:#fff;font-weight:800;border-radius:999px;padding:10px 22px;font-size:13.5px;cursor:pointer;
+  box-shadow:0 6px 16px rgba(206,43,95,.35);transition:transform .12s var(--spring)}
+.send:hover{transform:translateY(-2px)}.send:active{transform:scale(.97)}
+/* events tab */
+.ev-title{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.ev-title b{font-size:15.5px}
+.ev-date{font-size:13px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
+.ev-meta{font-size:13px;color:var(--sub);margin-top:2px}
+.golist{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.gochip{display:flex;align-items:center;gap:6px;background:var(--accent-tint);border:none;border-radius:999px;padding:3px 11px 3px 4px;font-size:13px;font-weight:700;color:var(--accent)}
+.gochip .avatar{width:22px;height:22px;font-size:13px;border-radius:30%}
+.gochip.cam{background:var(--blue-tint);color:var(--blue)}
+.gochip.want{background:var(--gold-tint);color:var(--gold)}
+.joinbtn{margin-top:10px;border:1.5px solid var(--accent);background:none;color:var(--accent);font-weight:800;
+  border-radius:999px;padding:7px 18px;font-size:13px;cursor:pointer;box-shadow:0 4px 12px rgba(206,43,95,.18);transition:transform .12s var(--spring),box-shadow .12s}
+.joinbtn:hover{transform:translateY(-1px)}
+.joinbtn.did{background:var(--accent);color:#fff}
+.review{display:flex;gap:10px;margin-top:10px}
+.ph{flex:none;width:74px;height:74px;border-radius:10px}
+.ph.a{background:var(--accent-tint)}
+.ph.b{background:var(--blue-tint)}
+.review p{font-size:13.5px}
+.review .who{font-size:13px;font-weight:800;color:var(--sub)}
+.kouki{border-left:2px solid var(--accent);padding:4px 0 4px 14px;margin-top:14px}
+.kouki .from{display:flex;align-items:center;gap:8px;font-weight:800;font-size:13px;margin-bottom:5px}
+.kouki p{font-size:13.5px}
+.replies{margin-top:8px;border-top:1px solid var(--rule);padding-top:8px;font-size:13px;color:var(--sub)}
+.replies b{color:var(--ink)}
+/* map tab */
+.map{overflow-x:auto;padding:8px 0}
+.map svg{display:block;width:100%;min-width:420px;height:auto}
+.legend{display:flex;gap:8px;margin:10px 0;flex-wrap:wrap}
+.pin{cursor:pointer}
+.pin circle{transition:r .15s var(--spring)}
+.pin:hover circle{r:15}
+.pin.sel circle{stroke:var(--ink);stroke-width:2.5}
+#map-detail .card{margin-top:2px}
+.today{margin-top:8px;font-size:13.5px}
+.today li{list-style:none;display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid var(--rule)}
+.today .t{font-variant-numeric:tabular-nums;font-weight:800;color:var(--accent);font-size:13px;flex:none}
+/* directory tab */
+.port{display:flex;gap:12px}
+.port .avatar{width:52px;height:52px;font-size:23px}
+.port h3{font-size:15.5px}
+.port .role{font-size:13px;color:var(--sub);font-weight:700}
+.works{margin:8px 0 4px;font-size:13.5px;color:var(--sub)}
+.works li{list-style:none;padding:2px 0 2px 18px;position:relative}
+.works li::before{content:"🏆";position:absolute;left:0;font-size:13px}
+.actions{display:flex;gap:8px;margin-top:9px}
+.actions button{border:1.5px solid var(--rule);background:none;border-radius:999px;padding:6px 15px;font-size:13px;font-weight:800;color:var(--sub);cursor:pointer}
+.actions button.main{border-color:var(--accent);color:var(--accent)}
+.wanted{border-left:2px solid var(--gold);padding-left:14px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media(max-width:520px){.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2n+1){border-left:none}main section::before{display:none}}
+</style>
+
+<button id="devbar">📱 スマホ幅で確認</button>
+
+<div class="app">
+<header>
+  <div class="hrow">
+    <div class="logo">エゴサ<span>ランド</span> <small>(仮) β</small></div>
+    <div class="me"><span class="avatar" style="background:var(--accent)">サ</span>ササキチさん<small style="color:var(--sub)">DJ・主催</small></div>
+  </div>
+  <nav class="tabs">
+    <button class="on" data-tab="egosa">🔍 エゴサ</button>
+    <button data-tab="events">🎪 イベント</button>
+    <button data-tab="map">🗺 マップ</button>
+    <button data-tab="dir">📖 名鑑</button>
+  </nav>
+</header>
+
+<main>
+<!-- ============ エゴサ ============ -->
+<section id="tab-egosa" class="on">
+  <div class="stats">
+    <div class="stat"><b>23</b><small>今週の言及</small></div>
+    <div class="stat gold"><b>148</b><small>足あと</small></div>
+    <div class="stat teal"><b>92%</b><small>ポジ率</small></div>
+    <div class="stat"><b id="bizcount">2</b><small>営業リスト</small></div>
+  </div>
+  <div class="chips">
+    <button class="chip on">すべて</button>
+    <button class="chip" id="negtoggle">⚠ フィルタ済み 2件を表示</button>
+  </div>
+
+  <div class="card">
+    <div class="m-head"><span class="avatar" style="background:var(--teal)">ま</span><span class="nm">まいまい⊿</span><span class="src tag gd">つくばキッズ盆踊り</span></div>
+    <p class="m-body"><mark>4時間ぶっ通しDJ</mark>すごすぎた…！最後のメインステージの盆踊り、子どもたちめちゃくちゃ楽しそうだった👏</p>
+    <div class="m-foot"><time>7/26 21:04</time><button class="bizbtn">＋ 営業リスト</button></div>
+  </div>
+  <div class="card">
+    <div class="m-head"><span class="avatar" style="background:var(--blue)">ケ</span><span class="nm">ケンタP</span><span class="src tag gd">つくばキッズ盆踊り</span></div>
+    <p class="m-body">子連れで行きました。<mark>お菓子ありがとうございました！</mark>息子が「またDJのお兄さんに会いたい」と言ってます</p>
+    <div class="m-foot"><time>7/27 09:41</time><button class="bizbtn added">✓ 追加済み</button></div>
+  </div>
+  <div class="card">
+    <div class="m-head"><span class="avatar" style="background:#9A6BC9">ゆ</span><span class="nm">ゆず庭</span><span class="src tag pk">秋コス</span></div>
+    <p class="m-body">コスパフォステージの運営さん神対応だった。<mark>10年以上続いてるの納得</mark>。次回も絶対出たい</p>
+    <div class="m-foot"><time>8/2 18:22</time><button class="bizbtn">＋ 営業リスト</button></div>
+  </div>
+  <div class="card">
+    <div class="m-head"><span class="avatar" style="background:var(--gold)">R</span><span class="nm">Rin_beat</span><span class="src tag tl">ラジオ記事</span></div>
+    <p class="m-body">ラジオの文字起こし記事読んだ。<mark>9/6のMIX LEMONeD JELLY出演おめでとうございます！</mark>絶対行きます</p>
+    <div class="m-foot"><time>8/4 23:10</time><button class="bizbtn added">✓ 追加済み</button></div>
+  </div>
+
+  <div class="negwrap">
+    <div class="card neg">
+      <div class="m-head"><span class="avatar" style="background:#9A8B92">匿</span><span class="nm">名無し</span><span class="src tag gd">つくばキッズ盆踊り</span></div>
+      <p class="m-body">正直あの時間帯は音がデカすぎて子どもには…</p>
+      <div class="negbar">🛡 自動フィルタ済み <button class="reveal-neg">表示する</button><button>ブロック</button><button>削除依頼</button></div>
+    </div>
+    <div class="card neg">
+      <div class="m-head"><span class="avatar" style="background:#9A8B92">匿</span><span class="nm">通りすがり</span><span class="src tag pk">秋コス</span></div>
+      <p class="m-body">選曲が古いんだよなあ毎回</p>
+      <div class="negbar">🛡 自動フィルタ済み <button class="reveal-neg">表示する</button><button>ブロック</button><button>削除依頼</button></div>
+    </div>
+  </div>
+  <p class="note">※ 画面はモック・データはすべてサンプルです</p>
+</section>
+
+<!-- ============ イベント ============ -->
+<section id="tab-events">
+  <h2>🎟 出演予定 <small>あなたが出るイベント</small></h2>
+  <div class="card">
+    <div class="ev-title"><span class="ev-date">9/6 SAT</span><b>hideプレゼンツ MIX LEMONeD JELLY</b><span class="tag pk">出演</span></div>
+    <p class="ev-meta">🎤 DJ ササキチ ほか ／ 参加表明 <b style="color:var(--accent)">34人</b></p>
+    <div class="golist">
+      <span class="gochip"><span class="avatar" style="background:var(--gold)">R</span>Rin_beat</span>
+      <span class="gochip"><span class="avatar" style="background:var(--teal)">ま</span>まいまい⊿</span>
+      <span class="gochip cam"><span class="avatar" style="background:var(--blue)">📷</span>カメラマン 2人</span>
+      <span class="gochip">+30人</span>
+    </div>
+    <button class="joinbtn" disabled style="opacity:.5">あなたは出演者です</button>
+  </div>
+
+  <h2>📅 近日のイベント</h2>
+  <div class="card">
+    <div class="ev-title"><span class="ev-date">8/9 SUN</span><b>アコスタ池袋</b><span class="tag gd">コスプレ</span></div>
+    <p class="ev-meta">参加表明すると「何のコスで・何人で」がみんなに見える（カメラマンは別マーク）</p>
+    <div class="golist">
+      <span class="gochip"><span class="avatar" style="background:#9A6BC9">ゆ</span>ゆず庭：ラブライブ！/高坂穂乃果・3人合わせ</span>
+      <span class="gochip want">⚡ 園田海未役 あと1人募集</span>
+      <span class="gochip cam"><span class="avatar" style="background:var(--blue)">📷</span>カメコ参加 2人</span>
+    </div>
+    <button class="joinbtn" id="join-acosta">🙋 参加表明する</button>
+  </div>
+  <div class="card">
+    <div class="ev-title"><span class="ev-date">8/20〆</span><b>秋コス コスパフォステージ 出演申込</b><span class="tag pk">締切あり</span></div>
+    <p class="ev-meta">チーム登録すると主催からオファーが届く。申込締切がカレンダーに出る</p>
+  </div>
+
+  <h2>💌 終わったイベント <small>後記とレビュー</small></h2>
+  <div class="card">
+    <div class="ev-title"><span class="ev-date">7/26</span><b>つくばキッズ盆踊り</b><span class="tag gd">DJ 4時間</span></div>
+    <div class="review"><div class="ph a"></div><div><div class="who">まいまい⊿ の現地レポ 📸</div><p>メインステージの盆踊り、大人も子どもも全員踊ってた。<b>この一体感は現地じゃないと分からない！</b></p></div></div>
+    <div class="review"><div class="ph b"></div><div><div class="who">ケンタP の現地レポ 📸</div><p>お菓子配りタイムの行列。来年も家族で来ます</p></div></div>
+    <div class="kouki">
+      <div class="from"><span class="avatar" style="background:var(--accent)">サ</span>ササキチさんからのイベント後記 <span class="tag prem">PREMIUM</span></div>
+      <p>皆さん今日はお疲れ様でした！4時間、最高に楽しかったです。最後の盆踊りで全員が輪になった瞬間は忘れません。また来年！</p>
+      <div class="replies"><b>ケンタP</b> お疲れ様でした！／<b>まいまい⊿</b> あの選曲最高でした🙌／<b>+12件</b></div>
+    </div>
+  </div>
+  <p class="note">※ 画面はモック・データはすべてサンプルです</p>
+</section>
+
+<!-- ============ マップ ============ -->
+<section id="tab-map">
+  <h2>🗺 秋葉原エリア <small>箱・スタジオ・空き時間物件</small></h2>
+  <div class="legend">
+    <span class="tag pk">🎤 ライブハウス・箱</span>
+    <span class="tag tl">🎧 練習スタジオ</span>
+    <span class="tag gd">☕ 空き時間物件</span>
+  </div>
+  <div class="map">
+    <svg viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg" font-family="Hiragino Maru Gothic ProN,sans-serif">
+      <rect width="600" height="340" fill="#EFF0F2"/>
+      <rect x="0" y="150" width="600" height="34" fill="#fff" stroke="#D5D9DD"/>
+      <text x="8" y="171" font-size="11" fill="#8A9099">中央通り</text>
+      <rect x="270" y="0" width="30" height="340" fill="#fff" stroke="#D5D9DD"/>
+      <rect x="0" y="60" width="600" height="22" fill="#fff" stroke="#D5D9DD"/>
+      <rect x="0" y="250" width="600" height="22" fill="#fff" stroke="#D5D9DD"/>
+      <rect x="450" y="82" width="26" height="168" fill="#fff" stroke="#D5D9DD"/>
+      <rect x="110" y="82" width="26" height="168" fill="#fff" stroke="#D5D9DD"/>
+      <rect x="500" y="100" width="80" height="40" rx="4" fill="#DDE0E3"/>
+      <text x="540" y="124" font-size="10" text-anchor="middle" fill="#8A9099">駅</text>
+      <g class="pin" data-id="box1"><circle cx="200" cy="115" r="13" fill="#CE2B5F"/><text x="200" y="120" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">箱</text></g>
+      <g class="pin" data-id="box2"><circle cx="350" cy="220" r="13" fill="#CE2B5F"/><text x="350" y="225" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">箱</text></g>
+      <g class="pin" data-id="stu1"><circle cx="90" cy="290" r="13" fill="#0E7C77"/><text x="90" y="295" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">練</text></g>
+      <g class="pin" data-id="idle1"><circle cx="420" cy="110" r="13" fill="#B98A2E"/><text x="420" y="115" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">空</text></g>
+      <g class="pin" data-id="idle2"><circle cx="180" cy="215" r="13" fill="#B98A2E"/><text x="180" y="220" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">空</text></g>
+    </svg>
+  </div>
+  <div id="map-detail"><div class="card" style="text-align:center;color:var(--sub);font-size:13px">ピンをタップすると詳細が出ます</div></div>
+  <p class="note">※ 地図・店舗はすべて架空のサンプルです</p>
+</section>
+
+<!-- ============ 名鑑 ============ -->
+<section id="tab-dir">
+  <h2>📖 演者名鑑 <small>タレント名鑑のDJ版</small></h2>
+  <div class="card">
+    <div class="port">
+      <span class="avatar" style="background:var(--accent)">サ</span>
+      <div>
+        <h3>DJ ササキチ（ササキチさん）</h3>
+        <div class="role">DJ ／ イベント主催 ／ コスパフォステージ運営</div>
+      </div>
+    </div>
+    <ul class="works">
+      <li>秋コス 運営 10年以上（コスプレパフォーマンスステージ）</li>
+      <li>つくばキッズ盆踊り — メインステージDJ 4時間</li>
+      <li>藤沢の市民祭り 出演</li>
+      <li>9/6 hideプレゼンツ MIX LEMONeD JELLY 出演決定</li>
+    </ul>
+    <div class="actions"><button class="main offer">📩 オファーする</button><button>🎬 動画ポートフォリオ</button></div>
+  </div>
+  <div class="card">
+    <div class="port">
+      <span class="avatar" style="background:#9A6BC9">C</span>
+      <div><h3>コスパフォチーム COSMOS</h3><div class="role">コスプレパフォーマンス ／ 5人組（サンプル）</div></div>
+    </div>
+    <div class="actions"><button class="main offer">📩 オファーする</button><button>🎬 ステージ動画</button></div>
+  </div>
+
+  <h2>⚡ 募集板 <small>SNSでは探しづらいやつ</small></h2>
+  <div class="card wanted">
+    <b style="font-size:14px">ラブライブ！合わせ — 園田海未役 あと1人</b>
+    <p style="font-size:13.5px;color:var(--sub);margin-top:4px">3ヶ月後のイベントに向けて。高坂穂乃果います。8/9 アコスタ池袋で顔合わせ予定。</p>
+    <div class="actions"><button class="main offer">🙋 応募する</button></div>
+  </div>
+  <p class="note">※ 画面はモック・データはすべてサンプルです</p>
+</section>
+</main>
+</div>
+
+<div class="sendbar" id="sendbar">
+  <b>営業リスト <span id="bizcount2">2</span>人</b>
+  <button class="send" id="sendbtn">📣 9/6の案内を一斉送信</button>
+</div>
+
+<script>
+// tabs
+var tabs=document.querySelectorAll('.tabs button');
+tabs.forEach(function(b){b.addEventListener('click',function(){
+  tabs.forEach(function(x){x.classList.remove('on')});b.classList.add('on');
+  document.querySelectorAll('main section').forEach(function(s){s.classList.remove('on')});
+  var sec=document.getElementById('tab-'+b.dataset.tab);sec.classList.remove('on');void sec.offsetWidth;sec.classList.add('on');
+  document.getElementById('sendbar').style.display=(b.dataset.tab==='egosa')?'flex':'none';
+})});
+// biz list
+function refreshBiz(){var n=document.querySelectorAll('.bizbtn.added').length;
+  document.getElementById('bizcount').textContent=n;document.getElementById('bizcount2').textContent=n;}
+document.querySelectorAll('.bizbtn').forEach(function(b){b.addEventListener('click',function(){
+  b.classList.toggle('added');b.textContent=b.classList.contains('added')?'✓ 追加済み':'＋ 営業リスト';refreshBiz();})});
+document.getElementById('sendbtn').addEventListener('click',function(){
+  var n=document.getElementById('bizcount2').textContent;
+  alert(n+'人に「9/6 hideプレゼンツ MIX LEMONeD JELLY」の案内を送信しました（モック）\n\nTwitterのDMでは出来なかった、エゴサ→ワンタップ営業の動線です');});
+// neg filter
+document.getElementById('negtoggle').addEventListener('click',function(){
+  document.body.classList.toggle('showneg');this.classList.toggle('on');
+  this.textContent=document.body.classList.contains('showneg')?'⚠ フィルタ済みを隠す':'⚠ フィルタ済み 2件を表示';});
+document.querySelectorAll('.reveal-neg').forEach(function(b){b.addEventListener('click',function(){
+  b.closest('.neg').classList.add('revealed');b.remove();})});
+// join
+var j=document.getElementById('join-acosta');
+j.addEventListener('click',function(){j.classList.toggle('did');
+  j.textContent=j.classList.contains('did')?'✓ 参加表明済み（何のコスで行くか書けます）':'🙋 参加表明する';});
+// map pins
+var SPOTS={
+ box1:{t:'🎤 ライブハウス GEKKO（サンプル）',tag:'pk',body:'キャパ180 ／ 今夜のライブ',list:[['18:30','OPEN'],['19:00','バンドA（サンプル）'],['20:10','DJ ササキチ ゲスト出演']],cta:'今夜の出演一覧を見る'},
+ box2:{t:'🎤 イベントスペース 雷鳴（サンプル）',tag:'pk',body:'キャパ80 ／ 生誕イベント・バースデーイベント歓迎',list:[['9/6','hideプレゼンツ MIX LEMONeD JELLY 関連企画']],cta:'空き日程を見る'},
+ stu1:{t:'🎧 スタジオ・ネイロ（サンプル）',tag:'tl',body:'コスパフォ練習OK ／ 鏡張り ／ 1h ¥2,400',list:[['本日','15:00〜 空きあり']],cta:'予約する'},
+ idle1:{t:'☕ 喫茶ロータス（サンプル）',tag:'gd',body:'アイドルタイム 15:00-18:00 貸出OK ／ 「ササキチカフェ」のような貸切イベント歓迎',list:[['8月','土日の午後に空きあり']],cta:'問い合わせる'},
+ idle2:{t:'☕ まぜ麺店 2F（サンプル）',tag:'gd',body:'平日昼のみ ／ 15席 ／ 撮影利用の相談可',list:[],cta:'問い合わせる'}};
+document.querySelectorAll('.pin').forEach(function(p){p.addEventListener('click',function(){
+  document.querySelectorAll('.pin').forEach(function(x){x.classList.remove('sel')});p.classList.add('sel');
+  var s=SPOTS[p.dataset.id];
+  var rows=s.list.map(function(r){return '<li><span class="t">'+r[0]+'</span><span>'+r[1]+'</span></li>'}).join('');
+  document.getElementById('map-detail').innerHTML=
+   '<div class="card"><span class="tag '+s.tag+'">'+s.t+'</span><p style="font-size:13px;margin-top:7px">'+s.body+'</p>'+
+   (rows?'<ul class="today">'+rows+'</ul>':'')+
+   '<div class="actions" style="margin-top:10px"><button class="main offer">'+s.cta+'</button></div></div>';
+  bindOffers();})});
+// generic mock buttons
+function bindOffers(){document.querySelectorAll('.offer').forEach(function(b){
+  if(b.dataset.bound)return;b.dataset.bound=1;
+  b.addEventListener('click',function(){alert('（モック）実際はここからワンストップで連絡・オファーが飛びます')});})}
+bindOffers();
+// devbar
+document.getElementById('devbar').addEventListener('click',function(){
+  document.body.classList.toggle('sp');
+  this.textContent=document.body.classList.contains('sp')?'🖥 PC表示':'📱 スマホ幅で確認';});
+</script>

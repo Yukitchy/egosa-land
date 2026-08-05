@@ -1,0 +1,286 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>エゴサランド 企画資料</title>
+<style>
+:root{
+  --bg:#ECEEF0;
+  --surface:#FFFFFF;
+  --ink:#1D2125;
+  --sub:#666E76;
+  --rule:#D5D9DD;
+  --rule-strong:#B9BFC6;
+  --accent:#CE2B5F;
+  --accent-tint:#F6E6EC;
+  --teal:#0E7C77;
+  --deco:rgba(29,33,37,.055);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.9;font-size:15px;
+  -webkit-font-smoothing:antialiased;
+}
+body,p,li,td,th,div,span,b,small,blockquote{word-break:auto-phrase;line-break:strict;overflow-wrap:anywhere}
+h1,h2,h3,.eyebrow,.sec-n,.badge{
+  font-family:"Hiragino Maru Gothic ProN","M PLUS Rounded 1c",-apple-system,sans-serif;
+  text-wrap:balance;line-height:1.35;
+}
+p{text-wrap:pretty}
+small{font-size:13px}
+
+.progress{position:fixed;top:0;left:0;width:100%;height:2px;background:var(--accent);
+  transform-origin:0 50%;z-index:99;animation:grow linear both;animation-timeline:scroll(root)}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+.wrap{max-width:760px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+
+/* ── hero ───────────────────────────── */
+.hero{padding:96px 0 60px;position:relative;overflow:hidden}
+.eyebrow{letter-spacing:.18em;font-size:13px;font-weight:800;color:var(--accent);margin-bottom:20px}
+.hero h1{font-size:60px;font-weight:800;letter-spacing:-.01em}
+.hero h1 small{font-size:22px;color:var(--sub);font-weight:600;letter-spacing:0}
+.hero .lead{font-size:18px;margin-top:26px;max-width:34em;color:#3A4046}
+.hero .lead b{font-weight:800;box-shadow:inset 0 -.5em 0 var(--accent-tint)}
+.hero .cta{margin-top:28px}
+.meta{display:flex;flex-wrap:wrap;gap:6px 28px;margin-top:34px;padding-top:22px;border-top:1px solid var(--rule)}
+.meta span{font-size:13px;color:var(--sub);padding:4px 0}
+.meta b{color:var(--ink);font-weight:700}
+
+/* ── sections ───────────────────────── */
+section{padding:52px 0;position:relative;overflow:hidden}
+section+section{border-top:1px solid var(--rule)}
+.sec-n{font-size:13px;font-weight:800;letter-spacing:.18em;color:var(--accent)}
+h2{font-size:29px;font-weight:800;margin:8px 0 8px;letter-spacing:-.005em}
+.intro{font-size:15px;color:#3A4046;max-width:40em;margin-bottom:10px}
+
+/* あしらい（意味のない図形・並び順で固定） */
+section::before{content:"";position:absolute;pointer-events:none;z-index:0}
+section:nth-of-type(4n+1)::before{ /* 四分円 */
+  top:-40px;right:-60px;width:220px;height:220px;background:var(--deco);border-radius:0 0 0 100%}
+section:nth-of-type(4n+2)::before{ /* 点々のグリッド */
+  bottom:24px;right:-10px;width:180px;height:140px;
+  background-image:radial-gradient(var(--deco) 2px,transparent 2px);background-size:18px 18px}
+section:nth-of-type(4n+3)::before{ /* 輪っか */
+  top:60px;right:-70px;width:200px;height:200px;border-radius:50%;border:14px solid var(--deco)}
+section:nth-of-type(4n+4)::before{ /* 角丸の棒 */
+  top:40px;right:-40px;width:150px;height:26px;border-radius:999px;background:var(--deco);
+  box-shadow:0 52px 0 -4px var(--deco),0 104px 0 8px var(--deco)}
+
+/* ── items（枠線も影もなし・区切りは線1本と余白） ── */
+.items{display:grid;gap:0;margin-top:20px}
+.items.two{grid-template-columns:1fr 1fr;column-gap:34px}
+.item{padding:22px 0;border-top:1px solid var(--rule)}
+.item h3{font-size:17px;font-weight:800;margin-bottom:6px}
+.item p{font-size:14.5px;color:#454B51}
+.badge{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;
+  border-radius:22%;background:var(--accent);color:#fff;font-weight:800;font-size:15px;margin-bottom:10px}
+.badge.t{background:var(--teal)}
+.badge.n{background:#3E464E}
+
+blockquote{margin-top:12px;padding-left:16px;border-left:2px solid var(--accent);
+  font-size:13.5px;color:#4E545A}
+blockquote .who{display:block;font-weight:800;font-size:13px;color:var(--accent);letter-spacing:.04em}
+mark{background:var(--accent-tint);color:inherit;padding:.1em .2em}
+
+/* ── table ──────────────────────────── */
+.tablebox{overflow-x:auto;margin-top:20px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+th,td{padding:14px 16px 14px 0;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+th{font-size:13px;letter-spacing:.06em;color:var(--sub);font-weight:700;
+  border-bottom:1px solid var(--rule-strong);padding-top:0}
+td small{color:var(--sub)}
+
+/* ── diagram ────────────────────────── */
+.diagram{margin-top:20px;overflow-x:auto}
+.diagram svg{display:block;min-width:620px;width:100%;height:auto}
+
+/* ── steps ──────────────────────────── */
+.steps{counter-reset:s;margin-top:20px}
+.step{counter-increment:s;padding:20px 0 20px 46px;border-top:1px solid var(--rule);position:relative}
+.step::before{content:counter(s);position:absolute;left:0;top:20px;width:28px;height:28px;border-radius:22%;
+  background:var(--accent);color:#fff;font-weight:800;font-size:14px;display:grid;place-items:center;
+  font-family:"Hiragino Maru Gothic ProN",sans-serif}
+.step b{display:block;font-size:16px;margin-bottom:2px}
+.step small{color:var(--sub);display:block;line-height:1.8}
+
+/* ── cta（影を残すのはここだけ） ───────── */
+.cta{display:inline-block;background:var(--accent);color:#fff;font-weight:800;text-decoration:none;
+  border-radius:999px;padding:14px 32px;font-size:15.5px;margin-top:30px;
+  box-shadow:0 6px 18px rgba(206,43,95,.28);
+  transition:transform .12s cubic-bezier(.34,1.56,.64,1),box-shadow .15s}
+.cta:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(206,43,95,.34)}
+.cta:active{transform:scale(.98)}
+
+footer{padding:44px 0 72px;color:var(--sub);font-size:13px;border-top:1px solid var(--rule)}
+footer a{color:var(--accent)}
+
+.reveal{animation:reveal-in linear both;animation-timeline:view();animation-range:entry 5% cover 26%}
+@keyframes reveal-in{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@supports not (animation-timeline:view()){.reveal{animation:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+@media(max-width:760px){
+  .items.two{grid-template-columns:1fr;column-gap:0}
+  .hero{padding:64px 0 44px}
+  .hero h1{font-size:40px}
+  h2{font-size:24px}
+  section::before{display:none}
+}
+body.sp .wrap{max-width:420px}
+body.sp section::before{display:none}
+#devbar{position:fixed;right:14px;bottom:14px;z-index:100;background:var(--ink);color:#fff;border:none;
+  border-radius:999px;padding:10px 17px;font-weight:800;font-size:13px;cursor:pointer;
+  box-shadow:0 6px 18px rgba(29,33,37,.3)}
+</style>
+<div class="progress"></div>
+<button id="devbar" onclick="document.body.classList.toggle('sp');this.textContent=document.body.classList.contains('sp')?'🖥 PC表示':'📱 スマホ幅で確認'">📱 スマホ幅で確認</button>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">PROJECT PROPOSAL — 2026.08.05</div>
+    <h1>エゴサランド <small>（仮）</small></h1>
+    <p class="lead">レビューを「書いてもらう」サイトではない。<b>演者・主催者が毎日やっている“エゴサ”の受け皿</b>を作ることで、イベント・箱・ファンが勝手に集まってくる——リアルエンタメの総合プラットフォーム。</p>
+    <p><a class="cta" href="prototype/">プロトタイプを触ってみる →</a></p>
+    <div class="meta">
+      <span>発案 <b>ササキチさん × ユウキ</b></span>
+      <span>収録場所 <b>ニコニコ まぜ麺&カレー</b></span>
+      <span>初期スコープ <b>コスプレ × DJ × バンド箱</b></span>
+      <span>実地テスト候補 <b>9/6 MIX LEMONeD JELLY</b></span>
+    </div>
+  </div>
+</div>
+
+<section class="reveal"><div class="wrap">
+  <div class="sec-n">01 — WHAT</div>
+  <h2>これは何か</h2>
+  <div class="items">
+    <div class="item"><span class="badge">見</span><h3>自分の言われ方が全部見える</h3>
+      <p>自分・自分のイベントへの言及、足あと、参加表明が1画面に集まる「エゴサダッシュボード」。</p>
+      <blockquote><span class="who">ササキチさん</span>レビューじゃなくて、もうそのレビューを<mark>エゴサしたいわけ</mark>。見たいし、書いてほしい</blockquote></div>
+    <div class="item"><span class="badge n">届</span><h3>書けば必ず本人に届く</h3>
+      <p>ハッシュタグが弱ったSNSの代わりに、「ここに書けば本人が読む」が保証された場所。</p>
+      <blockquote><span class="who">ササキチさん</span>エゴサランドがあれば<mark>ハッシュタグなんていらなくなる</mark></blockquote></div>
+    <div class="item"><span class="badge t">箱</span><h3>箱から始まるエンタメ地図</h3>
+      <p>ライブハウス・スタジオ・空き時間物件のマップ。演者が先ではなく「箱が先」。</p>
+      <blockquote><span class="who">ササキチさん</span>ライブハウスを知ってもらう状態で、そこにアーティストが出る一覧をみた方がいい</blockquote></div>
+  </div>
+</div></section>
+
+<section class="reveal"><div class="wrap">
+  <div class="sec-n">02 — WHY NOW</div>
+  <h2>なぜ今か（4つの追い風）</h2>
+  <div class="items two">
+    <div class="item"><h3>SNSのエゴサが崩壊中</h3><p>ハッシュタグ・検索の弱体化で「昔はTwitterとインスタ見ればエゴサできたのに、できなくなってきてる」。毎日エゴサする層（タレント・演者・主催者）が行き場を失っている。</p></div>
+    <div class="item"><h3>競合が実質いない</h3><p>e+・ぴあは「チケット」、Googleマップは「期間限定コラボのオタク目線レビューが書けない」。コスプレアーカイブ等の先行者は<mark>システムが古くて死んだ</mark>（2000年代前期のHP・ミクシィの劣化版）。</p></div>
+    <div class="item"><h3>名刺文化の崩壊</h3><p>「名刺なんて文化腐ってきてる」。演者⇄ファン⇄主催の“つながる・営業する”動線がSNSのDM頼みのまま放置されている。</p></div>
+    <div class="item"><h3>インバウンド需要</h3><p>「酒飲みながらバンドが聞きてえな」という訪日客は多いのに、箱の情報にたどり着けない。ユウキのツアー現場でも同じ相談が実際にある。</p></div>
+  </div>
+</div></section>
+
+<section class="reveal"><div class="wrap">
+  <div class="sec-n">03 — CORE INVENTION</div>
+  <h2>コアの発明：動機の逆転</h2>
+  <p class="intro">既存サービスが死んだ理由は「観客が探すため」に作られて<b>供給側（演者・主催）が登録し続ける理由がなかった</b>から。エゴサランドは毎日発生する承認欲求を入口にする。<mark>「プラスの動機より、俺こう思われてんじゃねえかな、の方が人が使うきっかけになる」</mark></p>
+  <div class="diagram">
+  <svg viewBox="0 0 840 320" xmlns="http://www.w3.org/2000/svg" font-family="Hiragino Maru Gothic ProN,sans-serif">
+    <text x="30" y="26" font-size="14" font-weight="800" fill="#8A9099">従来型（死んだパターン）</text>
+    <rect x="30" y="44" width="330" height="236" rx="4" fill="none" stroke="#D5D9DD"/>
+    <rect x="60" y="76" width="120" height="44" rx="4" fill="none" stroke="#C3C9CF"/>
+    <text x="120" y="103" font-size="13" text-anchor="middle" fill="#666E76">観客が探す</text>
+    <path d="M182 98 H228" stroke="#B9BFC6" stroke-width="2" marker-end="url(#ag)"/>
+    <rect x="232" y="76" width="100" height="44" rx="4" fill="none" stroke="#C3C9CF"/>
+    <text x="282" y="103" font-size="13" text-anchor="middle" fill="#666E76">サービス</text>
+    <rect x="60" y="156" width="272" height="44" rx="4" fill="none" stroke="#C3C9CF"/>
+    <text x="196" y="183" font-size="13" text-anchor="middle" fill="#666E76">演者「登録する理由がない」</text>
+    <rect x="60" y="220" width="272" height="44" rx="4" fill="#E2E5E8" stroke="none"/>
+    <text x="196" y="247" font-size="13" text-anchor="middle" fill="#7C838A">情報が古い → 過疎 → 終了</text>
+
+    <text x="450" y="26" font-size="14" font-weight="800" fill="#CE2B5F">エゴサランド（フライホイール）</text>
+    <rect x="450" y="44" width="360" height="236" rx="4" fill="none" stroke="#E7C2CE"/>
+    <rect x="480" y="72" width="140" height="50" rx="4" fill="#CE2B5F"/>
+    <text x="550" y="94" font-size="13" text-anchor="middle" fill="#fff" font-weight="800">演者・主催</text>
+    <text x="550" y="112" font-size="12" text-anchor="middle" fill="#F3C9D6">「俺どう言われてる？」</text>
+    <rect x="660" y="72" width="120" height="50" rx="4" fill="none" stroke="#E7C2CE"/>
+    <text x="720" y="94" font-size="13" text-anchor="middle" fill="#1D2125" font-weight="700">毎日見に来る</text>
+    <text x="720" y="112" font-size="12" text-anchor="middle" fill="#8A9099">＝自分から登録・宣伝</text>
+    <rect x="660" y="172" width="120" height="50" rx="4" fill="none" stroke="#E7C2CE"/>
+    <text x="720" y="194" font-size="13" text-anchor="middle" fill="#1D2125" font-weight="700">ファンが書く</text>
+    <text x="720" y="212" font-size="12" text-anchor="middle" fill="#8A9099">本人に届く保証</text>
+    <rect x="480" y="172" width="140" height="50" rx="4" fill="none" stroke="#E7C2CE"/>
+    <text x="550" y="194" font-size="13" text-anchor="middle" fill="#1D2125" font-weight="700">言及・参加表明が集積</text>
+    <text x="550" y="212" font-size="12" text-anchor="middle" fill="#8A9099">エゴサ材料が増える</text>
+    <path d="M622 97 H656" stroke="#CE2B5F" stroke-width="2" marker-end="url(#ap)"/>
+    <path d="M720 124 V168" stroke="#CE2B5F" stroke-width="2" marker-end="url(#ap)"/>
+    <path d="M658 197 H624" stroke="#CE2B5F" stroke-width="2" marker-end="url(#ap)"/>
+    <path d="M550 170 V126" stroke="#CE2B5F" stroke-width="2" marker-end="url(#ap)"/>
+    <text x="630" y="258" font-size="13" text-anchor="middle" fill="#CE2B5F" font-weight="800">回るほど観客にも便利になる → 箱・店も載りに来る</text>
+    <defs>
+      <marker id="ap" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#CE2B5F"/></marker>
+      <marker id="ag" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#B9BFC6"/></marker>
+    </defs>
+  </svg>
+  </div>
+</div></section>
+
+<section class="reveal"><div class="wrap">
+  <div class="sec-n">04 — FEATURES</div>
+  <h2>機能マップ（すべて会話由来）</h2>
+  <div class="tablebox"><table>
+    <tr><th style="width:30%">機能</th><th>中身</th><th style="width:26%">根拠（発言）</th></tr>
+    <tr><td><b>エゴサダッシュボード</b><br><small>主役画面・他にない</small></td><td>自分への言及・足あと・参加表明を集約。ネガ発言は自動フィルタ（ブロック / 削除依頼 / あえて見るも選べる）</td><td>「毎日自分でササキチって検索して」「足跡とかも含めて知りたい」「やだなって思ったらブロック」</td></tr>
+    <tr><td><b>エゴサ→一斉営業</b></td><td>言及してくれた人をチェックリスト化→次回イベント案内をワンタップ一斉送信</td><td>「コメントくれた人にチェックリスト」「一斉送信で」「Twitterだとそれができない」</td></tr>
+    <tr><td><b>参加表明つきイベント</b></td><td>ツイプラ+α。「何のコスプレで・何人で」参加が見える。カメラマンは別マーク。申込締切も表示</td><td>「なんのコスプレで何人でが分かんない」「カメコも行きやすい」</td></tr>
+    <tr><td><b>オタク目線レビュー</b></td><td>期間限定コラボ・その日のステージ単位で書ける。画像貼付。Googleマップに書けない粒度</td><td>「FGOコラボが良かった、をレビューには書けない」「俺も行ってたよで友達になれる」</td></tr>
+    <tr><td><b>イベント後記（有料）</b></td><td>終演後に演者→参加者へ配信/文章/チャットで「お疲れ様」。みんなお疲れが言われたい</td><td>「イベント後記みたいなのを」「お疲れが言われたい」</td></tr>
+    <tr><td><b>箱マップ</b></td><td>ライブハウス・スタジオ・空き時間物件（アイドルタイム貸し）。サウナイキタイ型の導線。多言語でインバウンド対応</td><td>「箱が先」「空き時間物件」「インバウンドの人たちが探しやすい」</td></tr>
+    <tr><td><b>名鑑・募集板・メディア</b></td><td>タレント名鑑のDJ版／コスパフォチーム登録／「穂乃果います・あと1人」募集板／今週のピックアップ（広告枠）＋ニュース</td><td>「タレント名鑑のDJ版」「あと1人必要」「ピックアップで広告」</td></tr>
+  </table></div>
+</div></section>
+
+<section class="reveal"><div class="wrap">
+  <div class="sec-n">05 — USERS</div>
+  <h2>誰に何が刺さるか</h2>
+  <div class="items two">
+    <div class="item"><span class="badge">演</span><h3>演者・主催者</h3><p>エゴサが1画面で完結／お客が可視化される／言及者へワンタップ営業。<b>＝毎日開く理由がある側</b>。ここから埋まる。</p></div>
+    <div class="item"><span class="badge n">推</span><h3>ファン・レイヤー・カメコ</h3><p>本人に読んでもらえる／「俺も行ってた」で友達ができる／誰が来るか見えるから現場に行きやすい。</p></div>
+    <div class="item"><span class="badge t">箱</span><h3>箱・店</h3><p>アイドルタイムが収益化／いいレビューが店の評価に直結／イベントカレンダーが集客導線に。</p></div>
+    <div class="item"><span class="badge" style="background:#3F6E96">旅</span><h3>インバウンド</h3><p>「今夜ライブが観たい」に箱マップで即答。ツアーガイド（ユウキ）の現場需要と直結。</p></div>
+  </div>
+</div></section>
+
+<section class="reveal"><div class="wrap">
+  <div class="sec-n">06 — SCOPE &amp; MONEY</div>
+  <h2>スコープと収益仮説</h2>
+  <div class="items">
+    <div class="item"><h3>初期スコープ（合意済み）</h3><p><b>コスプレ × DJ × バンド箱</b>の3ジャンルだけ。「風呂敷広げすぎるとどこから手つけていいか分からなくなる」。総合の器（エンタメ）は保ちつつ、中身はこの3つから。</p></div>
+    <div class="item"><h3>収益仮説</h3><p>①今週のピックアップ＝広告枠 ②イベント後記＝プレミアム課金 ③将来はスポンサー・バイアウトも視野（会話で言及あり）。</p></div>
+    <div class="item"><h3>実地テストの好機</h3><p><b>9/6 hideプレゼンツ「MIX LEMONeD JELLY」</b>にササキチさん出演。1イベントで「参加表明→レビュー→エゴサ→後記」を一周回す絶好の舞台。</p></div>
+  </div>
+</div></section>
+
+<section class="reveal"><div class="wrap">
+  <div class="sec-n">07 — RISKS</div>
+  <h2>リスクと決め事</h2>
+  <div class="items">
+    <div class="item"><h3>誹謗中傷と同居する宿命</h3><p>エゴサはメンタルを削る行為でもある。<b>ネガ自動フィルタは初期から必須機能</b>（オプションではない）。</p></div>
+    <div class="item"><h3>個人間マッチングの責任は負わない</h3><p>カメコ×レイヤーの個人マッチング仲介はやらない（ササキチさん明言：「トラブルになった時に怖い」）。参加の可視化まで。</p></div>
+    <div class="item"><h3>先人の死因＝古さと複雑さ</h3><p>使われる条件は「シンプル。画像も動画も貼れて、カレンダー共有できて」。機能を盛るほど死に近づく。</p></div>
+  </div>
+</div></section>
+
+<section class="reveal"><div class="wrap">
+  <div class="sec-n">08 — NEXT</div>
+  <h2>次のアクション</h2>
+  <div class="steps">
+    <div class="step"><b>プロトタイプをササキチさんに見せる</b><small>下のボタンから触れる版がもうある。次に会う時（または LINE）で反応を取る</small></div>
+    <div class="step"><b>名前を決める</b><small>「エゴサランド」は仮。ワクワクする名前が付くと動き出す（会話でも「仮でもいいから考えちゃったら」と合意）</small></div>
+    <div class="step"><b>9/6 MIX LEMONeD JELLY で1周回す</b><small>参加表明→当日レビュー→エゴサ→後記までを1イベントだけ実運用。うまくいったらラジオで宣伝（会話の合意通り）</small></div>
+  </div>
+  <p><a class="cta" href="prototype/">プロトタイプを触ってみる →</a></p>
+</div></section>
+
+<footer><div class="wrap">
+  エゴサランド（仮）企画資料 v0.2 — 2026-08-05 ／ 本資料の内容はすべて2026-08-05の収録会話に基づく（創作なし）
+</div></footer>
