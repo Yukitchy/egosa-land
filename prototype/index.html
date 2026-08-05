@@ -117,11 +117,12 @@ h2 small{font-weight:600;color:var(--sub);font-size:13px}
 .map{overflow-x:auto;padding:8px 0}
 .map svg{display:block;width:100%;min-width:420px;height:auto}
 .legend{display:flex;gap:8px;margin:10px 0;flex-wrap:wrap}
-.pin{cursor:pointer;transition:transform .12s var(--ease-out)}
+.pin{cursor:pointer}
+.pin .pinhover{transition:transform .12s var(--ease-out)}
 .pin .pinshape{transition:filter .12s var(--ease-out)}
-.pin:hover{transform:translateY(-3px)}
+.pin:hover .pinhover{transform:translateY(-3px)}
 .pin:hover .pinshape{filter:drop-shadow(0 5px 6px rgba(29,33,37,.4))}
-.pin:active{transform:scale(.95)}
+.pin:active .pinhover{transform:scale(.95)}
 .pin:focus-visible{outline:none}
 .pin:focus-visible .pinshape{stroke:var(--accent);stroke-width:3px}
 .pin.sel .pinshape{stroke:var(--ink);stroke-width:2.5px}
@@ -282,39 +283,49 @@ h2 small{font-weight:600;color:var(--sub);font-size:13px}
         <path id="pinpath" d="M-13,-15A13,13 0 1,1 13,-15L0,3Z"/>
       </defs>
       <g class="pin" data-id="box1" tabindex="0" role="button" aria-label="ライブハウス GEKKO" transform="translate(200,115)">
+        <g class="pinhover">
         <ellipse cy="6" rx="10" ry="3" fill="rgba(29,33,37,.18)" filter="url(#pinBlur)"/>
         <use href="#pinpath" class="pinshape" fill="#CE2B5F"/>
         <text y="-11" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">箱</text>
         <rect class="pinlabel" x="16" y="-24" width="54" height="18" rx="9" fill="#fff" stroke="#D5D9DD"/>
         <text x="43" y="-11" font-size="12" text-anchor="middle" fill="#1D2125" font-weight="700">GEKKO</text>
+        </g>
       </g>
       <g class="pin" data-id="box2" tabindex="0" role="button" aria-label="イベントスペース 雷鳴" transform="translate(350,220)">
+        <g class="pinhover">
         <ellipse cy="6" rx="10" ry="3" fill="rgba(29,33,37,.18)" filter="url(#pinBlur)"/>
         <use href="#pinpath" class="pinshape" fill="#CE2B5F"/>
         <text y="-11" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">箱</text>
         <rect class="pinlabel" x="16" y="-24" width="38" height="18" rx="9" fill="#fff" stroke="#D5D9DD"/>
         <text x="35" y="-11" font-size="12" text-anchor="middle" fill="#1D2125" font-weight="700">雷鳴</text>
+        </g>
       </g>
       <g class="pin" data-id="stu1" tabindex="0" role="button" aria-label="スタジオ・ネイロ" transform="translate(90,290)">
+        <g class="pinhover">
         <ellipse cy="6" rx="10" ry="3" fill="rgba(29,33,37,.18)" filter="url(#pinBlur)"/>
         <use href="#pinpath" class="pinshape" fill="#0E7C77"/>
         <text y="-11" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">練</text>
         <rect class="pinlabel" x="16" y="-24" width="51" height="18" rx="9" fill="#fff" stroke="#D5D9DD"/>
         <text x="41" y="-11" font-size="12" text-anchor="middle" fill="#1D2125" font-weight="700">ネイロ</text>
+        </g>
       </g>
       <g class="pin" data-id="idle1" tabindex="0" role="button" aria-label="喫茶ロータス" transform="translate(420,110)">
+        <g class="pinhover">
         <ellipse cy="6" rx="10" ry="3" fill="rgba(29,33,37,.18)" filter="url(#pinBlur)"/>
         <use href="#pinpath" class="pinshape" fill="#B98A2E"/>
         <text y="-11" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">空</text>
         <rect class="pinlabel" x="16" y="-24" width="64" height="18" rx="9" fill="#fff" stroke="#D5D9DD"/>
         <text x="48" y="-11" font-size="12" text-anchor="middle" fill="#1D2125" font-weight="700">ロータス</text>
+        </g>
       </g>
       <g class="pin" data-id="idle2" tabindex="0" role="button" aria-label="まぜ麺店 2F" transform="translate(180,215)">
+        <g class="pinhover">
         <ellipse cy="6" rx="10" ry="3" fill="rgba(29,33,37,.18)" filter="url(#pinBlur)"/>
         <use href="#pinpath" class="pinshape" fill="#B98A2E"/>
         <text y="-11" font-size="12" text-anchor="middle" fill="#fff" font-weight="800">空</text>
         <rect class="pinlabel" x="16" y="-24" width="64" height="18" rx="9" fill="#fff" stroke="#D5D9DD"/>
         <text x="48" y="-11" font-size="12" text-anchor="middle" fill="#1D2125" font-weight="700">まぜ麺店</text>
+        </g>
       </g>
     </svg>
   </div>
