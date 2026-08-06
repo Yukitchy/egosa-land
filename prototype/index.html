@@ -172,6 +172,8 @@ body.pcw .bizmodal-panel{max-width:760px}
   border-radius:18px 18px 0 0;box-shadow:0 -4px 20px rgba(29,33,37,.16);display:flex;flex-direction:column;
   transform:translateY(calc(100% - 132px));transition:transform .3s var(--ease-out)}
 .map-sheet.expanded{transform:translateY(0)}
+/* 展開中は「選んだ1件」だけ見せる。一覧カルーセルは畳んだ時の入口としてだけ使う */
+.map-sheet.expanded .carousel{display:none}
 .sheet-handle{flex:none;width:36px;height:4px;border-radius:999px;background:var(--rule-strong);margin:10px auto 4px;cursor:pointer}
 .sheet-scroll{flex:1;overflow-y:auto;padding:0 16px 16px}
 #map-detail .card{margin-top:2px}
