@@ -170,7 +170,7 @@ body.pcw .bizmodal-panel{max-width:760px}
   box-shadow:0 3px 10px rgba(29,33,37,.16);cursor:pointer}
 .map-sheet{position:absolute;left:0;right:0;bottom:0;height:52%;background:var(--surface);z-index:6;
   border-radius:18px 18px 0 0;box-shadow:0 -4px 20px rgba(29,33,37,.16);display:flex;flex-direction:column;
-  transform:translateY(calc(100% - 132px));transition:transform .3s var(--ease-out)}
+  transform:translateY(calc(100% - 180px));transition:transform .3s var(--ease-out)}
 .map-sheet.expanded{transform:translateY(0)}
 /* 展開中は「選んだ1件」だけ見せる。一覧カルーセルは畳んだ時の入口としてだけ使う */
 .map-sheet.expanded .carousel{display:none}
@@ -180,11 +180,20 @@ body.pcw .bizmodal-panel{max-width:760px}
 .today{margin-top:8px;font-size:13.5px}
 .today li{list-style:none;display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid var(--rule)}
 .today .t{font-variant-numeric:tabular-nums;font-weight:800;color:var(--accent);font-size:13px;flex:none}
-.carousel{display:flex;gap:10px;overflow-x:auto;padding:10px 2px 8px}
-.mcard{position:relative;flex:none;width:128px;background:var(--surface);border-radius:14px;padding:12px 12px 10px;
-  box-shadow:0 2px 10px rgba(29,33,37,.1);cursor:pointer}
-.mcard.on{background:var(--accent-tint)}
-.mcard b{display:block;font-size:14px;margin-top:6px}
+.carousel{display:flex;gap:10px;overflow-x:auto;padding:10px 16px;scroll-snap-type:x mandatory;
+  scroll-padding-left:16px;scroll-padding-right:16px;scrollbar-width:none}
+.carousel::-webkit-scrollbar{display:none}
+.mcard{position:relative;flex:none;width:calc(100% - 8px);display:flex;align-items:center;gap:12px;
+  background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:10px;cursor:pointer;scroll-snap-align:start}
+.mcard.on{background:var(--accent-tint);border-color:var(--accent)}
+.mthumb{flex:none;width:96px;height:96px;border-radius:12px;display:block}
+.ic-pk .bg{fill:var(--accent-tint)}.ic-pk .fg{fill:var(--accent)}
+.ic-tl .bg{fill:#DCEEEC}.ic-tl .fg{fill:var(--teal)}
+.ic-gd .bg{fill:var(--gold-tint)}.ic-gd .fg{fill:var(--gold)}
+.minfo{min-width:0;flex:1;padding-right:32px}
+.minfo b{display:block;font-size:16px;margin-bottom:4px}
+.minfo .tag{margin-bottom:4px}
+.mdesc{font-size:13px;color:var(--sub);margin-top:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .mcard .mn{position:absolute;top:8px;right:8px;background:var(--accent);color:#fff;font-size:12px;font-weight:800;
   border-radius:999px;padding:1px 7px}
 /* directory tab */
@@ -396,11 +405,52 @@ body.pcw .bizmodal-panel{max-width:760px}
   <div class="map-sheet" id="map-sheet">
     <div class="sheet-handle" id="sheet-handle"></div>
     <div class="carousel">
-      <div class="mcard" data-id="box1" data-tag="pk" tabindex="0" role="button" aria-label="GEKKO の詳細"><span class="mn">42</span><span class="tag pk">🎤 箱</span><b>GEKKO</b></div>
-      <div class="mcard" data-id="box2" data-tag="pk" tabindex="0" role="button" aria-label="雷鳴 の詳細"><span class="mn">18</span><span class="tag pk">🎤 箱</span><b>雷鳴</b></div>
-      <div class="mcard" data-id="stu1" data-tag="tl" tabindex="0" role="button" aria-label="ネイロ の詳細"><span class="mn">9</span><span class="tag tl">🎧 練習</span><b>ネイロ</b></div>
-      <div class="mcard" data-id="idle1" data-tag="gd" tabindex="0" role="button" aria-label="ロータス の詳細"><span class="mn">5</span><span class="tag gd">☕ 空き</span><b>ロータス</b></div>
-      <div class="mcard" data-id="idle2" data-tag="gd" tabindex="0" role="button" aria-label="まぜ麺店 の詳細"><span class="mn">3</span><span class="tag gd">☕ 空き</span><b>まぜ麺店</b></div>
+      <div class="mcard" data-id="box1" data-tag="pk" tabindex="0" role="button" aria-label="GEKKO の詳細">
+        <svg class="mthumb ic-pk" viewBox="0 0 96 96" aria-hidden="true"><rect class="bg" width="96" height="96"/>
+          <rect class="fg" x="8" y="66" width="80" height="20" rx="3"/>
+          <rect class="fg" x="16" y="20" width="26" height="40" rx="4"/><circle class="bg" cx="29" cy="34" r="7"/><circle class="bg" cx="29" cy="50" r="5"/>
+          <rect class="fg" x="54" y="28" width="26" height="32" rx="4"/><circle class="bg" cx="67" cy="40" r="6"/><circle class="bg" cx="67" cy="52" r="4"/></svg>
+        <div class="minfo"><b>GEKKO</b><span class="tag pk">🎤 箱</span><p class="mdesc">キャパ180 ／ 今夜ライブあり</p></div>
+        <span class="mn">42</span>
+      </div>
+      <div class="mcard" data-id="box2" data-tag="pk" tabindex="0" role="button" aria-label="雷鳴 の詳細">
+        <svg class="mthumb ic-pk" viewBox="0 0 96 96" aria-hidden="true"><rect class="bg" width="96" height="96"/>
+          <g transform="scale(-1,1) translate(-96,0)">
+          <rect class="fg" x="8" y="66" width="80" height="20" rx="3"/>
+          <rect class="fg" x="16" y="20" width="26" height="40" rx="4"/><circle class="bg" cx="29" cy="34" r="7"/><circle class="bg" cx="29" cy="50" r="5"/>
+          <rect class="fg" x="54" y="28" width="26" height="32" rx="4"/><circle class="bg" cx="67" cy="40" r="6"/><circle class="bg" cx="67" cy="52" r="4"/></g></svg>
+        <div class="minfo"><b>雷鳴</b><span class="tag pk">🎤 箱</span><p class="mdesc">キャパ80 ／ 生誕イベント歓迎</p></div>
+        <span class="mn">18</span>
+      </div>
+      <div class="mcard" data-id="stu1" data-tag="tl" tabindex="0" role="button" aria-label="ネイロ の詳細">
+        <svg class="mthumb ic-tl" viewBox="0 0 96 96" aria-hidden="true"><rect class="bg" width="96" height="96"/>
+          <rect class="fg" x="20" y="14" width="56" height="72" rx="8"/>
+          <rect class="bg" x="38" y="26" width="20" height="16" rx="3"/>
+          <circle class="bg" cx="34" cy="54" r="3"/><circle class="bg" cx="48" cy="54" r="3"/><circle class="bg" cx="62" cy="54" r="3"/>
+          <circle class="bg" cx="34" cy="68" r="3"/><circle class="bg" cx="48" cy="68" r="3"/><circle class="bg" cx="62" cy="68" r="3"/>
+          <circle class="bg" cx="70" cy="76" r="4"/></svg>
+        <div class="minfo"><b>ネイロ</b><span class="tag tl">🎧 練習</span><p class="mdesc">鏡張り ／ 1h ¥2,400</p></div>
+        <span class="mn">9</span>
+      </div>
+      <div class="mcard" data-id="idle1" data-tag="gd" tabindex="0" role="button" aria-label="ロータス の詳細">
+        <svg class="mthumb ic-gd" viewBox="0 0 96 96" aria-hidden="true"><rect class="bg" width="96" height="96"/>
+          <rect class="fg" x="10" y="10" width="76" height="76" rx="6"/>
+          <rect class="bg" x="24" y="24" width="48" height="34" rx="3"/>
+          <rect class="fg" x="46" y="24" width="4" height="34"/><rect class="fg" x="24" y="39" width="48" height="4"/>
+          <rect class="bg" x="24" y="64" width="48" height="14" rx="2"/></svg>
+        <div class="minfo"><b>ロータス</b><span class="tag gd">☕ 空き</span><p class="mdesc">平日15-18時 貸切OK</p></div>
+        <span class="mn">5</span>
+      </div>
+      <div class="mcard" data-id="idle2" data-tag="gd" tabindex="0" role="button" aria-label="まぜ麺店 の詳細">
+        <svg class="mthumb ic-gd" viewBox="0 0 96 96" aria-hidden="true"><rect class="bg" width="96" height="96"/>
+          <g transform="scale(-1,1) translate(-96,0)">
+          <rect class="fg" x="10" y="10" width="76" height="76" rx="6"/>
+          <rect class="bg" x="24" y="24" width="48" height="34" rx="3"/>
+          <rect class="fg" x="46" y="24" width="4" height="34"/><rect class="fg" x="24" y="39" width="48" height="4"/>
+          <rect class="bg" x="24" y="64" width="48" height="14" rx="2"/></g></svg>
+        <div class="minfo"><b>まぜ麺店</b><span class="tag gd">☕ 空き</span><p class="mdesc">平日昼のみ・15席</p></div>
+        <span class="mn">3</span>
+      </div>
     </div>
     <div class="sheet-scroll">
       <div id="map-detail"><div class="card" style="text-align:center;color:var(--sub);font-size:13px">ピンをタップすると詳細が出ます</div></div>
@@ -576,6 +626,8 @@ var SPOTS={
 function selectSpot(id,expand){
   document.querySelectorAll('.pin').forEach(function(x){x.classList.toggle('sel',x.dataset.id===id)});
   document.querySelectorAll('.mcard').forEach(function(x){x.classList.toggle('on',x.dataset.id===id)});
+  var mc=document.querySelector('.mcard[data-id="'+id+'"]');
+  if(mc)mc.scrollIntoView({inline:'center',block:'nearest',behavior:'auto'});
   var s=SPOTS[id];
   var rows=s.list.map(function(r){return '<li><span class="t">'+r[0]+'</span><span>'+r[1]+'</span></li>'}).join('');
   document.getElementById('map-detail').innerHTML=
