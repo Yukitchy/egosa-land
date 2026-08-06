@@ -9,19 +9,20 @@
   --teal:#0E7C77; --deco:rgba(29,33,37,.055);
   --gold:#9C6F1A; --gold-tint:#F5E6C8; --blue:#3E6D96; --blue-tint:#DCE6EE;
   --spring:cubic-bezier(.34,1.56,.64,1); --ease-out:cubic-bezier(.22,1,.36,1);
+  --navh:52px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
   background:var(--bg);color:var(--ink);line-height:1.9;font-size:15px;-webkit-font-smoothing:antialiased}
 body,p,li,td,div,span,b,small,button{word-break:auto-phrase;line-break:strict;overflow-wrap:anywhere}
 h1,h2,h3,.tag,.chip,button{text-wrap:balance;font-family:"Hiragino Maru Gothic ProN","M PLUS Rounded 1c",-apple-system,sans-serif}
-.app{max-width:760px;margin:0 auto;padding:0 16px 90px;transition:max-width .3s var(--ease-out)}
-body.sp .app{max-width:412px}
-#devbar{position:fixed;right:14px;bottom:14px;z-index:100;background:var(--ink);color:#fff;border:none;
+.app{max-width:412px;margin:0 auto;padding:0 16px calc(var(--navh) + env(safe-area-inset-bottom) + 80px);transition:max-width .3s var(--ease-out)}
+body.pcw .app{max-width:760px}
+#devbar{position:fixed;right:14px;bottom:calc(var(--navh) + env(safe-area-inset-bottom) + 14px);z-index:100;background:var(--ink);color:#fff;border:none;
   border-radius:999px;padding:10px 17px;font-weight:800;font-size:13px;cursor:pointer;box-shadow:0 6px 18px rgba(29,33,37,.3)}
 /* header */
 header{position:sticky;top:0;z-index:50;background:rgba(236,238,240,.9);backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--rule);margin:0 -16px;padding:12px 16px 0}
+  border-bottom:1px solid var(--rule);margin:0 -16px;padding:12px 16px}
 .hrow{display:flex;align-items:center;gap:10px;max-width:728px;margin:0 auto}
 .logo{font-weight:800;font-size:19px;letter-spacing:.02em}
 .logo span{color:var(--accent)}
@@ -30,10 +31,15 @@ header{position:sticky;top:0;z-index:50;background:rgba(236,238,240,.9);backdrop
   border-radius:999px;padding:4px 12px 4px 4px;font-size:13px;font-weight:700}
 .avatar{width:30px;height:30px;border-radius:22%;display:grid;place-items:center;color:#fff;font-weight:800;font-size:14px;flex:none;
   font-family:"Hiragino Maru Gothic ProN",sans-serif}
-.tabs{display:flex;gap:2px;max-width:728px;margin:10px auto 0;overflow-x:auto}
-.tabs button{flex:1;border:none;background:none;font-size:13.5px;font-weight:800;color:var(--sub);
-  padding:9px 6px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
-.tabs button.on{color:var(--accent);border-bottom-color:var(--accent)}
+/* bottom nav (サウナイキタイ準拠) */
+.bottomnav{position:fixed;left:0;right:0;bottom:0;z-index:70;background:var(--surface);
+  border-top:1px solid var(--rule);padding-bottom:env(safe-area-inset-bottom);display:flex;justify-content:center}
+.bnav-inner{display:flex;width:100%;max-width:412px;margin:0 auto;height:var(--navh)}
+body.pcw .bnav-inner{max-width:760px}
+.bottomnav button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  border:none;background:none;color:var(--sub);font-weight:800;font-size:13px;cursor:pointer}
+.bottomnav button .ico{font-size:20px;line-height:1}
+.bottomnav button.on{color:var(--accent)}
 main section{display:none;padding-top:16px;position:relative;overflow:hidden}
 main section.on{display:block;animation:in .35s var(--ease-out) both}
 @keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
@@ -77,17 +83,40 @@ h2 small{font-weight:600;color:var(--sub);font-size:13px}
   padding:4px 13px;font-size:13px;font-weight:800;color:var(--sub);cursor:pointer;transition:transform .12s var(--spring)}
 .bizbtn:hover{transform:translateY(-1px)}
 .bizbtn.added{background:var(--accent);border-color:var(--accent);color:#fff}
+.postlink{display:inline-flex;align-items:center;gap:9px;cursor:pointer;border-radius:8px}
+.postlink .nm{color:var(--accent)}
+.postlink:hover .nm{text-decoration:underline}
+.postlink .ext{font-size:12px;margin-left:1px;font-weight:700}
 .negwrap{display:none}body.showneg .negwrap{display:block}
 .neg .m-body{filter:blur(5px);user-select:none}
 .neg.revealed .m-body{filter:none}
 .negbar{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--sub);margin-top:8px;flex-wrap:wrap}
 .negbar button{border:1px solid var(--rule);background:none;border-radius:8px;padding:3px 10px;font-size:13px;font-weight:700;cursor:pointer;color:var(--sub)}
-.sendbar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);
+.sendbar{position:fixed;left:0;right:0;bottom:calc(var(--navh) + env(safe-area-inset-bottom));z-index:60;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);
   border-top:1px solid var(--rule);padding:10px 16px;display:flex;align-items:center;gap:12px;justify-content:center}
 .sendbar b{font-size:13px}.sendbar b span{color:var(--accent);font-size:17px;font-variant-numeric:tabular-nums}
 .send{border:none;background:var(--accent);color:#fff;font-weight:800;border-radius:999px;padding:10px 22px;font-size:13.5px;cursor:pointer;
   box-shadow:0 6px 16px rgba(206,43,95,.35);transition:transform .12s var(--spring)}
 .send:hover{transform:translateY(-2px)}.send:active{transform:scale(.97)}
+.bizcount-btn{border:none;background:none;font-size:13px;font-weight:800;color:var(--ink);cursor:pointer;padding:6px 4px;border-radius:8px}
+.bizcount-btn span{color:var(--accent);font-size:17px;font-variant-numeric:tabular-nums}
+.bizmodal{position:fixed;inset:0;z-index:90;display:none}
+.bizmodal.on{display:block}
+.bizmodal-backdrop{position:absolute;inset:0;background:rgba(29,33,37,.45)}
+.bizmodal-panel{position:absolute;left:0;right:0;bottom:0;max-width:412px;margin:0 auto;background:var(--surface);
+  border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));max-height:80vh;overflow-y:auto}
+body.pcw .bizmodal-panel{max-width:760px}
+.bizmodal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.bizmodal-head b{font-size:16px}
+.bizmodal-close{border:none;background:var(--bg);color:var(--sub);width:30px;height:30px;border-radius:50%;font-size:14px;cursor:pointer}
+.bizmodal-breakdown{font-size:13px;color:var(--sub);margin-bottom:10px}
+.bizmodal .chips{margin:0 0 10px}
+.biz-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--rule)}
+.biz-row:first-child{border-top:none}
+.biz-row .nm{font-weight:800;font-size:13.5px}
+.biz-row .src{margin-left:auto;flex:none}
+.bizmodal-empty{font-size:13px;color:var(--sub);text-align:center;padding:20px 0}
+.bizmodal #sendbtn2{width:100%;margin-top:14px}
 /* events tab */
 .ev-title{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
 .ev-title b{font-size:15.5px}
@@ -115,7 +144,7 @@ h2 small{font-weight:600;color:var(--sub);font-size:13px}
 .replies b{color:var(--ink)}
 /* map tab */
 .map{overflow-x:auto;padding:8px 0}
-.map svg{display:block;width:100%;min-width:420px;height:auto}
+.map svg{display:block;width:100%;height:auto}
 .legend{display:flex;gap:8px;margin:10px 0;flex-wrap:wrap}
 .pin{cursor:pointer}
 .pin .pinhover{transition:transform .12s var(--ease-out)}
@@ -160,7 +189,7 @@ h2 small{font-weight:600;color:var(--sub);font-size:13px}
 @media(max-width:520px){.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2n+1){border-left:none}main section::before{display:none}}
 </style>
 
-<button id="devbar">📱 スマホ幅で確認</button>
+<button id="devbar">🖥 PC幅で確認</button>
 
 <div class="app">
 <header>
@@ -168,12 +197,6 @@ h2 small{font-weight:600;color:var(--sub);font-size:13px}
     <div class="logo">エゴサ<span>ランド</span> <small>(仮) β</small></div>
     <div class="me"><span class="avatar" style="background:var(--accent)">サ</span>ササキチさん<small style="color:var(--sub)">DJ・主催</small></div>
   </div>
-  <nav class="tabs">
-    <button class="on" data-tab="egosa">🔍 エゴサ</button>
-    <button data-tab="events">🎪 イベント</button>
-    <button data-tab="map">🗺 マップ</button>
-    <button data-tab="dir">📖 名鑑</button>
-  </nav>
 </header>
 
 <main>
@@ -191,24 +214,24 @@ h2 small{font-weight:600;color:var(--sub);font-size:13px}
   </div>
 
   <div class="card">
-    <div class="m-head"><span class="avatar" style="background:var(--teal)">ま</span><span class="nm">まいまい⊿</span><span class="src tag gd">つくばキッズ盆踊り</span></div>
+    <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="まいまい⊿" aria-label="まいまい⊿ の元の投稿を開く"><span class="avatar" style="background:var(--teal)">ま</span><span class="nm">まいまい⊿<span class="ext" aria-hidden="true">↗</span></span></a><span class="src tag gd">つくばキッズ盆踊り</span></div>
     <p class="m-body"><mark>4時間ぶっ通しDJ</mark>すごすぎた…！最後のメインステージの盆踊り、子どもたちめちゃくちゃ楽しそうだった👏</p>
-    <div class="m-foot"><time>7/26 21:04</time><button class="bizbtn">＋ 営業リスト</button></div>
+    <div class="m-foot"><time>7/26 21:04</time><button class="bizbtn" data-gender="f" data-age="20">＋ 営業リスト</button></div>
   </div>
   <div class="card">
-    <div class="m-head"><span class="avatar" style="background:var(--blue)">ケ</span><span class="nm">ケンタP</span><span class="src tag gd">つくばキッズ盆踊り</span></div>
+    <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="ケンタP" aria-label="ケンタP の元の投稿を開く"><span class="avatar" style="background:var(--blue)">ケ</span><span class="nm">ケンタP<span class="ext" aria-hidden="true">↗</span></span></a><span class="src tag gd">つくばキッズ盆踊り</span></div>
     <p class="m-body">子連れで行きました。<mark>お菓子ありがとうございました！</mark>息子が「またDJのお兄さんに会いたい」と言ってます</p>
-    <div class="m-foot"><time>7/27 09:41</time><button class="bizbtn added">✓ 追加済み</button></div>
+    <div class="m-foot"><time>7/27 09:41</time><button class="bizbtn added" data-gender="m" data-age="30">✓ 追加済み</button></div>
   </div>
   <div class="card">
-    <div class="m-head"><span class="avatar" style="background:#9A6BC9">ゆ</span><span class="nm">ゆず庭</span><span class="src tag pk">秋コス</span></div>
+    <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="ゆず庭" aria-label="ゆず庭 の元の投稿を開く"><span class="avatar" style="background:#9A6BC9">ゆ</span><span class="nm">ゆず庭<span class="ext" aria-hidden="true">↗</span></span></a><span class="src tag pk">秋コス</span></div>
     <p class="m-body">コスパフォステージの運営さん神対応だった。<mark>10年以上続いてるの納得</mark>。次回も絶対出たい</p>
-    <div class="m-foot"><time>8/2 18:22</time><button class="bizbtn">＋ 営業リスト</button></div>
+    <div class="m-foot"><time>8/2 18:22</time><button class="bizbtn" data-gender="f" data-age="10">＋ 営業リスト</button></div>
   </div>
   <div class="card">
-    <div class="m-head"><span class="avatar" style="background:var(--gold)">R</span><span class="nm">Rin_beat</span><span class="src tag tl">ラジオ記事</span></div>
+    <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="Rin_beat" aria-label="Rin_beat の元の投稿を開く"><span class="avatar" style="background:var(--gold)">R</span><span class="nm">Rin_beat<span class="ext" aria-hidden="true">↗</span></span></a><span class="src tag tl">ラジオ記事</span></div>
     <p class="m-body">ラジオの文字起こし記事読んだ。<mark>9/6のMIX LEMONeD JELLY出演おめでとうございます！</mark>絶対行きます</p>
-    <div class="m-foot"><time>8/4 23:10</time><button class="bizbtn added">✓ 追加済み</button></div>
+    <div class="m-foot"><time>8/4 23:10</time><button class="bizbtn added" data-gender="u" data-age="40">✓ 追加済み</button></div>
   </div>
 
   <div class="negwrap">
@@ -404,28 +427,114 @@ h2 small{font-weight:600;color:var(--sub);font-size:13px}
 </main>
 </div>
 
+<nav class="bottomnav" id="bottomnav">
+  <div class="bnav-inner">
+    <button class="on" data-tab="egosa"><span class="ico">🔍</span><span>エゴサ</span></button>
+    <button data-tab="events"><span class="ico">🎪</span><span>イベント</span></button>
+    <button data-tab="map"><span class="ico">🗺</span><span>マップ</span></button>
+    <button data-tab="dir"><span class="ico">📖</span><span>名鑑</span></button>
+  </div>
+</nav>
+
 <div class="sendbar" id="sendbar">
-  <b>営業リスト <span id="bizcount2">2</span>人</b>
+  <button class="bizcount-btn" id="bizcount-btn"><b>営業リスト <span id="bizcount2">2</span>人</b></button>
   <button class="send" id="sendbtn">📣 9/6の案内を一斉送信</button>
+</div>
+
+<div class="bizmodal" id="bizmodal" aria-hidden="true">
+  <div class="bizmodal-backdrop" id="bizmodal-backdrop"></div>
+  <div class="bizmodal-panel" role="dialog" aria-modal="true" aria-label="営業リスト一覧">
+    <div class="bizmodal-head"><b>営業リスト</b><button class="bizmodal-close" id="bizmodal-close" aria-label="閉じる">✕</button></div>
+    <p class="bizmodal-breakdown" id="bizmodal-breakdown"></p>
+    <div class="chips" id="filter-gender">
+      <button class="chip on" data-v="all">すべて</button>
+      <button class="chip" data-v="m">男性</button>
+      <button class="chip" data-v="f">女性</button>
+      <button class="chip" data-v="u">未回答</button>
+    </div>
+    <div class="chips" id="filter-age">
+      <button class="chip on" data-v="all">すべて</button>
+      <button class="chip" data-v="10">10代</button>
+      <button class="chip" data-v="20">20代</button>
+      <button class="chip" data-v="30">30代</button>
+      <button class="chip" data-v="40">40代以上</button>
+    </div>
+    <div id="bizmodal-list"></div>
+    <button class="send" id="sendbtn2">📣 9/6の案内を一斉送信</button>
+  </div>
 </div>
 
 <script>
 // tabs
-var tabs=document.querySelectorAll('.tabs button');
+var tabs=document.querySelectorAll('.bottomnav button');
 tabs.forEach(function(b){b.addEventListener('click',function(){
   tabs.forEach(function(x){x.classList.remove('on')});b.classList.add('on');
   document.querySelectorAll('main section').forEach(function(s){s.classList.remove('on')});
   var sec=document.getElementById('tab-'+b.dataset.tab);sec.classList.remove('on');void sec.offsetWidth;sec.classList.add('on');
   document.getElementById('sendbar').style.display=(b.dataset.tab==='egosa')?'flex':'none';
+  closeBizModal();
 })});
+// post links (元の投稿へ)
+document.querySelectorAll('.postlink').forEach(function(a){
+  a.addEventListener('click',function(){alert(a.dataset.name+' の元の投稿を開きます（モック）');});
+  a.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();a.click();}});
+});
 // biz list
 function refreshBiz(){var n=document.querySelectorAll('.bizbtn.added').length;
-  document.getElementById('bizcount').textContent=n;document.getElementById('bizcount2').textContent=n;}
+  document.getElementById('bizcount').textContent=n;document.getElementById('bizcount2').textContent=n;
+  if(document.getElementById('bizmodal').classList.contains('on'))renderBizModal();}
 document.querySelectorAll('.bizbtn').forEach(function(b){b.addEventListener('click',function(){
   b.classList.toggle('added');b.textContent=b.classList.contains('added')?'✓ 追加済み':'＋ 営業リスト';refreshBiz();})});
-document.getElementById('sendbtn').addEventListener('click',function(){
+function sendBlast(){
   var n=document.getElementById('bizcount2').textContent;
-  alert(n+'人に「9/6 hideプレゼンツ MIX LEMONeD JELLY」の案内を送信しました（モック）\n\nTwitterのDMでは出来なかった、エゴサ→ワンタップ営業の動線です');});
+  alert(n+'人に「9/6 hideプレゼンツ MIX LEMONeD JELLY」の案内を送信しました（モック）\n\nTwitterのDMでは出来なかった、エゴサ→ワンタップ営業の動線です');
+}
+document.getElementById('sendbtn').addEventListener('click',sendBlast);
+document.getElementById('sendbtn2').addEventListener('click',sendBlast);
+// biz list modal
+var bizFilter={gender:'all',age:'all'};
+function bizAddedList(){
+  return Array.prototype.map.call(document.querySelectorAll('.bizbtn.added'),function(btn){
+    var card=btn.closest('.card');
+    return {
+      name:card.querySelector('.nm').textContent.replace('↗','').trim(),
+      avatarBg:card.querySelector('.avatar').style.background,
+      avatarText:card.querySelector('.avatar').textContent,
+      event:card.querySelector('.src').textContent,
+      gender:btn.dataset.gender,age:btn.dataset.age
+    };
+  });
+}
+function renderBizModal(){
+  var all=bizAddedList();
+  var counts={m:0,f:0,u:0};
+  all.forEach(function(p){counts[p.gender]=(counts[p.gender]||0)+1});
+  document.getElementById('bizmodal-breakdown').textContent=all.length?
+    ('男性 '+counts.m+'・女性 '+counts.f+'・未回答 '+counts.u):'まだ誰も追加されていません';
+  var list=all.filter(function(p){
+    return (bizFilter.gender==='all'||p.gender===bizFilter.gender)&&(bizFilter.age==='all'||p.age===bizFilter.age);
+  });
+  document.getElementById('bizmodal-list').innerHTML=list.length?list.map(function(p){
+    return '<div class="biz-row"><span class="avatar" style="background:'+p.avatarBg+'">'+p.avatarText+'</span>'+
+      '<span class="nm">'+p.name+'</span><span class="src tag gd">'+p.event+'</span></div>';
+  }).join(''):'<p class="bizmodal-empty">条件に一致する人がいません</p>';
+}
+function openBizModal(){document.getElementById('bizmodal').classList.add('on');
+  document.getElementById('bizmodal').setAttribute('aria-hidden','false');renderBizModal();}
+function closeBizModal(){document.getElementById('bizmodal').classList.remove('on');
+  document.getElementById('bizmodal').setAttribute('aria-hidden','true');}
+document.getElementById('bizcount-btn').addEventListener('click',openBizModal);
+document.getElementById('bizmodal-close').addEventListener('click',closeBizModal);
+document.getElementById('bizmodal-backdrop').addEventListener('click',closeBizModal);
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeBizModal();});
+function bindChipGroup(id,key){
+  document.querySelectorAll('#'+id+' .chip').forEach(function(c){c.addEventListener('click',function(){
+    document.querySelectorAll('#'+id+' .chip').forEach(function(x){x.classList.remove('on')});
+    c.classList.add('on');bizFilter[key]=c.dataset.v;renderBizModal();
+  })});
+}
+bindChipGroup('filter-gender','gender');
+bindChipGroup('filter-age','age');
 // neg filter
 document.getElementById('negtoggle').addEventListener('click',function(){
   document.body.classList.toggle('showneg');this.classList.toggle('on');
@@ -483,6 +592,6 @@ function bindOffers(){document.querySelectorAll('.offer').forEach(function(b){
 bindOffers();
 // devbar
 document.getElementById('devbar').addEventListener('click',function(){
-  document.body.classList.toggle('sp');
-  this.textContent=document.body.classList.contains('sp')?'🖥 PC表示':'📱 スマホ幅で確認';});
+  document.body.classList.toggle('pcw');
+  this.textContent=document.body.classList.contains('pcw')?'📱 スマホ幅に戻す':'🖥 PC幅で確認';});
 </script>
