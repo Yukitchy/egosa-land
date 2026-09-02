@@ -2,6 +2,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>エゴサランド プロトタイプ</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 :root{
   --bg:#ECEEF0; --surface:#FFFFFF; --ink:#1D2125; --sub:#666E76;
@@ -29,6 +31,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(236,238,240,.9);backdrop
 .logo small{font-size:13px;color:var(--sub);font-weight:600}
 .me{margin-left:auto;display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--rule);
   border-radius:999px;padding:4px 12px 4px 4px;font-size:13px;font-weight:700}
+img.avatar{object-fit:cover;background:var(--rule)}
 .avatar{width:30px;height:30px;border-radius:22%;display:grid;place-items:center;color:#fff;font-weight:800;font-size:14px;flex:none;
   font-family:"Hiragino Maru Gothic ProN",sans-serif}
 /* bottom nav (サウナイキタイ準拠) */
@@ -166,17 +169,20 @@ body.pcw .bizmodal-panel{max-width:760px}
 .map-wrap{position:relative;overflow:hidden;background:#EFF0F2;
   height:calc(100dvh - var(--headh,64px) - var(--navh) - env(safe-area-inset-bottom))}
 .map-canvas{position:absolute;inset:0}
-.map-canvas svg{display:block;width:100%;height:100%}
-.pin{cursor:pointer}
-.pin .pinhover{transition:transform .12s var(--ease-out)}
-.pin .pinshape{transition:filter .12s var(--ease-out)}
-.pin:hover .pinhover{transform:translateY(-3px)}
-.pin:hover .pinshape{filter:drop-shadow(0 5px 6px rgba(29,33,37,.4))}
-.pin:active .pinhover{transform:scale(.95)}
-.pin:focus-visible{outline:none}
-.pin:focus-visible .pinshape{stroke:var(--accent);stroke-width:3px}
-.pin.sel .pinshape{stroke:var(--ink);stroke-width:2.5px}
-.map-toolbar{position:absolute;top:10px;left:10px;right:10px;z-index:5;display:flex;flex-direction:column;gap:8px}
+.map-canvas .leaflet-container{width:100%;height:100%;background:#EFF0F2;font-family:inherit}
+.leaflet-control-attribution{font-size:10px;opacity:.75}
+.pinwrap{background:none;border:none}
+.pin{position:relative;width:26px;height:34px;cursor:pointer;transform-origin:50% 100%;transition:transform .12s var(--ease-out)}
+.pin:hover{transform:translateY(-3px)}
+.pin .shape{position:absolute;left:0;top:0;width:26px;height:34px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--c,#CE2B5F);box-shadow:0 3px 6px rgba(29,33,37,.3);border:2px solid #fff;box-sizing:border-box}
+.pin.sel .shape{border-color:var(--ink)}
+.pin .k{position:absolute;left:0;top:0;width:26px;height:26px;display:grid;place-items:center;color:#fff;font-weight:800;font-size:13px;pointer-events:none}
+.pin .n{position:absolute;left:50%;top:-20px;transform:translateX(-50%);min-width:18px;height:16px;padding:0 5px;border-radius:8px;background:#CE2B5F;color:#fff;font-size:12px;font-weight:800;line-height:16px;text-align:center;box-sizing:border-box;white-space:nowrap}
+.pin .lb{position:absolute;left:32px;top:4px;height:20px;line-height:18px;padding:0 9px;border-radius:10px;background:#fff;border:1px solid var(--rule);color:var(--ink);font-size:13px;font-weight:700;white-space:nowrap;box-sizing:border-box}
+.pin.hide{display:none}
+.mapzoom{position:absolute;right:10px;bottom:196px;z-index:1100;display:flex;flex-direction:column;gap:6px}
+.mapzoom button{width:38px;height:38px;border:none;border-radius:10px;background:var(--surface);color:var(--ink);font-size:20px;font-weight:800;box-shadow:0 3px 10px rgba(29,33,37,.16);cursor:pointer}
+.map-toolbar{position:absolute;top:10px;left:10px;right:10px;z-index:1100;display:flex;flex-direction:column;gap:8px}
 .map-search{display:flex;align-items:center;gap:8px;background:var(--surface);border-radius:999px;
   padding:10px 16px;font-size:14px;color:var(--sub);box-shadow:0 3px 12px rgba(29,33,37,.16)}
 .map-search input{flex:1;border:none;background:none;outline:none;font-size:14px;color:var(--ink);font-family:inherit}
@@ -184,10 +190,10 @@ body.pcw .bizmodal-panel{max-width:760px}
 .legend::-webkit-scrollbar{display:none}
 .tag.filt{cursor:pointer;border:none;flex:none;box-shadow:0 2px 8px rgba(29,33,37,.14)}
 .tag.filt.off{background:var(--rule);color:var(--sub);box-shadow:none}
-.recenter-btn{position:absolute;top:104px;left:50%;transform:translateX(-50%);z-index:5;background:var(--surface);
+.recenter-btn{position:absolute;top:104px;left:50%;transform:translateX(-50%);z-index:1100;background:var(--surface);
   border:none;border-radius:999px;padding:7px 16px;font-size:13px;font-weight:800;color:var(--ink);
   box-shadow:0 3px 10px rgba(29,33,37,.16);cursor:pointer}
-.map-sheet{position:absolute;left:0;right:0;bottom:0;height:52%;background:var(--surface);z-index:6;
+.map-sheet{position:absolute;left:0;right:0;bottom:0;height:52%;background:var(--surface);z-index:1101;
   border-radius:18px 18px 0 0;box-shadow:0 -4px 20px rgba(29,33,37,.16);display:flex;flex-direction:column;
   transform:translateY(calc(100% - 180px));transition:transform .3s var(--ease-out)}
 .map-sheet.expanded{transform:translateY(0)}
@@ -238,7 +244,7 @@ body.pcw .bizmodal-panel{max-width:760px}
 <header>
   <div class="hrow">
     <div class="logo">エゴサ<span>ランド</span> <small>(仮) β</small></div>
-    <div class="me"><span class="avatar" style="background:var(--accent)">サ</span>ササキチさん<small style="color:var(--sub)">DJ・主催</small></div>
+    <div class="me"><img class="avatar" src="faces/sasakichi.jpg" alt="">ササキチさん<small style="color:var(--sub)">DJ・主催</small></div>
   </div>
 </header>
 
@@ -257,22 +263,22 @@ body.pcw .bizmodal-panel{max-width:760px}
   </div>
 
   <div class="card">
-    <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="まいまい⊿" aria-label="まいまい⊿ の元の投稿を開く"><span class="avatar" style="background:var(--teal)">ま</span><span class="nm">まいまい⊿<span class="ext" aria-hidden="true">↗</span></span></a><span class="src tag gd">つくばキッズ盆踊り</span></div>
+    <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="まいまい⊿" aria-label="まいまい⊿ の元の投稿を開く"><img class="avatar" src="faces/maimai.jpg" alt=""><span class="nm">まいまい⊿<span class="ext" aria-hidden="true">↗</span></span></a><span class="src tag gd">つくばキッズ盆踊り</span></div>
     <p class="m-body"><mark>4時間ぶっ通しDJ</mark>すごすぎた…！最後のメインステージの盆踊り、子どもたちめちゃくちゃ楽しそうだった👏</p>
     <div class="m-foot"><time>7/26 21:04</time><button class="bizbtn" data-gender="f" data-age="20">＋ 営業リスト</button></div>
   </div>
   <div class="card">
-    <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="ケンタP" aria-label="ケンタP の元の投稿を開く"><span class="avatar" style="background:var(--blue)">ケ</span><span class="nm">ケンタP<span class="ext" aria-hidden="true">↗</span></span></a><span class="src tag gd">つくばキッズ盆踊り</span></div>
+    <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="ケンタP" aria-label="ケンタP の元の投稿を開く"><img class="avatar" src="faces/kenta.jpg" alt=""><span class="nm">ケンタP<span class="ext" aria-hidden="true">↗</span></span></a><span class="src tag gd">つくばキッズ盆踊り</span></div>
     <p class="m-body">子連れで行きました。<mark>お菓子ありがとうございました！</mark>息子が「またDJのお兄さんに会いたい」と言ってます</p>
     <div class="m-foot"><time>7/27 09:41</time><button class="bizbtn added" data-gender="m" data-age="30">✓ 追加済み</button></div>
   </div>
   <div class="card">
-    <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="ゆず庭" aria-label="ゆず庭 の元の投稿を開く"><span class="avatar" style="background:#9A6BC9">ゆ</span><span class="nm">ゆず庭<span class="ext" aria-hidden="true">↗</span></span></a><span class="src tag pk">秋コス</span></div>
+    <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="ゆず庭" aria-label="ゆず庭 の元の投稿を開く"><img class="avatar" src="faces/yuzuniwa.jpg" alt=""><span class="nm">ゆず庭<span class="ext" aria-hidden="true">↗</span></span></a><span class="src tag pk">秋コス</span></div>
     <p class="m-body">コスパフォステージの運営さん神対応だった。<mark>10年以上続いてるの納得</mark>。次回も絶対出たい</p>
     <div class="m-foot"><time>8/2 18:22</time><button class="bizbtn" data-gender="f" data-age="10">＋ 営業リスト</button></div>
   </div>
   <div class="card">
-    <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="Rin_beat" aria-label="Rin_beat の元の投稿を開く"><span class="avatar" style="background:var(--gold)">R</span><span class="nm">Rin_beat<span class="ext" aria-hidden="true">↗</span></span></a><span class="src tag tl">ラジオ記事</span></div>
+    <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="Rin_beat" aria-label="Rin_beat の元の投稿を開く"><img class="avatar" src="faces/rin.jpg" alt=""><span class="nm">Rin_beat<span class="ext" aria-hidden="true">↗</span></span></a><span class="src tag tl">ラジオ記事</span></div>
     <p class="m-body">ラジオの文字起こし記事読んだ。<mark>9/6のMIX LEMONeD JELLY出演おめでとうございます！</mark>絶対行きます</p>
     <div class="m-foot"><time>8/4 23:10</time><button class="bizbtn added" data-gender="u" data-age="40">✓ 追加済み</button></div>
   </div>
@@ -320,78 +326,7 @@ body.pcw .bizmodal-panel{max-width:760px}
 <!-- ============ マップ ============ -->
 <section id="tab-map">
   <div class="map-wrap" id="map-wrap">
-  <div class="map-canvas" id="map-canvas">
-    <svg viewBox="0 0 412 720" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" font-family="Hiragino Maru Gothic ProN,sans-serif">
-      <rect width="412" height="720" fill="#EFF0F2"/>
-      <rect x="0" y="80" width="412" height="22" fill="#fff" stroke="#D5D9DD"/>
-      <rect x="0" y="300" width="412" height="34" fill="#fff" stroke="#D5D9DD"/>
-      <text x="10" y="321" font-size="12" fill="#8A9099">中央通り</text>
-      <rect x="0" y="560" width="412" height="22" fill="#fff" stroke="#D5D9DD"/>
-      <rect x="190" y="0" width="30" height="720" fill="#fff" stroke="#D5D9DD"/>
-      <rect x="330" y="100" width="22" height="520" fill="#fff" stroke="#D5D9DD"/>
-      <rect x="20" y="580" width="80" height="40" rx="4" fill="#DDE0E3"/>
-      <text x="60" y="604" font-size="12" text-anchor="middle" fill="#8A9099">駅</text>
-      <defs>
-        <filter id="pinBlur" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.2"/></filter>
-        <path id="pinpath" d="M-13,-15A13,13 0 1,1 13,-15L0,3Z"/>
-      </defs>
-      <g class="pin" data-id="box1" data-tag="pk" tabindex="0" role="button" aria-label="ライブハウス GEKKO 今週42件の言及" transform="translate(80,240)">
-        <g class="pinhover">
-        <ellipse cy="6" rx="10" ry="3" fill="rgba(29,33,37,.18)" filter="url(#pinBlur)"/>
-        <use href="#pinpath" class="pinshape" fill="#CE2B5F"/>
-        <text y="-11" font-size="13" text-anchor="middle" fill="#fff" font-weight="800">箱</text>
-        <rect x="-12" y="-48" width="24" height="15" rx="7.5" fill="#CE2B5F"/>
-        <text y="-37" font-size="13" text-anchor="middle" fill="#fff" font-weight="800">42</text>
-        <rect class="pinlabel" x="16" y="-24" width="58" height="18" rx="9" fill="#fff" stroke="#D5D9DD"/>
-        <text x="45" y="-11" font-size="13" text-anchor="middle" fill="#1D2125" font-weight="700">GEKKO</text>
-        </g>
-      </g>
-      <g class="pin" data-id="box2" data-tag="pk" tabindex="0" role="button" aria-label="イベントスペース 雷鳴 今週18件の言及" transform="translate(250,260)">
-        <g class="pinhover">
-        <ellipse cy="6" rx="10" ry="3" fill="rgba(29,33,37,.18)" filter="url(#pinBlur)"/>
-        <use href="#pinpath" class="pinshape" fill="#CE2B5F"/>
-        <text y="-11" font-size="13" text-anchor="middle" fill="#fff" font-weight="800">箱</text>
-        <rect x="-12" y="-48" width="24" height="15" rx="7.5" fill="#CE2B5F"/>
-        <text y="-37" font-size="13" text-anchor="middle" fill="#fff" font-weight="800">18</text>
-        <rect class="pinlabel" x="16" y="-24" width="40" height="18" rx="9" fill="#fff" stroke="#D5D9DD"/>
-        <text x="36" y="-11" font-size="13" text-anchor="middle" fill="#1D2125" font-weight="700">雷鳴</text>
-        </g>
-      </g>
-      <g class="pin" data-id="stu1" data-tag="tl" tabindex="0" role="button" aria-label="スタジオ・ネイロ 今週9件の言及" transform="translate(110,420)">
-        <g class="pinhover">
-        <ellipse cy="6" rx="10" ry="3" fill="rgba(29,33,37,.18)" filter="url(#pinBlur)"/>
-        <use href="#pinpath" class="pinshape" fill="#0E7C77"/>
-        <text y="-11" font-size="13" text-anchor="middle" fill="#fff" font-weight="800">練</text>
-        <rect x="-9" y="-48" width="18" height="15" rx="7.5" fill="#CE2B5F"/>
-        <text y="-37" font-size="13" text-anchor="middle" fill="#fff" font-weight="800">9</text>
-        <rect class="pinlabel" x="16" y="-24" width="54" height="18" rx="9" fill="#fff" stroke="#D5D9DD"/>
-        <text x="43" y="-11" font-size="13" text-anchor="middle" fill="#1D2125" font-weight="700">ネイロ</text>
-        </g>
-      </g>
-      <g class="pin" data-id="idle1" data-tag="gd" tabindex="0" role="button" aria-label="喫茶ロータス 今週5件の言及" transform="translate(260,500)">
-        <g class="pinhover">
-        <ellipse cy="6" rx="10" ry="3" fill="rgba(29,33,37,.18)" filter="url(#pinBlur)"/>
-        <use href="#pinpath" class="pinshape" fill="#B98A2E"/>
-        <text y="-11" font-size="13" text-anchor="middle" fill="#fff" font-weight="800">空</text>
-        <rect x="-9" y="-48" width="18" height="15" rx="7.5" fill="#CE2B5F"/>
-        <text y="-37" font-size="13" text-anchor="middle" fill="#fff" font-weight="800">5</text>
-        <rect class="pinlabel" x="16" y="-24" width="68" height="18" rx="9" fill="#fff" stroke="#D5D9DD"/>
-        <text x="50" y="-11" font-size="13" text-anchor="middle" fill="#1D2125" font-weight="700">ロータス</text>
-        </g>
-      </g>
-      <g class="pin" data-id="idle2" data-tag="gd" tabindex="0" role="button" aria-label="まぜ麺店 2F 今週3件の言及" transform="translate(170,340)">
-        <g class="pinhover">
-        <ellipse cy="6" rx="10" ry="3" fill="rgba(29,33,37,.18)" filter="url(#pinBlur)"/>
-        <use href="#pinpath" class="pinshape" fill="#B98A2E"/>
-        <text y="-11" font-size="13" text-anchor="middle" fill="#fff" font-weight="800">空</text>
-        <rect x="-9" y="-48" width="18" height="15" rx="7.5" fill="#CE2B5F"/>
-        <text y="-37" font-size="13" text-anchor="middle" fill="#fff" font-weight="800">3</text>
-        <rect class="pinlabel" x="16" y="-24" width="68" height="18" rx="9" fill="#fff" stroke="#D5D9DD"/>
-        <text x="50" y="-11" font-size="13" text-anchor="middle" fill="#1D2125" font-weight="700">まぜ麺店</text>
-        </g>
-      </g>
-    </svg>
-  </div>
+  <div class="map-canvas" id="map-canvas"></div>
   <div class="map-toolbar">
     <label class="map-search">🔍<input type="text" placeholder="エリア・施設名・キーワード" aria-label="エリア・施設名・キーワードで検索"></label>
     <div class="legend">
@@ -401,6 +336,7 @@ body.pcw .bizmodal-panel{max-width:760px}
     </div>
   </div>
   <button class="recenter-btn" id="recenter-btn">🔄 この場所で再検索</button>
+  <div class="mapzoom"><button id="zin" aria-label="拡大">＋</button><button id="zout" aria-label="縮小">－</button></div>
   <div class="map-sheet" id="map-sheet">
     <div class="sheet-handle" id="sheet-handle"></div>
     <div class="carousel">
@@ -453,7 +389,7 @@ body.pcw .bizmodal-panel{max-width:760px}
     </div>
     <div class="sheet-scroll">
       <div id="map-detail"><div class="card" style="text-align:center;color:var(--sub);font-size:13px">ピンをタップすると詳細が出ます</div></div>
-      <p class="note">※ 地図・店舗はすべて架空のサンプルです</p>
+      <p class="note">※ 店舗・ピンはすべて架空のサンプルです（地図は実物）</p>
     </div>
   </div>
   </div>
@@ -464,7 +400,7 @@ body.pcw .bizmodal-panel{max-width:760px}
   <h2>📖 演者名鑑 <small>タレント名鑑のDJ版</small></h2>
   <div class="card">
     <div class="port">
-      <span class="avatar" style="background:var(--accent)">サ</span>
+      <img class="avatar" src="faces/sasakichi.jpg" alt="">
       <div>
         <h3>DJ ササキチ（ササキチさん）</h3>
         <div class="role">DJ ／ イベント主催 ／ コスパフォステージ運営</div>
@@ -480,7 +416,7 @@ body.pcw .bizmodal-panel{max-width:760px}
   </div>
   <div class="card">
     <div class="port">
-      <span class="avatar" style="background:#9A6BC9">C</span>
+      <img class="avatar" src="faces/c.jpg" alt="">
       <div><h3>コスパフォチーム COSMOS</h3><div class="role">コスプレパフォーマンス ／ 5人組（サンプル）</div></div>
     </div>
     <div class="actions"><button class="main offer">📩 オファーする</button><button>🎬 ステージ動画</button></div>
@@ -540,7 +476,7 @@ var tabs=document.querySelectorAll('.bottomnav button');
 tabs.forEach(function(b){b.addEventListener('click',function(){
   tabs.forEach(function(x){x.classList.remove('on')});b.classList.add('on');
   document.querySelectorAll('main section').forEach(function(s){s.classList.remove('on')});
-  var sec=document.getElementById('tab-'+b.dataset.tab);sec.classList.remove('on');void sec.offsetWidth;sec.classList.add('on');
+  var sec=document.getElementById('tab-'+b.dataset.tab);sec.classList.remove('on');void sec.offsetWidth;sec.classList.add('on');if(b.dataset.tab==='map'&&window.egoMap){setTimeout(function(){egoMap.invalidateSize();},60);}
   document.getElementById('sendbar').style.display=(b.dataset.tab==='egosa')?'flex':'none';
   closeBizModal();
 })});
@@ -631,9 +567,9 @@ var EVENTS=[
 ];
 // 既存の参加者一覧・カメラマン別マーク・出演者ボタンなど「作り込み済みの見た目」を持つ3件だけ専用テンプレを持つ
 var evCardHTML={
- 'mix-lemoned':'<div class="card perform"><div class="ev-title"><span class="ev-date">9/6 SAT</span><b>hideプレゼンツ MIX LEMONeD JELLY</b><span class="tag pk">出演</span></div><p class="ev-meta">🎤 DJ ササキチ ほか ／ 参加表明 <b style="color:var(--accent)">34人</b></p><div class="golist"><span class="gochip"><span class="avatar" style="background:var(--gold)">R</span>Rin_beat</span><span class="gochip"><span class="avatar" style="background:var(--teal)">ま</span>まいまい⊿</span><span class="gochip cam"><span class="avatar" style="background:var(--blue)">📷</span>カメラマン 2人</span><span class="gochip">+30人</span></div><button class="joinbtn" disabled style="opacity:.5">あなたは出演者です</button></div>',
- 'acosta':'<div class="card"><div class="ev-title"><span class="ev-date">8/9 SUN</span><b>アコスタ池袋</b><span class="tag gd">コスプレ</span></div><p class="ev-meta">参加表明すると「何のコスで・何人で」がみんなに見える（カメラマンは別マーク）</p><div class="golist"><span class="gochip"><span class="avatar" style="background:#9A6BC9">ゆ</span>ゆず庭：ラブライブ！/高坂穂乃果・3人合わせ</span><span class="gochip want">⚡ 園田海未役 あと1人募集</span><span class="gochip cam"><span class="avatar" style="background:var(--blue)">📷</span>カメコ参加 2人</span></div><button class="joinbtn" id="join-acosta">🙋 参加表明する</button></div>',
- 'tsukuba':'<div class="card"><div class="ev-title"><span class="ev-date">7/26</span><b>つくばキッズ盆踊り</b><span class="tag gd">DJ 4時間</span></div><div class="review"><div class="ph a"></div><div><div class="who">まいまい⊿ の現地レポ 📸</div><p>メインステージの盆踊り、大人も子どもも全員踊ってた。<b>この一体感は現地じゃないと分からない！</b></p></div></div><div class="review"><div class="ph b"></div><div><div class="who">ケンタP の現地レポ 📸</div><p>お菓子配りタイムの行列。来年も家族で来ます</p></div></div><div class="kouki"><div class="from"><span class="avatar" style="background:var(--accent)">サ</span>ササキチさんからのイベント後記 <span class="tag prem">PREMIUM</span></div><p>皆さん今日はお疲れ様でした！4時間、最高に楽しかったです。最後の盆踊りで全員が輪になった瞬間は忘れません。また来年！</p><div class="replies"><b>ケンタP</b> お疲れ様でした！／<b>まいまい⊿</b> あの選曲最高でした🙌／<b>+12件</b></div></div></div>'
+ 'mix-lemoned':'<div class="card perform"><div class="ev-title"><span class="ev-date">9/6 SAT</span><b>hideプレゼンツ MIX LEMONeD JELLY</b><span class="tag pk">出演</span></div><p class="ev-meta">🎤 DJ ササキチ ほか ／ 参加表明 <b style="color:var(--accent)">34人</b></p><div class="golist"><span class="gochip"><img class="avatar" src="faces/rin.jpg" alt="">Rin_beat</span><span class="gochip"><img class="avatar" src="faces/maimai.jpg" alt="">まいまい⊿</span><span class="gochip cam"><img class="avatar" src="faces/camera.jpg" alt="">カメラマン 2人</span><span class="gochip">+30人</span></div><button class="joinbtn" disabled style="opacity:.5">あなたは出演者です</button></div>',
+ 'acosta':'<div class="card"><div class="ev-title"><span class="ev-date">8/9 SUN</span><b>アコスタ池袋</b><span class="tag gd">コスプレ</span></div><p class="ev-meta">参加表明すると「何のコスで・何人で」がみんなに見える（カメラマンは別マーク）</p><div class="golist"><span class="gochip"><img class="avatar" src="faces/yuzuniwa.jpg" alt="">ゆず庭：ラブライブ！/高坂穂乃果・3人合わせ</span><span class="gochip want">⚡ 園田海未役 あと1人募集</span><span class="gochip cam"><img class="avatar" src="faces/camera.jpg" alt="">カメコ参加 2人</span></div><button class="joinbtn" id="join-acosta">🙋 参加表明する</button></div>',
+ 'tsukuba':'<div class="card"><div class="ev-title"><span class="ev-date">7/26</span><b>つくばキッズ盆踊り</b><span class="tag gd">DJ 4時間</span></div><div class="review"><div class="ph a"></div><div><div class="who">まいまい⊿ の現地レポ 📸</div><p>メインステージの盆踊り、大人も子どもも全員踊ってた。<b>この一体感は現地じゃないと分からない！</b></p></div></div><div class="review"><div class="ph b"></div><div><div class="who">ケンタP の現地レポ 📸</div><p>お菓子配りタイムの行列。来年も家族で来ます</p></div></div><div class="kouki"><div class="from"><img class="avatar" src="faces/sasakichi.jpg" alt="">ササキチさんからのイベント後記 <span class="tag prem">PREMIUM</span></div><p>皆さん今日はお疲れ様でした！4時間、最高に楽しかったです。最後の盆踊りで全員が輪になった瞬間は忘れません。また来年！</p><div class="replies"><b>ケンタP</b> お疲れ様でした！／<b>まいまい⊿</b> あの選曲最高でした🙌／<b>+12件</b></div></div></div>'
 };
 function evParseDate(s){var p=s.split('-');return new Date(+p[0],+p[1]-1,+p[2]);}
 function evDaysBetween(s){return Math.round((evParseDate(s)-TODAY_DATE)/86400000);}
@@ -720,6 +656,21 @@ var SPOTS={
  stu1:{t:'🎧 スタジオ・ネイロ（サンプル）',tag:'tl',body:'コスパフォ練習OK ／ 鏡張り ／ 1h ¥2,400',list:[['本日','15:00〜 空きあり']],cta:'予約する'},
  idle1:{t:'☕ 喫茶ロータス（サンプル）',tag:'gd',body:'アイドルタイム 15:00-18:00 貸出OK ／ 「ササキチカフェ」のような貸切イベント歓迎',list:[['8月','土日の午後に空きあり']],cta:'問い合わせる'},
  idle2:{t:'☕ まぜ麺店 2F（サンプル）',tag:'gd',body:'平日昼のみ ／ 15席 ／ 撮影利用の相談可',list:[],cta:'問い合わせる'}};
+var PINS={box1:{ll:[35.7016,139.7692],k:'箱',c:'#CE2B5F',n:42,lb:'GEKKO'},
+ box2:{ll:[35.7009,139.7738],k:'箱',c:'#CE2B5F',n:18,lb:'雷鳴'},
+ stu1:{ll:[35.6986,139.7694],k:'練',c:'#0E7C77',n:9,lb:'ネイロ'},
+ idle1:{ll:[35.6979,139.7724],k:'空',c:'#B98A2E',n:5,lb:'ロータス'},
+ idle2:{ll:[35.7000,139.7713],k:'空',c:'#B98A2E',n:3,lb:'まぜ麺店'}};
+var egoMap=L.map('map-canvas',{zoomControl:false,attributionControl:true}).setView([35.6998,139.7712],16);
+L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',{maxZoom:18,attribution:'<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院</a>'}).addTo(egoMap);
+var markers={};
+Object.keys(PINS).forEach(function(id){var p=PINS[id];
+  var html='<div class="pin" data-id="'+id+'" data-tag="'+SPOTS[id].tag+'" style="--c:'+p.c+'"><div class="shape"></div><div class="k">'+p.k+'</div><div class="n">'+p.n+'</div><div class="lb">'+p.lb+'</div></div>';
+  markers[id]=L.marker(p.ll,{icon:L.divIcon({className:'pinwrap',html:html,iconSize:[26,34],iconAnchor:[13,34]}),title:p.lb,keyboard:true}).addTo(egoMap)
+    .on('click',function(ev){L.DomEvent.stop(ev);selectSpot(id);});
+});
+document.getElementById('zin').addEventListener('click',function(){egoMap.zoomIn();});
+document.getElementById('zout').addEventListener('click',function(){egoMap.zoomOut();});
 function selectSpot(id,expand){
   document.querySelectorAll('.pin').forEach(function(x){x.classList.toggle('sel',x.dataset.id===id)});
   document.querySelectorAll('.mcard').forEach(function(x){x.classList.toggle('on',x.dataset.id===id)});
@@ -732,27 +683,21 @@ function selectSpot(id,expand){
    (rows?'<ul class="today">'+rows+'</ul>':'')+
    '<div class="actions" style="margin-top:10px"><button class="main offer">'+s.cta+'</button></div></div>';
   bindOffers();
-  if(expand!==false)document.getElementById('map-sheet').classList.add('expanded');
+  if(expand!==false){document.getElementById('map-sheet').classList.add('expanded');egoMap.panTo(PINS[id].ll);}
 }
-document.querySelectorAll('.pin').forEach(function(p){
-  p.addEventListener('click',function(){selectSpot(p.dataset.id)});
-  p.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();p.click();}});
-});
 document.querySelectorAll('.mcard').forEach(function(c){
   c.addEventListener('click',function(){selectSpot(c.dataset.id)});
   c.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();c.click();}});
 });
 selectSpot('box1',false);
 // bottom sheet: tap map canvas (not a pin) to collapse back to peek; tap handle to toggle
-document.getElementById('map-canvas').addEventListener('click',function(e){
-  if(!e.target.closest('.pin'))document.getElementById('map-sheet').classList.remove('expanded');
-});
+egoMap.on('click',function(){document.getElementById('map-sheet').classList.remove('expanded');});
 document.getElementById('sheet-handle').addEventListener('click',function(){
   document.getElementById('map-sheet').classList.toggle('expanded');
 });
 // recenter button (mock)
 document.getElementById('recenter-btn').addEventListener('click',function(){
-  alert('（モック）範囲内のピンが更新されました');});
+  egoMap.fitBounds(L.latLngBounds(Object.keys(PINS).map(function(k){return PINS[k].ll})).pad(0.35));});
 // full-bleed map layer needs the real rendered header height
 function setHeadH(){document.documentElement.style.setProperty('--headh',document.querySelector('header').offsetHeight+'px');}
 setHeadH();
@@ -764,7 +709,7 @@ document.querySelectorAll('.legend .filt').forEach(function(c){c.addEventListene
   if(activeTags.has(t))activeTags.delete(t);else activeTags.add(t);
   c.classList.toggle('off',!activeTags.has(t));
   var show=activeTags.size?activeTags:new Set(['pk','tl','gd']);
-  document.querySelectorAll('.pin').forEach(function(p){p.style.display=show.has(p.dataset.tag)?'':'none';});
+  document.querySelectorAll('.pin').forEach(function(p){p.classList.toggle('hide',!show.has(p.dataset.tag));});
   document.querySelectorAll('.mcard').forEach(function(x){x.style.display=show.has(x.dataset.tag)?'':'none';});
 });});
 // generic mock buttons
