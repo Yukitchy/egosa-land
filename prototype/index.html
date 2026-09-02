@@ -319,6 +319,59 @@ body[data-skin="fable"] .m-acts span:nth-child(4){margin-left:auto}
 body[data-skin="fable"] .bizbtn{margin-left:auto;background:var(--ink);color:#fff;border:none;border-radius:999px;padding:6px 12px;font-size:13px}
 body[data-skin="fable"] .bizbtn.added{background:#EFE9E0;color:#6B655B}
 body[data-skin="fable"] .card.neg{background:#F4EFE7}
+
+/* ===== 全画面スキン（ヘッダー・ナビ・4タブ共通） ===== */
+.skinbar{margin:8px 0 0}
+body[data-skin="threads"],body[data-skin="hype"]{--bg:#fff;--surface:#fff;--rule:#E9E9E9;--rule-strong:#CFCFCF;--accent:#1D2125;--accent-tint:#F0F0F0;--gold:#3A3F45;--gold-tint:#F0F0F0;--teal:#3A3F45;--blue:#3A3F45;--blue-tint:#F0F0F0;--deco:transparent;background:#fff}
+body[data-skin="fable"]{--bg:#FAF7F2;--surface:#fff;--rule:#EFE9E0;--rule-strong:#D9D0C3;--accent:#1D2125;--accent-tint:#F1ECE4;--gold:#B98A2E;--gold-tint:#F5E6C8;--blue:#3E6D96;--blue-tint:#E7EEF3;--deco:transparent;background:#FAF7F2}
+body[data-skin="threads"] header,body[data-skin="hype"] header{background:rgba(255,255,255,.92)}
+body[data-skin="fable"] header{background:rgba(250,247,242,.92)}
+body[data-skin="threads"] .me,body[data-skin="fable"] .me{border:none;background:none;padding-left:0}
+body[data-skin="hype"] .me{border:1.5px solid var(--ink)}
+body[data-skin="threads"] .bottomnav,body[data-skin="hype"] .bottomnav{border-top:1px solid #E9E9E9;box-shadow:none}
+body[data-skin="fable"] .bottomnav{background:#FAF7F2;border-top:1px solid #EFE9E0;box-shadow:none}
+body[data-skin="threads"] .bottomnav button,body[data-skin="hype"] .bottomnav button,body[data-skin="fable"] .bottomnav button{color:#8A8F96}
+body[data-skin="threads"] .bottomnav button.on,body[data-skin="hype"] .bottomnav button.on,body[data-skin="fable"] .bottomnav button.on{color:var(--ink)}
+body[data-skin="threads"] .actions button.main,body[data-skin="hype"] .actions button.main,body[data-skin="fable"] .actions button.main{background:var(--ink);border-color:var(--ink);color:#fff}
+body[data-skin="threads"] .tag,body[data-skin="hype"] .tag{background:#F0F0F0;color:#3A3F45}
+body[data-skin="threads"] .tag.prem,body[data-skin="hype"] .tag.prem,body[data-skin="fable"] .tag.prem{background:var(--ink);color:#fff}
+body[data-skin="threads"] .mcard.on,body[data-skin="hype"] .mcard.on{background:#F5F5F5;border-color:var(--ink)}
+body[data-skin="threads"] .mcard .mn,body[data-skin="hype"] .mcard .mn,body[data-skin="fable"] .mcard .mn{background:var(--ink)}
+body[data-skin="threads"] .ev-date,body[data-skin="hype"] .ev-date,body[data-skin="fable"] .ev-date{color:var(--ink)}
+body[data-skin="threads"] .card.perform,body[data-skin="hype"] .card.perform,body[data-skin="fable"] .card.perform{border-left-color:var(--ink)}
+body[data-skin="threads"] .cal-day.has-perform,body[data-skin="hype"] .cal-day.has-perform{background:#F0F0F0}
+body[data-skin="threads"] .cal-day.today .dnum,body[data-skin="hype"] .cal-day.today .dnum,body[data-skin="fable"] .cal-day.today .dnum{color:var(--ink)}
+body[data-skin="threads"] .kouki,body[data-skin="hype"] .kouki,body[data-skin="fable"] .kouki{border-left-color:var(--ink)}
+/* A Threads: 全体が白・ヘアライン・丸アバター */
+body[data-skin="threads"] .avatar{border-radius:50%}
+body[data-skin="threads"] h2{font-size:17px}
+body[data-skin="threads"] .bottomnav button .ico{filter:grayscale(1)}
+body[data-skin="threads"] .bottomnav button.on .ico{filter:none}
+/* B HYPE: 角を立てる・見出し太く大きく */
+body[data-skin="hype"] .chip,body[data-skin="hype"] .tag,body[data-skin="hype"] .bizbtn,body[data-skin="hype"] .actions button,body[data-skin="hype"] .me,body[data-skin="hype"] .mcard,body[data-skin="hype"] .gochip,body[data-skin="hype"] .cal-nav,body[data-skin="hype"] .skin,body[data-skin="hype"] .map-search,body[data-skin="hype"] .recenter-btn,body[data-skin="hype"] .tag.filt,body[data-skin="hype"] .cal-day,body[data-skin="hype"] .negbar button,body[data-skin="hype"] .card.perform{border-radius:4px}
+body[data-skin="hype"] .logo{font-size:20px;letter-spacing:-.02em}
+body[data-skin="hype"] .me{white-space:nowrap}
+body[data-skin="hype"] .me small{display:none}
+body[data-skin="hype"] h2{font-size:22px;letter-spacing:-.02em;font-weight:900}
+body[data-skin="hype"] .ev-title b{font-size:17px;font-weight:900}
+body[data-skin="hype"] .minfo b{font-size:18px;font-weight:900}
+body[data-skin="hype"] .port h3{font-size:18px;font-weight:900}
+body[data-skin="hype"] .bottomnav button{font-weight:800;letter-spacing:.04em}
+body[data-skin="hype"] .avatar{border-radius:50%}
+body[data-skin="hype"] .tag{text-transform:uppercase;letter-spacing:.08em;font-size:12.5px;padding:2px 7px}
+/* C Fable: 温かい地に白い丸カード */
+body[data-skin="fable"] .card{background:#fff;border:none;border-radius:16px;padding:14px;margin:10px 0}
+body[data-skin="fable"] .card.perform{border-left:2px solid var(--ink);padding-left:12px}
+body[data-skin="fable"] .avatar{border-radius:50%}
+body[data-skin="fable"] .mcard{border-radius:16px;border:none;background:#FAF7F2}
+body[data-skin="fable"] .mcard.on{background:#F1ECE4}
+body[data-skin="fable"] .chip{border-color:#E6DFD4;background:#fff;color:#6B655B}
+body[data-skin="fable"] .chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+body[data-skin="fable"] .tag{background:#F1ECE4;color:#6B655B}
+body[data-skin="fable"] .cal-day.has-perform{background:#F1ECE4}
+body[data-skin="fable"] .map-sheet{background:#FAF7F2}
+body[data-skin="fable"] .bizbtn{background:var(--ink);color:#fff;border:none;border-radius:999px}
+body[data-skin="fable"] .bizbtn.added{background:#EFE9E0;color:#6B655B}
 </style>
 
 <button id="devbar">🖥 PC幅で確認</button>
@@ -330,16 +383,16 @@ body[data-skin="fable"] .card.neg{background:#F4EFE7}
     <div class="me"><img class="avatar" src="faces/sasakichi.jpg" alt="">ササキチさん<small style="color:var(--sub)">DJ・主催</small></div>
   </div>
 </header>
-
-<main>
-<!-- ============ エゴサ ============ -->
-<section id="tab-egosa" class="on">
   <div class="skinbar" role="radiogroup" aria-label="見た目"><span>見た目</span>
     <button class="skin on" data-skin="base">現行</button>
     <button class="skin" data-skin="threads">A Threads</button>
     <button class="skin" data-skin="hype">B HYPE</button>
     <button class="skin" data-skin="fable">C Fable</button>
   </div>
+
+<main>
+<!-- ============ エゴサ ============ -->
+<section id="tab-egosa" class="on">
   <div class="sortrow"><button class="sortbtn">新しい順 ▾</button></div>
   <div class="stats">
     <div class="stat"><b>23</b><small>今週の言及</small></div>
