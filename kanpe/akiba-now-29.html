@@ -66,6 +66,26 @@
   .warnbox .t{ font-weight:800; color:var(--warn); font-size:16.2px; margin-bottom:3px; }
   a{ color:var(--accent-ink); } .urls a,.box a{ font-weight:700; text-decoration:underline; }
   @media (max-width:600px){ .page{ padding:18px 14px; } .head{ flex-direction:column; gap:6px; } }
+
+  /* 折りたたみ */
+  details{ border-bottom:1px solid var(--line); }
+  details.box{ border:1px solid var(--accent-line); background:var(--accent-soft); border-radius:12px; padding:0; margin:8px 0; overflow:hidden; }
+  details.box > .body{ padding:0 16px 12px; }
+  details.box > .body ul{ margin:0; }
+  summary{ list-style:none; cursor:pointer; display:flex; align-items:flex-start; gap:10px; padding:13px 4px; -webkit-tap-highlight-color:transparent; }
+  summary::-webkit-details-marker{ display:none; }
+  summary::after{ content:"＋"; margin-left:auto; color:var(--faint); font-weight:400; font-size:18px; line-height:1.2; flex:0 0 auto; }
+  details[open] > summary::after{ content:"－"; color:var(--accent); }
+  details.box > summary{ padding:13px 16px; margin:0; }
+  details.box > summary.t{ margin-bottom:0; }
+  details.seed > .body{ padding:0 4px 14px 4px; }
+  details.seed .mat, details.seed .src{ margin-left:0; }
+  details.ask{ padding:0; border-bottom:1px dashed var(--line); }
+  details.ask > .why{ padding:0 4px 12px 4px; margin-left:0; }
+  h2.sec{ margin-top:30px; font-size:15px; color:var(--muted); letter-spacing:.04em; border-left-width:3px; }
+  .note-top{ margin:10px 0 0; }
+  .paste .lines{ display:none; }
+  summary:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; border-radius:6px; }
 </style></head><body>
 
 <section class="page">
@@ -83,54 +103,65 @@
       <div class="kicker">収録ネタ出しドシエ</div>
       <div class="show">アキバなう ＃29</div>
       <div class="lead-src"><a href="https://x.com/sasakichi_akiba" target="_blank" rel="noopener">@sasakichi_akiba</a>　2026-09-02(火) 14:00 収録 ／ 相方=ササキチ</div>
-      <div class="subline">生成 2026-09-02（13:35更新・成果物リンク付き） ／ 直近3回 #28 hideイベント出演決定・#27 アニソン盆踊り・#26 メキシコ高校生ツアー</div>
+      <div class="subline">生成 2026-09-02（13:45更新・折りたたみ版） ／ 直近3回 #28 hideイベント出演決定・#27 アニソン盆踊り・#26 メキシコ高校生ツアー</div>
     </div>
   </div>
 
   <div class="note-top">
-    ここにあるのは「<b>こういうことが話せるんじゃない？</b>」という<b>会話の入り口だけ</b>。<br>
-    各項目は〈話せそうなテーマ〉＋〈元ネタ（実際に言っていた／起きた事実）〉です。掴みもオチもこちらでは決めていません。
+    タイトルだけ並べてあります。気になるものを押すと、元ネタと出典が開きます。
   </div>
 
   <h2 class="sec">入り口になりそうなこと｜ササキチ側</h2>
 
-  <div class="seed">
-    <div class="topic"><span class="dot">◆</span>hideのイベント本番が「4日後」になった今の話</div>
+  <details class="seed">
+    <summary class="topic">hideのイベント本番が「4日後」になった今の話</summary>
+    <div class="body">
     <div class="mat">#28（8/11公開）で出演決定を報告した <span class="q">「28年越しの夢が実現」</span>。その本番 MIX LEMONeD JELLY が <b>9/6(土)</b>＝この収録の4日後。決定報告は済んでいるので、残っているのは準備・セトリ・当日の段取りの話。</div>
     <div class="src">出典：アキバなう #28 ／ <a href="https://www.hide-city.com/feature/specialsite_mixlemonedjelly2026" target="_blank" rel="noopener">hide-city.com 特設</a> <span class="tag aired">#28で既出（角度＝決定→直前）</span></div>
-  </div>
+    </div>
+  </details>
 
-  <div class="seed">
-    <div class="topic"><span class="dot">◆</span>夏のイベント全部終わってみて、の話</div>
+  <details class="seed">
+    <summary class="topic">夏のイベント全部終わってみて、の話</summary>
+    <div class="body">
     <div class="mat">#27で、伊勢崎の炎天下で<b>5時間ぶっ通し250曲以上</b>のDJ、そのうえ<b>熱中症とインフル</b>に同時にやられたと話していた。そのとき<span class="q">「今後も恒例イベント 打ち水っ娘大集合 に参加する」</span>と表明していた分の結果がまだ番組に出ていない。</div>
     <div class="src">出典：アキバなう #27（2026-08-04） <span class="tag aired">#27で既出（角度＝その後どうなった）</span></div>
-  </div>
+    </div>
+  </details>
 
-  <div class="seed">
-    <div class="topic"><span class="dot">◆</span>「箱が先」— ライブハウスは客から探せない、という話</div>
+  <details class="seed">
+    <summary class="topic">「箱が先」— ライブハウスは客から探せない、という話</summary>
+    <div class="body">
     <div class="mat">8/5の収録後の雑談でのササキチ発言。<span class="q">「ライブハウスを知ってもらう状態で、そこにアーティストが出る一覧をみた方がいい」「箱が先」</span><span class="q">「Googleだとすごい、ちょっと調べるのに面倒くさい」</span>。インバウンドについても <span class="q">「酒飲みながらバンドが聞きてえな、みたいないっぱいいる」</span>。</div>
     <div class="src">出典：2026-08-05 収録時の会話（~/egosa-land/会話ソース.md） <span class="tag fresh">番組本編では未公開</span></div>
-  </div>
+    </div>
+  </details>
 
-  <div class="seed">
-    <div class="topic"><span class="dot">◆</span>名刺とエゴサーチの話</div>
+  <details class="seed">
+    <summary class="topic">名刺とエゴサーチの話</summary>
+    <div class="body">
     <div class="mat">同じ日の発言。<span class="q">「名刺なんて文化腐ってきてるから。みんなもうそもそも渡さないし」</span>／<span class="q">「俺なんか毎日自分でササキチって検索して」「タレントさんとかも深いとこみんなそう」</span>／<span class="q">「昔はTwitterとインスタ見ればエゴサできたんだけど、それができなくなってきてる」</span>。</div>
     <div class="src">出典：2026-08-05 収録時の会話 <span class="tag fresh">番組本編では未公開</span></div>
-  </div>
+    </div>
+  </details>
 
-  <div class="seed">
-    <div class="topic"><span class="dot">◆</span>昔あった「コスプレアーカイブ」が続かなかった話</div>
+  <details class="seed">
+    <summary class="topic">昔あった「コスプレアーカイブ」が続かなかった話</summary>
+    <div class="body">
     <div class="mat">ササキチ談。<span class="q">「コスプレアーカイブとかあったんだけど…システムが古かった」「2000年代前期みたいなホームページ」「ミクシィの劣化版」</span>。あわせて<span class="q">「いろんなアプリが秋葉で生まれたんだけど、根付かない」</span>とも。秋葉原で生まれて消えたサービスの実例は本人がいちばん見ている。</div>
     <div class="src">出典：2026-08-05 収録時の会話 <span class="tag fresh">番組本編では未公開</span></div>
-  </div>
+    </div>
+  </details>
 
   <h2 class="sec">入り口になりそうなこと｜ユウキ側（前回収録以降にあったこと）</h2>
 
-  <div class="seed">
-    <div class="topic"><span class="dot">◆</span>ゲストのために「このすば展」のチケット争奪戦に参加した話</div>
+  <details class="seed">
+    <summary class="topic">ゲストのために「このすば展」のチケット争奪戦に参加した話</summary>
+    <div class="body">
     <div class="mat">10/24ツアー予約のMattさん（コノスバの大ファン）が8/20に（<a href="https://konosuba.com/10th_anniv/exhibition/" target="_blank" rel="noopener">このすば展 公式</a>）<span class="q">「先行販売を見逃してしまいましたが、まだ何らかの方法で入場券を手に入れる可能性は…」</span>。8/26 18:00の一般販売にPC張り付きで、ツアー終了直後の15:00枠・グッズ付×3枚を確保。同行のBrianさん<span class="q">「Yeeees we bought 3tickets of Oct 24th 15:00!!!」</span>／Mattさん<span class="q">「Thanks so much for making it happen 🤘」</span></div>
     <div class="src">出典：Airbnbメッセージ 2026-08-20〜08-26／カレンダー 08-26「🎟️このすば展 一般販売スタート」 <span class="tag fresh">新</span></div>
-  </div>
+    </div>
+  </details>
 
   
 
@@ -138,41 +169,52 @@
 
   
 
-  <div class="seed">
-    <div class="topic"><span class="dot">◆</span>来年5月のツアー予約がもう入っている話</div>
+  <details class="seed">
+    <summary class="topic">来年5月のツアー予約がもう入っている話</summary>
+    <div class="body">
     <div class="mat">Viatorで8/7に2027-05-08の予約→8/12にキャンセル→8/14に2027-05-13で取り直し。9ヶ月先の秋葉原を今から押さえる人がいる。</div>
     <div class="src">出典：Viator予約メール 2026-08-07 / 08-12 / 08-14 <span class="tag fresh">新</span></div>
-  </div>
+    </div>
+  </details>
 
-  <div class="seed">
-    <div class="topic"><span class="dot">◆</span>Business Insider の取材を受けた話</div>
+  <details class="seed">
+    <summary class="topic">Business Insider の取材を受けた話</summary>
+    <div class="body">
     <div class="mat">8/27(水) 11:00「ビジネスインサイダー取材」＠喫茶室ルノアール 秋葉原電気街口店。前回の #28 収録（8月上旬）より後の出来事なので番組では未報告。</div>
     <div class="src">出典：Googleカレンダー 2026-08-27 <span class="tag fresh">新</span></div>
-  </div>
+    </div>
+  </details>
 
-  <div class="seed">
-    <div class="topic"><span class="dot">◆</span>ジブリ美術館にゲストを連れて行った話</div>
+  <details class="seed">
+    <summary class="topic">ジブリ美術館にゲストを連れて行った話</summary>
+    <div class="body">
     <div class="mat">8/19(水) 15:30「ジブリMuseum w/ Sam」。アキバの外へ出たガイド案件。</div>
     <div class="src">出典：Googleカレンダー 2026-08-19 <span class="tag fresh">新</span></div>
-  </div>
+    </div>
+  </details>
 
-  <div class="seed">
-    <div class="topic"><span class="dot">◆</span>この先1〜2週間で入っているツアーの話</div>
+  <details class="seed">
+    <summary class="topic">この先1〜2週間で入っているツアーの話</summary>
+    <div class="body">
     <div class="mat">9/7(月) 11:00「V Akibatour Jason 1名」＝1名のアキバツアー。9/11(木) 11:00「リベルタ）東京カスタマイズツアー」＝紹介会社経由のカスタム案件。どちらも収録後。</div>
     <div class="src">出典：Googleカレンダー 2026-09-07 / 09-11 <span class="tag fresh">新</span></div>
-  </div>
+    </div>
+  </details>
 
-  <div class="seed">
-    <div class="topic"><span class="dot">◆</span>自分がオタク側として並んだ、この夏〜秋の劇場・展示の話</div>
+  <details class="seed">
+    <summary class="topic">自分がオタク側として並んだ、この夏〜秋の劇場・展示の話</summary>
+    <div class="body">
     <div class="mat">8/28「劇場版 魔法少女まどか☆マギカ ワルプルギスの廻天」をチネチッタで鑑賞／9/10「バックルームズ」鑑賞予定。ゲストに聞かれる側ではなく自分が客として並んでいる側の話。</div>
     <div class="src">出典：Googleカレンダー 2026-08-28 / 09-10 <span class="tag fresh">新</span></div>
-  </div>
+    </div>
+  </details>
 
   <h2 class="sec">8月は予約が薄かったぶん、AIをゴリゴリ回していた話（ユウキ側）</h2>
   <div class="note-top">8月に手が入ったPJの記録ファイルは <b>94本</b>（Claudeの記憶フォルダの更新日で数えた実数）。以下は「話せそうなもの」だけ抜粋。全体像は → <b><a href="https://yukitchy.github.io/cm-d089c695/" target="_blank" rel="noopener">作ったものメニュー表（全部の一覧・ボタンから起動）</a></b>。数字はログの実測。</div>
 
-  <div class="box">
-    <div class="t">① ツアー現場の裏方を全部ロボット化した</div>
+  <details class="box">
+    <summary class="t">① ツアー現場の裏方を全部ロボット化した</summary>
+    <div class="body">
     <ul>
       <li><b>アキバツアー職人</b>：ゲストのアンケート回答→行程の叩き台＋昼食候補の◎×△をゲスト別カードで出す。8/20にタブUI本番稼働、サーバー機へ毎晩3時自動同期</li>
       <li><b>予約かぶり番</b>：Viator/Airbnb/GYG/Klookなど各社の予約メールをGASが読んでカレンダーへ、ツアー同士がぶつかる時だけLINE。8/28にHeadoutも対応、セルフテスト101件</li>
@@ -181,10 +223,12 @@
       <li><b>ツアー写真セレクタ</b>：100〜200枚からベスト25枚をローカルAIで自動選抜（Googleフォトの容量対策）／<b>秋葉原撮影クエスト</b>：スポット撮影の進捗ボード＋参加者限定フィールドガイド</li>
       <li><b><a href="https://tour.animesenseijp.com/" target="_blank" rel="noopener">販路を一気に広げた</a></b>：8月末にKlook（8/28却下→8/31公開）・アクティビティジャパン・楽天トラベル観光体験・Musementなど7社へ申請。<b>GEO記事</b>（AI検索対策）15本を金型監査してAnswer Block形式に統一</li>
     </ul>
-  </div>
+    </div>
+  </details>
 
-  <div class="box">
-    <div class="t">② 人と会って生まれた「サービスの種」を、その週のうちに形にした</div>
+  <details class="box">
+    <summary class="t">② 人と会って生まれた「サービスの種」を、その週のうちに形にした</summary>
+    <div class="body">
     <ul>
       <li><b><a href="https://yukitchy.github.io/egosa-land/" target="_blank" rel="noopener">エゴサランド</a></b>：8/5のこの番組の収録後の雑談から生まれ、8/6〜8/7で企画LP＋触れるプロトまで（今日見せるやつ）</li>
       <li><b><a href="https://yukitchy.github.io/shinsei-no-mikata/" target="_blank" rel="noopener">申請のミカタ</a></b>：ササキチさん発案の生活保護申請チェックリスト。提案LP＋チェックリスト本体を公開</li>
@@ -192,36 +236,43 @@
       <li><b>明君 Meikun</b>：Bokun（通称・暴君）対抗の体験ホスト向け予約コントローラー。8/9のもくもく会で命名→8/10構築→8/15から自分で使い始め、Akikoさん（横浜ラーメンツアー）が1号ユーザー候補</li>
       <li>ほか：<b><a href="https://yukitchy.github.io/minpaku-hotline/" target="_blank" rel="noopener">近所ホットライン</a></b>（港区の民泊規制パブコメへの対案LP）／<b><a href="https://yukitchy.github.io/wildstride/" target="_blank" rel="noopener">自転車版YAMAP</a></b>デモ／提案LP 2本（<a href="https://yukitchy.github.io/yoshi-teian/" target="_blank" rel="noopener">ヨシさん</a>・<a href="https://yukitchy.github.io/yanuki-teian/" target="_blank" rel="noopener">矢貫さん</a>）／<b><a href="https://yukitchy.github.io/nagi/lp.html" target="_blank" rel="noopener">ナギ</a></b>（鬱の人向け「波は、引く」アプリ）／<b><a href="https://yukitchy.github.io/home-nikki/" target="_blank" rel="noopener">三行褒め日記</a></b></li>
     </ul>
-  </div>
+    </div>
+  </details>
 
-  <div class="box">
-    <div class="t">③ Podcast側も自動化</div>
+  <details class="box">
+    <summary class="t">③ Podcast側も自動化</summary>
+    <div class="body">
     <ul>
       <li><b>ネタ帳 Phase2</b>：カレンダーの収録予定を検知して毎朝7:05に自動でカンペを作る（8/25稼働）。今日のこのカンペもその系統</li>
       <li><b><a href="https://bunko.yuukipodcast.com/akiba-now/" target="_blank" rel="noopener">Podcast文庫</a></b>：全番組532話を文字起こし→読み物化（アキバなうも「読み物として読める」導線はここ）</li>
       <li><b><a href="https://yukitchy.github.io/kitasakado-7k4e/" target="_blank" rel="noopener">坂戸ベース</a></b>：新番組（ユウキ×タクマ×大場先生）のロゴ確定・第1回公開が8/30</li>
       <li><b>podcast-director</b>：完成音源を内容・音質・編集の3点でffmpeg実測して自分で直すディレクター役</li>
     </ul>
-  </div>
+    </div>
+  </details>
 
-  <div class="box">
-    <div class="t">④ 自分の会社を「AI社員」で回す実験</div>
+  <details class="box">
+    <summary class="t">④ 自分の会社を「AI社員」で回す実験</summary>
+    <div class="body">
     <ul>
       <li><b>AI人事部</b>：必要になった役割ごとに候補者5名を面接して採用→<b>社員名簿7名</b>→<b>ユウキ商會オフィス</b>（AI社員が実データを見て小言を言う社内ダッシュボード）8/31</li>
       <li><b>PJダッシュボード</b>（同時進行は12枠までのルール・徒競走レーンで可視化）／<b>ユウキ1手リスト</b>（自分にしかできない残タスクだけ集約、261→237件に整理）／<b>しまっちゃうよおじさん</b>（毎週日曜20時にPJを1本出して1本しまう裁定BOT）</li>
       <li><b><a href="https://yukitchy.github.io/kaiyaku-ya/" target="_blank" rel="noopener">解約屋</a></b>（メールを貼るとサブスクを残す/落とすで判定）／<b>カード・マイル戦略</b>（8/21完了）／<b>株の自動売買</b>（IBKR一本化）</li>
       <li>AI自身の運用：<b>トークンABS</b>（使用量ペースの自動ブレーキ）／Claudeセッションの自動刈り取り／launchd常駐85本を掃引して3本修理（8/22）</li>
     </ul>
-  </div>
+    </div>
+  </details>
 
-  <div class="box">
-    <div class="t">⑤ 遊びにも使った</div>
+  <details class="box">
+    <summary class="t">⑤ 遊びにも使った</summary>
+    <div class="body">
     <ul>
       <li><b>アサヒ観測所</b>：森下のパチスロ店の定点観測＋高設定台推測アプリ（構築中）</li>
       <li>Becky＆Jared（10月来日リピーター）の<b>ポケパーク代理購入</b>を8/19 20:00の先着で確保／Mattさんの<b>このすば展</b>争奪（上の項目）</li>
       <li>能登（9/14〜16）・<a href="https://yukitchy.github.io/kumamoto-sauna/" target="_blank" rel="noopener">熊本サウナ旅</a>（ふっこう応援割60%オフ）の作戦ページ／<b>Business Insider Japan</b>の取材（8/27）もこの流れで受けた</li>
     </ul>
-  </div>
+    </div>
+  </details>
 </section>
 
 <section class="page">
@@ -230,57 +281,57 @@
     上＝<b>番組でそのまま面白くなる</b>質問。下＝<b>作っているものの設計が決まる</b>質問。どちらも本人に聞かないと埋まらない穴だけを並べました。順番は決めていません。
   </div>
 
-  <div class="ask">
-    <div class="q2"><span class="no">1</span>hideのイベント、オファーが来てから今日までに実際やった準備は何だったのか</div>
+  <details class="ask">
+    <summary class="q2"><span class="no">1</span>hideのイベント、オファーが来てから今日までに実際やった準備は何だったのか</summary>
     <div class="why">#28では「奇跡的なオファーの経緯」までは話し済み。準備・セトリ・LEMONeD側とのやりとりは未取得。</div>
-  </div>
-  <div class="ask">
-    <div class="q2"><span class="no">2</span>秋葉原のコスプレ運営10年で、「場所が見つからなくて流れた企画」の実例</div>
+  </details>
+  <details class="ask">
+    <summary class="q2"><span class="no">2</span>秋葉原のコスプレ運営10年で、「場所が見つからなくて流れた企画」の実例</summary>
     <div class="why">箱マップの必要性の裏付けになる一次エピソード。本人の口からしか出ない。</div>
-  </div>
-  <div class="ask">
-    <div class="q2"><span class="no">3</span>DJは今、どこにも登録していないなら、仕事はどう来ているのか</div>
+  </details>
+  <details class="ask">
+    <summary class="q2"><span class="no">3</span>DJは今、どこにも登録していないなら、仕事はどう来ているのか</summary>
     <div class="why">本人談<span class="q">「DJさんって何かに登録してる人とかしないから。DJさんを探すの大変」</span>。じゃあ今の実際の導線は何か、が未確認。</div>
-  </div>
-  <div class="ask">
-    <div class="q2"><span class="no">4</span>秋葉原で生まれて消えていったサービスを、他にどれだけ見てきたか</div>
+  </details>
+  <details class="ask">
+    <summary class="q2"><span class="no">4</span>秋葉原で生まれて消えていったサービスを、他にどれだけ見てきたか</summary>
     <div class="why">本人談<span class="q">「いろんなアプリが秋葉で生まれたんだけど、根付かない」「秋葉に特化した上に使われない」</span>。名前が挙がるほど番組としても濃い。</div>
-  </div>
-  <div class="ask">
-    <div class="q2"><span class="no">5</span>海外から来たレイヤー／バンド好きは、実際どうやって箱を探しているのか</div>
+  </details>
+  <details class="ask">
+    <summary class="q2"><span class="no">5</span>海外から来たレイヤー／バンド好きは、実際どうやって箱を探しているのか</summary>
     <div class="why">本人談<span class="q">「ライブハウスに行きたいインバウンドの人たち」</span>。ユウキ側のツアー客の実例と突き合わせられる。</div>
-  </div>
+  </details>
 
   <h2 class="sec">↓ ここからは「作っているものの仕様が決まる」質問</h2>
 
-  <div class="ask">
-    <div class="q2"><span class="no">6</span>最初に載せる箱、ササキチの声がけで何軒いけるか（ライブハウス／スタジオ／飲食店の空き時間）</div>
+  <details class="ask">
+    <summary class="q2"><span class="no">6</span>最初に載せる箱、ササキチの声がけで何軒いけるか（ライブハウス／スタジオ／飲食店の空き時間）</summary>
     <div class="why">箱マップは初期データが全て。人力で何軒集まるかで、作るものの規模が決まる。</div>
-  </div>
-  <div class="ask">
-    <div class="q2"><span class="no">7</span>「ササキチカフェをやりたい人とのマッチング」は、需要側は誰なのか</div>
+  </details>
+  <details class="ask">
+    <summary class="q2"><span class="no">7</span>「ササキチカフェをやりたい人とのマッチング」は、需要側は誰なのか</summary>
     <div class="why">本人談<span class="q">「空き時間物件みたいな、飲食店の」「生誕イベント・バースデーイベントの場所探し」</span>。借りたい側が主催者なのか演者本人なのかで画面が変わる。</div>
-  </div>
-  <div class="ask">
-    <div class="q2"><span class="no">8</span>「個人マッチングはやらない」の線引きの再確認</div>
+  </details>
+  <details class="ask">
+    <summary class="q2"><span class="no">8</span>「個人マッチングはやらない」の線引きの再確認</summary>
     <div class="why">8/5に本人が明言したのは<span class="q">「（カメコ×レイヤーは）トラブルになった時に怖いんで、あんまりそこは」</span>＝<b>人と人</b>のマッチングはやらない。一方で<b>演者×箱（場所）</b>のマッチングはやる、という整理で合っているかは未確認。</div>
-  </div>
-  <div class="ask">
-    <div class="q2"><span class="no">9</span>DJ名鑑、最初に登録してくれそうな人は何人いるか</div>
+  </details>
+  <details class="ask">
+    <summary class="q2"><span class="no">9</span>DJ名鑑、最初に登録してくれそうな人は何人いるか</summary>
     <div class="why">本人談<span class="q">「タレント名鑑のDJ版」</span>。実名が何人出るかで、出すか畳むかが決まる。</div>
-  </div>
-  <div class="ask">
-    <div class="q2"><span class="no">10</span>9/6のイベントを、テスト第1号に使っていいか</div>
+  </details>
+  <details class="ask">
+    <summary class="q2"><span class="no">10</span>9/6のイベントを、テスト第1号に使っていいか</summary>
     <div class="why">参加表明→レビュー→エゴサ→イベント後記を1周まわす想定だった日。<b>ただしユウキのカレンダーに9/6の予定は入っていない</b>（9/6は歯医者11:00とオンラインレッスンのみ）＝そもそも現地に行くのかが未確定。</div>
-  </div>
-  <div class="ask">
-    <div class="q2"><span class="no">11</span>名前は「エゴサランド」で確定していいか</div>
+  </details>
+  <details class="ask">
+    <summary class="q2"><span class="no">11</span>名前は「エゴサランド」で確定していいか</summary>
     <div class="why">8/5に A「じゃあエゴサランドだ」→ B「そう、エゴサランド」で仮決まりのまま、正式名称が未決。</div>
-  </div>
-  <div class="ask">
-    <div class="q2"><span class="no">12</span>生活保護のチェックリスト（申請のミカタ）は、まだ作る価値があるか</div>
+  </details>
+  <details class="ask">
+    <summary class="q2"><span class="no">12</span>生活保護のチェックリスト（申請のミカタ）は、まだ作る価値があるか</summary>
     <div class="why">ササキチが窓口で持ち帰った「用意するもの14項目」の実体験が発端。プロトは8/18から動いていない。本人が触って要否を決める段階。</div>
-  </div>
+  </details>
 </section>
 
 <section class="page">
@@ -292,18 +343,21 @@
     今作っているのは <b>演者・主催 × 場所（ライブハウス／スタジオ／飲食店の空き時間）</b> のマッチング。別物です。
   </div>
 
-  <div class="box">
-    <div class="t">8/5の収録から今日までに進んだこと</div>
+  <details class="box">
+    <summary class="t">8/5の収録から今日までに進んだこと</summary>
+    <div class="body">
     <ul>
       <li><b>8/6〜8/7：企画LPと触れるプロトタイプを作った</b>（GitHubにpush済み・8/8が最終コミット）</li>
       <li>プロトに入っている画面 ＝ 4タブ：<b>🔍エゴサ</b>（今週の言及・足あと・ポジ率・営業リスト）／<b>🎪イベント</b>（直近＋月カレンダー）／<b>🗺マップ</b>（サウナイキタイ式：全面地図＋2段ボトムシート）／<b>📖名鑑</b>（DJ名鑑・オファー）。データは全部サンプル</li>
       <li><b>8/8以降は止まっている。理由は1つ、ササキチにまだ見せていないから</b>（＝今日それを消化できる）</li>
       <li>まだ無い画面：メンバー募集板／イベント後記（プレミアム）／空き時間物件の予約導線／今週のピックアップ（広告枠）</li>
     </ul>
-  </div>
+    </div>
+  </details>
 
-  <div class="box">
-    <div class="t">今日その場で見せられるURL（4本とも生きているのを確認済み・スマホで開けます）</div>
+  <details class="box">
+    <summary class="t">今日その場で見せられるURL（4本とも生きているのを確認済み・スマホで開けます）</summary>
+    <div class="body">
     <div class="urls">
       <div><b>エゴサランド 企画資料</b>　<a href="https://yukitchy.github.io/egosa-land/" target="_blank" rel="noopener">yukitchy.github.io/egosa-land/</a></div>
       <div><b>エゴサランド プロト（箱マップ・イベント）</b>　<a href="https://yukitchy.github.io/egosa-land/prototype/" target="_blank" rel="noopener">yukitchy.github.io/egosa-land/prototype/</a></div>
@@ -311,10 +365,12 @@
       <div><b>申請のミカタ 提案LP</b>　<a href="https://yukitchy.github.io/shinsei-no-mikata/" target="_blank" rel="noopener">yukitchy.github.io/shinsei-no-mikata/</a></div>
       <div><b>申請のミカタ チェックリスト本体</b>　<a href="https://yukitchy.github.io/shinsei-no-mikata/app.html" target="_blank" rel="noopener">yukitchy.github.io/shinsei-no-mikata/app.html</a></div>
     </div>
-  </div>
+    </div>
+  </details>
 
-  <div class="box">
-    <div class="t">8/5に本人が言っていた「箱まわり」の元ネタ（見せながら照合する用）</div>
+  <details class="box">
+    <summary class="t">8/5に本人が言っていた「箱まわり」の元ネタ（見せながら照合する用）</summary>
+    <div class="body">
     <ul>
       <li><span class="q">「マップがあって、詳細があって」「行った回数とかでその人が常連さんみたいになってる」</span></li>
       <li><span class="q">「あと3ヶ月後のこのイベントにラブライブで出たいんですけど、高坂穂乃果いるんですけど、あと1人必要」「SNSだと探しづらい」</span>（＝メンバー募集板）</li>
@@ -322,7 +378,8 @@
       <li><span class="q">「参加表明が見れるのはEプラスとかぴあで有り得ない」</span>（＝競合との差）</li>
       <li>スコープ合意：<span class="q">「コスプレとエンタメとDJとかはいいかなと思います」</span>／最後の一言 <span class="q">「よし。なんかやるぞ」</span></li>
     </ul>
-  </div>
+    </div>
+  </details>
 
   <h2 class="sec">たぶん過去回で もう話したかも（触れるなら角度を変える用）　<span style="font-size:.8em;font-weight:400"><a href="https://bunko.yuukipodcast.com/akiba-now/" target="_blank" rel="noopener">過去回を読む（Podcast文庫）</a></span></h2>
   <ul class="bench">
