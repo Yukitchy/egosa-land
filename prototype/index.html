@@ -383,12 +383,6 @@ body[data-skin="fable"] .bizbtn.added{background:#EFE9E0;color:#6B655B}
     <div class="me"><img class="avatar" src="faces/sasakichi.jpg" alt="">ササキチさん<small style="color:var(--sub)">DJ・主催</small></div>
   </div>
 </header>
-  <div class="skinbar" role="radiogroup" aria-label="見た目"><span>見た目</span>
-    <button class="skin on" data-skin="base">現行</button>
-    <button class="skin" data-skin="threads">A Threads</button>
-    <button class="skin" data-skin="hype">B HYPE</button>
-    <button class="skin" data-skin="fable">C Fable</button>
-  </div>
 
 <main>
 <!-- ============ エゴサ ============ -->
@@ -866,12 +860,7 @@ document.querySelectorAll('.legend .filt').forEach(function(c){c.addEventListene
   document.querySelectorAll('.mcard').forEach(function(x){x.style.display=show.has(x.dataset.tag)?'':'none';});
 });});
 
-// 見た目切替（Refero参照3案）
-(function(){var k='egosa-skin';var v='hype';try{v=localStorage.getItem(k)||'hype'}catch(e){}
- function apply(x){document.body.dataset.skin=x;document.querySelectorAll('.skin').forEach(function(b){b.classList.toggle('on',b.dataset.skin===x)});}
- apply(v);
- document.querySelectorAll('.skin').forEach(function(b){b.addEventListener('click',function(){apply(b.dataset.skin);try{localStorage.setItem(k,b.dataset.skin)}catch(e){}});});
-})();
+
 // generic mock buttons
 function bindOffers(){document.querySelectorAll('.offer').forEach(function(b){
   if(b.dataset.bound)return;b.dataset.bound=1;

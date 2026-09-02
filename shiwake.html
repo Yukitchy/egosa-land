@@ -105,6 +105,24 @@ section:nth-of-type(4n+4)::before{top:30px;right:-40px;width:140px;height:24px;b
 footer{color:var(--sub);font-size:13px;padding:18px 0 8px}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.row2{display:flex;align-items:center;gap:10px;margin:10px 0 0 calc(1.6em + 8px)}
+.row2 .memo{margin:0;width:auto;flex:1}
+.where-btn{flex:none;appearance:none;border:2px solid var(--ink);background:var(--surface);color:var(--ink);font:inherit;font-weight:800;font-size:14px;min-height:40px;padding:0 12px;border-radius:10px;cursor:pointer}
+.modal{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.modal[hidden]{display:none}
+.modal-bg{position:absolute;inset:0;background:rgba(29,33,37,.55)}
+.modal-panel{position:relative;width:100%;max-width:640px;max-height:92vh;background:var(--surface);border-radius:18px 18px 0 0;display:flex;flex-direction:column;overflow:hidden}
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px;border-bottom:1px solid var(--rule)}
+.modal-head b{font-size:16px}
+.modal-x{appearance:none;border:0;background:var(--bg);width:36px;height:36px;border-radius:50%;font-size:16px;font-weight:800;cursor:pointer;color:var(--ink)}
+.modal-body{overflow-y:auto;padding:14px 18px calc(18px + env(safe-area-inset-bottom))}
+.modal-body img{display:block;width:100%;max-height:60vh;object-fit:contain;object-position:top;background:var(--bg);border-radius:12px}
+.modal-body img[hidden]{display:none}
+.noshot{background:var(--bg);color:var(--sub);font-weight:700;text-align:center;padding:40px 16px;border-radius:12px}
+.noshot[hidden]{display:none}
+.modal-cap{margin:12px 0 0;font-size:15px;line-height:1.7}
+@media(min-width:700px){.modal{align-items:center}.modal-panel{border-radius:18px}}
 </style>
 </head>
 <body>
@@ -133,37 +151,41 @@ footer{color:var(--sub);font-size:13px;padding:18px 0 8px}
   <button class="copy" id="copy">結果をコピー</button>
 </div></div>
 <div class="toast" id="toast">コピーしました</div>
+<div class="modal" id="modal" hidden><div class="modal-bg"></div><div class="modal-panel" role="dialog" aria-modal="true">
+  <div class="modal-head"><b id="modal-title"></b><button type="button" class="modal-x" id="modal-x" aria-label="閉じる">✕</button></div>
+  <div class="modal-body"><img id="modal-img" alt=""><div class="noshot" id="modal-noshot">まだ画面はありません</div><p class="modal-cap" id="modal-cap"></p></div>
+</div></div>
 
 <script>
 // ── 機能一覧（元ネタ＝8/5の会話の生引用） ──
 const GROUPS = [
  { id:'egosa', title:'🔍 エゴサ', where:'プロトにある（エゴサ画面）', items:[
-  { id:'dash',   name:'エゴサダッシュボード', what:'自分への言及・足あと・ポジ率を1画面で見る', q:'俺なんか毎日自分でササキチって検索して／ミクシーで言うとこの足跡とかも含めて知りたいの' },
-  { id:'filter', name:'ネガ自動フィルタ＋ブロック', what:'嫌なコメントは自動で隠す。見ようと思えば見られる', q:'自分的にやだなって思ったらブロック／逆に把握できるじゃん、こいつやべえみたいな' },
-  { id:'sales',  name:'営業リスト（言及者にチェック→一斉送信）', what:'自分に触れてくれた人をリスト化して次のイベント案内を送る', q:'自分に興味ある人はチェック入れといて一斉送信で／名刺なんて文化腐ってきてるから' },
+  { id:'dash',   name:'エゴサダッシュボード', what:'自分への言及・足あと・ポジ率を1画面で見る', q:'俺なんか毎日自分でササキチって検索して／ミクシーで言うとこの足跡とかも含めて知りたいの', shot:'dash', cap:'エゴサ画面のいちばん上。「今週の言及・足あと・ポジ率・営業リスト」の4つの数字がこの機能' },
+  { id:'filter', name:'ネガ自動フィルタ＋ブロック', what:'嫌なコメントは自動で隠す。見ようと思えば見られる', q:'自分的にやだなって思ったらブロック／逆に把握できるじゃん、こいつやべえみたいな', shot:'filter', cap:'エゴサ画面で「⚠ フィルタ済み 2件を表示」を押すと出てくる灰色の投稿。🛡の下に「表示する／ブロック／削除依頼」' },
+  { id:'sales',  name:'営業リスト（言及者にチェック→一斉送信）', what:'自分に触れてくれた人をリスト化して次のイベント案内を送る', q:'自分に興味ある人はチェック入れといて一斉送信で／名刺なんて文化腐ってきてるから', shot:'sales', cap:'各投稿の右下「＋営業リスト」。押すと画面下の帯にたまり、「9/6の案内を一斉送信」でまとめて送る' },
  ]},
  { id:'events', title:'🎪 イベント', where:'プロトにある（イベント画面）', items:[
-  { id:'cal',    name:'イベントカレンダー（直近＋月）', what:'今日・今週・来週以降と、月のカレンダー検索', q:'どこで何が今日やってるのか。コスプレカレンダー／いつまでに参加申し込みの締め切りが分かるとなお' },
-  { id:'rsvp',   name:'参加表明（何のコスで何人・カメコ別マーク）', what:'ツイプラの足りない部分を足したもの', q:'なんのコスプレで、何人で参加します／カメラマンも別でマーク付けといて／カメコも行きやすい' },
-  { id:'evrev',  name:'イベントレビュー（画像つき）', what:'行ってきたよ報告。合わせの記録', q:'今週のアコスタ行ってきたよレビュー／画像貼れて／今日ここで合わせしてきました' },
+  { id:'cal',    name:'イベントカレンダー（直近＋月）', what:'今日・今週・来週以降と、月のカレンダー検索', q:'どこで何が今日やってるのか。コスプレカレンダー／いつまでに参加申し込みの締め切りが分かるとなお', shot:'cal', cap:'イベント画面で「カレンダー」を選ぶと出る月表示。色の付いた日がイベント、〆は申込締切' },
+  { id:'rsvp',   name:'参加表明（何のコスで何人・カメコ別マーク）', what:'ツイプラの足りない部分を足したもの', q:'なんのコスプレで、何人で参加します／カメラマンも別でマーク付けといて／カメコも行きやすい', shot:'rsvpcard', cap:'イベント画面「直近」の各イベント。「ゆず庭：ラブライブ！/高坂穂乃果・3人合わせ」「カメコ参加 2人」が参加表明の中身' },
+  { id:'evrev',  name:'イベントレビュー（画像つき）', what:'行ってきたよ報告。合わせの記録', q:'今週のアコスタ行ってきたよレビュー／画像貼れて／今日ここで合わせしてきました', shot:'ended', cap:'イベント画面の下の「💌 終わったイベント 後記とレビュー」。行った人のレビューがここに並ぶ想定（プロトは1件のサンプル）' },
  ]},
  { id:'map', title:'🗺 マップ（箱）', where:'プロトにある（マップ画面）', items:[
-  { id:'hako',   name:'箱マップ（地図→一覧→詳細・常連度）', what:'ライブハウス・イベント会場を地図から探す。サウナイキタイ式', q:'箱が先／Googleだとすごい、ちょっと調べるのに面倒くさい／行った回数とかでその人が常連さんみたいになってる' },
-  { id:'idle',   name:'空き時間物件（飲食店のアイドルタイム）', what:'店の空き時間と、イベントをやりたい人をつなぐ', q:'ササキチカフェやりたい人とのマッチング／生誕イベント・バースデーイベントの場所探し' },
-  { id:'shop',   name:'スタジオ・ショップリスト', what:'練習場所と衣装・小道具の店を箱と同じ地図に載せる', q:'コスプレに必要なショップリストと、練習するスタジオとか、関連したものがくっつけれたら' },
-  { id:'shoprev',name:'店へのオタク目線レビュー／思い出記事', what:'Googleマップに書けない「その週のコラボ」を書く場所', q:'今週はFGOのコラボやってたから…それをレビューには書けない／海外の人が思い出として記事を書いて残して欲しい' },
-  { id:'inb',    name:'インバウンド向け表示（英語）', what:'酒を飲みながらバンドを聴きたい海外客が箱を探せる', q:'ライブハウスに行きたいインバウンドの人たちが探しやすいのかな／酒飲みながらバンドが聞きてえな、みたいないっぱいいる' },
+  { id:'hako',   name:'箱マップ（地図→一覧→詳細・常連度）', what:'ライブハウス・イベント会場を地図から探す。サウナイキタイ式', q:'箱が先／Googleだとすごい、ちょっと調べるのに面倒くさい／行った回数とかでその人が常連さんみたいになってる', shot:'hako', cap:'マップ画面そのもの。赤＝箱、緑＝練習スタジオ、金＝空き時間物件。数字は今週の言及数' },
+  { id:'idle',   name:'空き時間物件（飲食店のアイドルタイム）', what:'店の空き時間と、イベントをやりたい人をつなぐ', q:'ササキチカフェやりたい人とのマッチング／生誕イベント・バースデーイベントの場所探し', shot:'idle', cap:'マップで金色の「空」ピンを押すと下から出るシート。空いている時間と「問い合わせる」' },
+  { id:'shop',   name:'スタジオ・ショップリスト', what:'練習場所と衣装・小道具の店を箱と同じ地図に載せる', q:'コスプレに必要なショップリストと、練習するスタジオとか、関連したものがくっつけれたら', shot:'shop', cap:'マップの緑「練」ピンが練習スタジオ。ショップ（衣装・小道具の店）はまだピンが無い。作るならこの地図に足す' },
+  { id:'shoprev',name:'店へのオタク目線レビュー／思い出記事', what:'Googleマップに書けない「その週のコラボ」を書く場所', q:'今週はFGOのコラボやってたから…それをレビューには書けない／海外の人が思い出として記事を書いて残して欲しい', shot:null, cap:'まだ画面はありません。マップの各店のシートに「レビューを書く」が付く想定' },
+  { id:'inb',    name:'インバウンド向け表示（英語）', what:'酒を飲みながらバンドを聴きたい海外客が箱を探せる', q:'ライブハウスに行きたいインバウンドの人たちが探しやすいのかな／酒飲みながらバンドが聞きてえな、みたいないっぱいいる', shot:null, cap:'まだ画面はありません。マップ画面の英語版（表示言語の切替）になる想定' },
  ]},
  { id:'dir', title:'📖 名鑑・募集', where:'プロトにある（名鑑画面）', items:[
-  { id:'djdir',  name:'DJ／演者名鑑（ポートフォリオ＋オファー）', what:'タレント名鑑のDJ版。動画・連絡・営業をワンストップ', q:'DJさんって何かに登録してる人とかしないから。DJさんを探すの大変／タレント名鑑のDJ版' },
-  { id:'team',   name:'コスパフォのチーム登録', what:'チーム単位でプロフィールを持ち、オファーを受ける', q:'コスパフォのチームが登録できたらすごい楽／オファーしやすい' },
-  { id:'recruit',name:'メンバー募集板', what:'「あと1人足りない」を出す場所', q:'あと3ヶ月後のこのイベントにラブライブで出たいんですけど、高坂穂乃果いるんですけど、あと1人必要／SNSだと探しづらい' },
+  { id:'djdir',  name:'DJ／演者名鑑（ポートフォリオ＋オファー）', what:'タレント名鑑のDJ版。動画・連絡・営業をワンストップ', q:'DJさんって何かに登録してる人とかしないから。DJさんを探すの大変／タレント名鑑のDJ版', shot:'djdir', cap:'名鑑画面のいちばん上。DJ ササキチのカード＝経歴・実績・「オファーする」「動画ポートフォリオ」' },
+  { id:'team',   name:'コスパフォのチーム登録', what:'チーム単位でプロフィールを持ち、オファーを受ける', q:'コスパフォのチームが登録できたらすごい楽／オファーしやすい', shot:'team', cap:'名鑑画面の2枚目。コスパフォチーム COSMOS のカード（人数・ステージ動画・オファー）' },
+  { id:'recruit',name:'メンバー募集板', what:'「あと1人足りない」を出す場所', q:'あと3ヶ月後のこのイベントにラブライブで出たいんですけど、高坂穂乃果いるんですけど、あと1人必要／SNSだと探しづらい', shot:'recruit', cap:'名鑑画面の下「⚡ 募集板」。「ラブライブ！合わせ 園田海未役 あと1人」がこれ' },
  ]},
  { id:'future', title:'💴 まだ画面が無いもの（構想だけ）', where:'プロトに無い', none:true, items:[
-  { id:'koki',   name:'イベント後記（プレミアム課金）', what:'終わった後に演者と観客が「お疲れ」を言い合う場。ここを有料に', q:'みんなね、あのイベントお疲れ、お疲れが言われたい／今日のライブのあのシーンのあそこ最高でした' },
-  { id:'pickup', name:'今週のピックアップ＝広告枠／ニュース', what:'メディア面。広告をもらってピックアップに出す', q:'今週のピックアップみたいな。それが広告もらえればピックアップでここに出すよ／ニュースサイトもありつつ' },
-  { id:'akibacal',name:'秋葉報告カレンダー', what:'「今日秋葉でこれしてきた」を上げてもらう。誰が来ていたかが分かる', q:'今日秋葉でこういうのしてきたよを上げてもらう／今日こういう人たちが秋葉に来てましたってのが分かる。マーケティングにもなる' },
-  { id:'genre',  name:'ジャンル拡張（バンド・アイドル・アミューズメント）', what:'コスプレ×DJ×バンド箱の外へ広げる', q:'エンタメに一番パーンて作って、そこにジャンルで。バンド、アイドル、コスプレって作れば全部網羅／最終的にアミューズメントも' },
+  { id:'koki',   name:'イベント後記（プレミアム課金）', what:'終わった後に演者と観客が「お疲れ」を言い合う場。ここを有料に', q:'みんなね、あのイベントお疲れ、お疲れが言われたい／今日のライブのあのシーンのあそこ最高でした', shot:'ended', cap:'イベント画面の「終わったイベント」に付く「後記」の枠。演者から参加者へのお疲れ＋返信。ここが有料になる想定' },
+  { id:'pickup', name:'今週のピックアップ＝広告枠／ニュース', what:'メディア面。広告をもらってピックアップに出す', q:'今週のピックアップみたいな。それが広告もらえればピックアップでここに出すよ／ニュースサイトもありつつ', shot:null, cap:'まだ画面はありません。トップに「今週のピックアップ」枠を置き、広告として売る想定' },
+  { id:'akibacal',name:'秋葉報告カレンダー', what:'「今日秋葉でこれしてきた」を上げてもらう。誰が来ていたかが分かる', q:'今日秋葉でこういうのしてきたよを上げてもらう／今日こういう人たちが秋葉に来てましたってのが分かる。マーケティングにもなる', shot:null, cap:'まだ画面はありません。「今日秋葉でこれしてきた」を上げる日別の一覧になる想定' },
+  { id:'genre',  name:'ジャンル拡張（バンド・アイドル・アミューズメント）', what:'コスプレ×DJ×バンド箱の外へ広げる', q:'エンタメに一番パーンて作って、そこにジャンルで。バンド、アイドル、コスプレって作れば全部網羅／最終的にアミューズメントも', shot:null, cap:'まだ画面はありません。今はコスプレ×DJ×バンド箱だけ。増やすならジャンル切替がヘッダーに付く想定' },
  ]},
 ];
 const FIXED = [
@@ -194,7 +216,7 @@ function render(){
         <div class="what">${esc(it.what)}</div>
         <div class="quote"><b>ササキチ</b>「${esc(it.q)}」</div>
         <div class="tri">${['iru','ato','iranai'].map(k=>`<button type="button" data-v="${k}" class="${v===k?'on':''}">${LABEL[k]}</button>`).join('')}</div>
-        <input class="memo" placeholder="ひとこと（変えたい所・条件など）" value="${esc(m)}">
+        <div class="row2"><button type="button" class="where-btn" data-where="${it.id}">🖼 プロトのどこ？</button><input class="memo" placeholder="ひとこと（変えたい所・条件など）" value="${esc(m)}"></div>
       </div>`;
     });
     h+=`</div></section>`;
@@ -229,6 +251,20 @@ document.getElementById('app').addEventListener('click',e=>{
     box.querySelectorAll('.choices button').forEach(x=>x.classList.toggle('on',x.dataset.c===state[id].v)); }
   save(); tally();
 });
+const ALL=[].concat(...GROUPS.map(g=>g.items));
+function openWhere(id){
+  const it=ALL.find(x=>x.id===id); if(!it) return;
+  document.getElementById('modal-title').textContent=it.name;
+  const img=document.getElementById('modal-img'), no=document.getElementById('modal-noshot');
+  if(it.shot){ img.src='shiwake-shots/'+it.shot+'.png'; img.hidden=false; no.hidden=true; } else { img.removeAttribute('src'); img.hidden=true; no.hidden=false; }
+  document.getElementById('modal-cap').textContent=it.cap||'';
+  document.getElementById('modal').hidden=false; document.body.style.overflow='hidden';
+}
+function closeWhere(){ document.getElementById('modal').hidden=true; document.body.style.overflow=''; }
+document.getElementById('app').addEventListener('click',e=>{ const b=e.target.closest('.where-btn'); if(b) openWhere(b.dataset.where); });
+document.getElementById('modal-x').addEventListener('click',closeWhere);
+document.querySelector('.modal-bg').addEventListener('click',closeWhere);
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeWhere(); });
 document.getElementById('app').addEventListener('input',e=>{
   const m=e.target.closest('.memo'); if(!m) return;
   const id=m.closest('[data-id]').dataset.id; state[id]=state[id]||{}; state[id].m=m.value; save();
