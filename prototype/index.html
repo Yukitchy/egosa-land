@@ -1064,7 +1064,7 @@ function closeMore(){
 }
 document.querySelectorAll('.more-h').forEach(function(h){h.addEventListener('click',function(){openMore(h.closest('.more'));});});
 document.getElementById('more-back').addEventListener('click',closeMore);
-document.querySelectorAll('.bottomnav button').forEach(function(b){b.addEventListener('click',function(){ if(b.dataset.tab!=='more') closeMore(); });});
+document.querySelectorAll('.bottomnav button').forEach(function(b){b.addEventListener('click',function(){ closeMore(); });});
 // 画面ごとの小さな操作
 document.addEventListener('click',function(e){
   var t=e.target.closest('.tst'); if(t){toast(t.dataset.t||'（モック）');return;}
