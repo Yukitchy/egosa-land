@@ -83,7 +83,7 @@
       <div class="kicker">収録ネタ出しドシエ</div>
       <div class="show">アキバなう ＃29</div>
       <div class="lead-src"><a href="https://x.com/sasakichi_akiba" target="_blank" rel="noopener">@sasakichi_akiba</a>　2026-09-02(火) 14:00 収録 ／ 相方=ササキチ</div>
-      <div class="subline">生成 2026-09-02（13:05更新・Gmail追加・リンク版） ／ 直近3回 #28 hideイベント出演決定・#27 アニソン盆踊り・#26 メキシコ高校生ツアー</div>
+      <div class="subline">生成 2026-09-02（13:20更新・8月AI棚卸し追加） ／ 直近3回 #28 hideイベント出演決定・#27 アニソン盆踊り・#26 メキシコ高校生ツアー</div>
     </div>
   </div>
 
@@ -132,23 +132,11 @@
     <div class="src">出典：Airbnbメッセージ 2026-08-20〜08-26／カレンダー 08-26「🎟️このすば展 一般販売スタート」 <span class="tag fresh">新</span></div>
   </div>
 
-  <div class="seed">
-    <div class="topic"><span class="dot">◆</span>子連れゲストの「推し」指定がやけに具体的な話</div>
-    <div class="mat">10/20予約のJoshさん一家：<span class="q">「Koen→One Piece / Jacob→Cat gamer &amp; Capybara」</span><span class="q">「He's also big into anything capybara 😜」</span>。11/6予約のYuliaさん（デンマーク・子どもと2人）は<span class="q">「11月2日以降の日付が表示されません。後で予約可能にしていただけますか？」</span>と枠が開く前から連絡してきた。</div>
-    <div class="src">出典：Airbnbメッセージ 2026-08-28〜08-30 <span class="tag fresh">新</span></div>
-  </div>
+  
 
-  <div class="seed">
-    <div class="topic"><span class="dot">◆</span>「友達のツアーが良かったから」の紹介で問い合わせが来た話</div>
-    <div class="mat">9/1夜、別のMattさんから<span class="q">「息子とのツアーをとても楽しんでくれた親友のPhil Priceさんから、あなたの情報を受け取りました。今日または明日の空きはありますか」</span>。翌朝さらに<span class="q">「任天堂と渋谷のプライベートツアーも行っていますか？」</span>（※収録時点で未読・要返信）</div>
-    <div class="src">出典：Airbnbメッセージ 2026-09-01 / 09-02 <span class="tag fresh">新</span></div>
-  </div>
+  
 
-  <div class="seed">
-    <div class="topic"><span class="dot">◆</span>前回収録直後の2本のツアーと、届いたレビューの話</div>
-    <div class="mat">8/10(月)13:00 1名（推定：8/12に★5を付けたRoryさん<span class="q">「He was able to help me find the souvenirs I was looking for in Akihabara」</span>）／8/11(火)13:00 Matthewさん1名 → 当日中に★5<span class="q">「Wonderful tour! Recommend!」</span>、Googleフォトのアルバムを共有（<a href="https://photos.app.goo.gl/LwHVcuHr35gRcq9J7" target="_blank" rel="noopener">Matthewさんのアルバム</a>）。9/1にはViator側にも「Customized Tokyo Day」へ5.0「Akihabara and Beyond」の口コミ。</div>
-    <div class="src">出典：Airbnb通知 2026-08-11 / 08-12、Viator口コミ通知 2026-09-01（Roryさん=8/10ゲストは推定） <span class="tag fresh">新</span></div>
-  </div>
+  
 
   <div class="seed">
     <div class="topic"><span class="dot">◆</span>来年5月のツアー予約がもう入っている話</div>
@@ -178,6 +166,61 @@
     <div class="topic"><span class="dot">◆</span>自分がオタク側として並んだ、この夏〜秋の劇場・展示の話</div>
     <div class="mat">8/28「劇場版 魔法少女まどか☆マギカ ワルプルギスの廻天」をチネチッタで鑑賞／9/10「バックルームズ」鑑賞予定。ゲストに聞かれる側ではなく自分が客として並んでいる側の話。</div>
     <div class="src">出典：Googleカレンダー 2026-08-28 / 09-10 <span class="tag fresh">新</span></div>
+  </div>
+
+  <h2 class="sec">8月は予約が薄かったぶん、AIをゴリゴリ回していた話（ユウキ側）</h2>
+  <div class="note-top">8月に手が入ったPJの記録ファイルは <b>94本</b>（Claudeの記憶フォルダの更新日で数えた実数）。以下は「話せそうなもの」だけ抜粋。数字はログの実測。</div>
+
+  <div class="box">
+    <div class="t">① ツアー現場の裏方を全部ロボット化した</div>
+    <ul>
+      <li><b>アキバツアー職人</b>：ゲストのアンケート回答→行程の叩き台＋昼食候補の◎×△をゲスト別カードで出す。8/20にタブUI本番稼働、サーバー機へ毎晩3時自動同期</li>
+      <li><b>予約かぶり番</b>：Viator/Airbnb/GYG/Klookなど各社の予約メールをGASが読んでカレンダーへ、ツアー同士がぶつかる時だけLINE。8/28にHeadoutも対応、セルフテスト101件</li>
+      <li><b>Viator即時確定の安全化</b>：即時確定をONにしても事故らない土台。27日間無人稼働・事故0で8/24完成</li>
+      <li><b>hideご飯会コンシェルジュ</b>：毎週水曜Hide's Tableの予約をhideさんへスプシ共有＋ゲストへ自動メッセージ</li>
+      <li><b>ツアー写真セレクタ</b>：100〜200枚からベスト25枚をローカルAIで自動選抜（Googleフォトの容量対策）／<b>秋葉原撮影クエスト</b>：スポット撮影の進捗ボード＋参加者限定フィールドガイド</li>
+      <li><b>販路を一気に広げた</b>：8月末にKlook（8/28却下→8/31公開）・アクティビティジャパン・楽天トラベル観光体験・Musementなど7社へ申請。<b>GEO記事</b>（AI検索対策）15本を金型監査してAnswer Block形式に統一</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <div class="t">② 人と会って生まれた「サービスの種」を、その週のうちに形にした</div>
+    <ul>
+      <li><b>エゴサランド</b>：8/5のこの番組の収録後の雑談から生まれ、8/6〜8/7で企画LP＋触れるプロトまで（今日見せるやつ）</li>
+      <li><b>申請のミカタ</b>：ササキチさん発案の生活保護申請チェックリスト。提案LP＋チェックリスト本体を公開</li>
+      <li><b>OshiGuide 推し聖地ガイド名鑑</b>：「都市」でなく「作品」で聖地ガイドを探せる名鑑。8/28着工→8/30にPhase 0（サイト＋フォーム2枚）完成</li>
+      <li><b>明君 Meikun</b>：Bokun（通称・暴君）対抗の体験ホスト向け予約コントローラー。8/9のもくもく会で命名→8/10構築→8/15から自分で使い始め、Akikoさん（横浜ラーメンツアー）が1号ユーザー候補</li>
+      <li>ほか：<b>近所ホットライン</b>（港区の民泊規制パブコメへの対案LP）／<b>自転車版YAMAP</b>デモ／提案LP 2本（ヨシさん・矢貫さん）／<b>ナギ</b>（鬱の人向け「波は、引く」アプリ）／<b>三行褒め日記</b></li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <div class="t">③ Podcast側も自動化</div>
+    <ul>
+      <li><b>ネタ帳 Phase2</b>：カレンダーの収録予定を検知して毎朝7:05に自動でカンペを作る（8/25稼働）。今日のこのカンペもその系統</li>
+      <li><b>Podcast文庫</b>：全番組532話を文字起こし→読み物化（アキバなうも「読み物として読める」導線はここ）</li>
+      <li><b>坂戸ベース</b>：新番組（ユウキ×タクマ×大場先生）のロゴ確定・第1回公開が8/30</li>
+      <li><b>podcast-director</b>：完成音源を内容・音質・編集の3点でffmpeg実測して自分で直すディレクター役</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <div class="t">④ 自分の会社を「AI社員」で回す実験</div>
+    <ul>
+      <li><b>AI人事部</b>：必要になった役割ごとに候補者5名を面接して採用→<b>社員名簿7名</b>→<b>ユウキ商會オフィス</b>（AI社員が実データを見て小言を言う社内ダッシュボード）8/31</li>
+      <li><b>PJダッシュボード</b>（同時進行は12枠までのルール・徒競走レーンで可視化）／<b>ユウキ1手リスト</b>（自分にしかできない残タスクだけ集約、261→237件に整理）／<b>しまっちゃうよおじさん</b>（毎週日曜20時にPJを1本出して1本しまう裁定BOT）</li>
+      <li><b>解約屋</b>（メールを貼るとサブスクを残す/落とすで判定）／<b>カード・マイル戦略</b>（8/21完了）／<b>株の自動売買</b>（IBKR一本化）</li>
+      <li>AI自身の運用：<b>トークンABS</b>（使用量ペースの自動ブレーキ）／Claudeセッションの自動刈り取り／launchd常駐85本を掃引して3本修理（8/22）</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <div class="t">⑤ 遊びにも使った</div>
+    <ul>
+      <li><b>アサヒ観測所</b>：森下のパチスロ店の定点観測＋高設定台推測アプリ（構築中）</li>
+      <li>Becky＆Jared（10月来日リピーター）の<b>ポケパーク代理購入</b>を8/19 20:00の先着で確保／Mattさんの<b>このすば展</b>争奪（上の項目）</li>
+      <li>能登（9/14〜16）・熊本サウナ旅（ふっこう応援割60%オフ）の作戦ページ／<b>Business Insider Japan</b>の取材（8/27）もこの流れで受けた</li>
+    </ul>
   </div>
 </section>
 
