@@ -284,7 +284,7 @@ body[data-skin="hype"] .m-head .src::before{content:"· ";}
 body[data-skin="hype"] .m-body{font-size:18px;font-weight:800;line-height:1.45;letter-spacing:-.01em;margin:10px 0 6px}
 body[data-skin="hype"] .m-body mark{background:none;color:var(--accent)}
 body[data-skin="hype"] .m-acts{display:flex;gap:16px;margin:0;font-size:15px;color:#3A3F45;order:2}
-body[data-skin="hype"] .m-acts span:nth-child(-n+2){display:none}
+/* いいね・返信を機能させるため hype でも ♡💬 を出す（2026-09-02） */
 body[data-skin="hype"] .m-foot{gap:14px}
 body[data-skin="hype"] .m-foot time{color:#8A8F96}
 body[data-skin="hype"] .m-foot time::before{content:"🔥 ";}
@@ -433,6 +433,80 @@ body[data-skin="hype"] .more-b .main{border-radius:4px}
 #tab-more .main{border:none;background:var(--ink);color:#fff;border-radius:999px;padding:10px 18px;font:inherit;font-size:14px;font-weight:800;cursor:pointer;display:inline-block}
 body[data-skin="hype"] #tab-more .main{border-radius:4px}
 #tab-more h2[hidden],#tab-more .note[hidden]{display:none}
+
+/* ===== 2026-09-02 ササキチさんフィードバック反映 ===== */
+.me{cursor:pointer;font:inherit;color:inherit;text-align:left}
+.acct-nm{font-weight:800}
+.acct-chev{color:var(--sub);font-size:11px;margin-left:2px}
+body.otheracct header{box-shadow:inset 0 -3px 0 var(--blue)}
+.stat.score b{color:var(--accent)}
+.kwlead{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 8px;margin:14px 0 6px;font-size:13.5px}
+.kwlead small{width:100%}
+.kwlead b{font-size:14px}
+.kwlead small{color:var(--sub);font-size:12.5px}
+.kwhit{font-size:12.5px;color:var(--sub);margin:2px 0 10px}
+.kwhit b{color:var(--accent)}
+.chip.kwadd{border-style:dashed;color:var(--sub)}
+.tag.new{background:var(--blue-tint);color:var(--blue)}
+.m-acts .act{cursor:pointer;user-select:none;transition:transform .12s}
+.m-acts .act:active{transform:scale(.85)}
+.m-acts .act.like.on{color:#CE2B5F}
+.repbox{display:flex;gap:6px;align-items:center;margin:8px 0 4px}
+.repbox .mock-in{margin:0;flex:1}
+.main.sm{padding:7px 14px;font-size:13px;white-space:nowrap}
+/* エゴサ度 */
+.egoline{display:flex;align-items:center;gap:10px;margin:8px 0 2px}
+.egopill{display:inline-block;background:var(--accent-tint);color:var(--accent);border-radius:999px;padding:3px 11px;font-size:12.5px;font-weight:800;white-space:nowrap}
+.egopill b{font-size:14px;font-variant-numeric:tabular-nums}
+.egosub,.fol{font-size:12.5px;color:var(--sub);font-weight:700}
+/* 誰のエゴサを見るか */
+.acctlist{display:flex;flex-direction:column;gap:8px;margin:10px 0 12px}
+.acctrow{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:var(--surface);
+  border:1.5px solid var(--rule);border-radius:12px;padding:10px 12px;cursor:pointer;font:inherit;color:inherit}
+.acctrow.on{border-color:var(--accent);background:var(--accent-tint)}
+.acctrow .ai{display:flex;flex-direction:column;flex:1;min-width:0}
+.acctrow .ai b{font-size:14px}
+.acctrow .ai small{font-size:12px;color:var(--sub)}
+.acctrow .fol{display:block;text-align:right;font-size:11.5px}
+/* 呼びたい人ランキング */
+.ranklist{display:flex;flex-direction:column;gap:2px;margin-top:6px}
+.rankrow,.awrow{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--rule)}
+.rankrow:first-child,.awrow:first-child{border-top:none}
+.rk{width:22px;height:22px;flex:none;display:grid;place-items:center;border-radius:50%;
+  background:var(--ink);color:#fff;font-size:12px;font-weight:800}
+.rankrow .ri{display:flex;flex-direction:column;flex:1;min-width:0}
+.rankrow .ri b{font-size:14px}
+.rankrow .ri small{font-size:12px;color:var(--sub)}
+.rankrow .rs{display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+.awrow b{flex:1;font-size:14px}
+/* 履歴・レポートの横棒 */
+.pasth{display:block;font-size:14px;margin-bottom:8px}
+.pasth small{font-weight:600;color:var(--sub);font-size:12px;margin-left:6px}
+.pastrow{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:13px}
+.pastrow .pd{width:62px;flex:none;color:var(--sub);font-size:12px;font-variant-numeric:tabular-nums}
+.pastrow .pt{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pastrow .pbar{width:88px;flex:none;height:7px;border-radius:99px;background:var(--rule);overflow:hidden}
+.pastrow .pbar i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.pastrow .pbar.mf i{background:var(--blue)}
+.pastrow .pn{width:38px;flex:none;text-align:right;font-size:12px;font-weight:800;font-variant-numeric:tabular-nums}
+.pastrow .pn2{flex:none;font-size:12px;color:var(--sub);font-weight:700}
+/* スタンプカード・特典 */
+.stampcard{margin-top:10px}
+.stamps{display:flex;gap:8px;margin-top:6px}
+.stamps i{width:34px;height:34px;border-radius:50%;border:1.5px dashed var(--rule-strong);display:grid;place-items:center;
+  font-style:normal;font-size:12px;font-weight:800;color:var(--sub)}
+.stamps i.on{background:var(--accent);border:1.5px solid var(--accent);color:#fff}
+.award{margin-top:10px;border-top:1px solid var(--rule);padding-top:4px}
+/* 一斉送信に添えるもの */
+.attachbox{border:1px solid var(--rule);border-radius:12px;padding:10px 12px;margin:12px 0}
+.attachbox b{font-size:13px;display:block;margin-bottom:4px}
+#rep-body .stats{grid-template-columns:repeat(3,1fr)}
+.newsub{display:block;font-size:12px;font-weight:800;color:var(--blue);background:var(--blue-tint);
+  border-radius:6px;padding:3px 8px;margin:2px 0 6px;align-self:flex-start}
+body[data-skin="hype"] .newsub,body[data-skin="threads"] .newsub{--blue:#2C5F86;--blue-tint:#E4EDF4;order:1}
+body[data-skin="hype"] .tag.new,body[data-skin="threads"] .tag.new{background:#E4EDF4;color:#2C5F86}
+.acctrow .ai b{white-space:nowrap}
+.acctrow .rs{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex:none}
 </style>
 
 <button id="devbar">🖥 PC幅で確認</button>
@@ -442,7 +516,7 @@ body[data-skin="hype"] #tab-more .main{border-radius:4px}
 <header>
   <div class="hrow">
     <div class="logo">エゴサ<span>ランド</span> <small>(仮) β</small></div>
-    <div class="me"><img class="avatar" src="faces/sasakichi.jpg" alt="">ササキチさん<small style="color:var(--sub)">DJ・主催</small></div>
+    <button class="me" id="acctbtn" type="button" aria-haspopup="true"><img class="avatar" id="acct-face" src="faces/sasakichi.jpg" alt=""><span class="acct-nm" id="acct-name">ササキチさん</span><small style="color:var(--sub)" id="acct-role">DJ・主催</small><span class="acct-chev">▾</span></button>
   </div>
 </header>
 
@@ -451,54 +525,110 @@ body[data-skin="hype"] #tab-more .main{border-radius:4px}
 <section id="tab-egosa" class="on">
   <div class="sortrow"><button class="sortbtn">新しい順 ▾</button></div>
   <div class="stats">
-    <div class="stat"><b>23</b><small>今週の言及</small></div>
-    <div class="stat gold"><b>148</b><small>足あと</small></div>
-    <div class="stat teal"><b>92%</b><small>ポジ率</small></div>
-    <div class="stat"><b id="bizcount">2</b><small>営業リスト</small></div>
-  </div>
-  <div class="chips">
-    <button class="chip on">すべて</button>
-    <button class="chip" id="negtoggle">⚠ フィルタ済み 2件を表示</button>
+    <div class="stat score"><b id="st-score">82</b><small>エゴサ度</small></div>
+    <div class="stat"><b id="st-men">23</b><small>今週の言及</small></div>
+    <div class="stat gold"><b id="st-ashi">148</b><small>足あと</small></div>
+    <div class="stat teal"><b id="st-pos">92%</b><small>ポジ率</small></div>
   </div>
 
-  <div class="card">
+  <div class="kwlead">🕸 <b>網にかけているワード</b><small>自分の名前だけでなく、広く拾う</small></div>
+  <div class="chips" id="kwchips">
+    <button class="chip on" data-kw="all">すべて</button>
+    <button class="chip" data-kw="me">＠自分の名前</button>
+    <button class="chip" data-kw="djanison">#アニソンDJ</button>
+    <button class="chip" data-kw="akiba">秋葉原</button>
+    <button class="chip" data-kw="bon">超盆踊り</button>
+    <button class="chip kwadd" id="kwadd" type="button">＋ ワードを追加</button>
+  </div>
+  <div class="chips">
+    <button class="chip" id="negtoggle">⚠ フィルタ済み 2件を表示</button>
+  </div>
+  <p class="kwhit" id="kwhit"></p>
+
+  <div class="card" data-kw="me" data-acct="me">
     <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="まいまい⊿" aria-label="まいまい⊿ の元の投稿を開く"><img class="avatar" src="faces/maimai.jpg" alt=""><span class="nm">まいまい⊿<span class="ext" aria-hidden="true">↗</span></span></a><span class="src tag gd">つくばキッズ盆踊り</span></div>
     <div class="m-sub">投稿をシェア</div>
     <p class="m-body"><mark>4時間ぶっ通しDJ</mark>すごすぎた…！最後のメインステージの盆踊り、子どもたちめちゃくちゃ楽しそうだった👏</p>
     <div class="m-media one"><img src="media/bonodori.jpg" alt="盆踊りのステージ" loading="lazy"></div>
-    <div class="m-acts" aria-hidden="true"><span>♡</span><span>💬</span><span>↻</span><span>↗</span></div>
+    <div class="m-acts"><span class="act like">♡</span><span class="act rep">💬</span><span class="act">↻</span><span class="act">↗</span></div>
     <div class="m-foot"><time>7/26 21:04</time><button class="bizbtn" data-gender="f" data-age="20">＋ 営業リスト</button></div>
   </div>
-  <div class="card">
+  <div class="card" data-kw="me" data-acct="me">
     <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="ケンタP" aria-label="ケンタP の元の投稿を開く"><img class="avatar" src="faces/kenta.jpg" alt=""><span class="nm">ケンタP<span class="ext" aria-hidden="true">↗</span></span></a><span class="src tag gd">つくばキッズ盆踊り</span></div>
     <div class="m-sub">投稿をシェア</div>
     <p class="m-body">子連れで行きました。<mark>お菓子ありがとうございました！</mark>息子が「またDJのお兄さんに会いたい」と言ってます</p>
-    <div class="m-acts" aria-hidden="true"><span>♡</span><span>💬</span><span>↻</span><span>↗</span></div>
+    <div class="m-acts"><span class="act like">♡</span><span class="act rep">💬</span><span class="act">↻</span><span class="act">↗</span></div>
     <div class="m-foot"><time>7/27 09:41</time><button class="bizbtn added" data-gender="m" data-age="30">✓ 追加済み</button></div>
   </div>
-  <div class="card">
+  <div class="card" data-kw="me" data-acct="me">
     <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="ゆず庭" aria-label="ゆず庭 の元の投稿を開く"><img class="avatar" src="faces/yuzuniwa.jpg" alt=""><span class="nm">ゆず庭<span class="ext" aria-hidden="true">↗</span></span></a><span class="src tag pk">秋コス</span></div>
     <div class="m-sub">投稿をシェア</div>
     <p class="m-body">コスパフォステージの運営さん神対応だった。<mark>10年以上続いてるの納得</mark>。次回も絶対出たい</p>
     <div class="m-media two"><img src="media/akicos1.jpg" alt="秋コスのコスパフォステージ" loading="lazy"><img src="media/akicos2.jpg" alt="運営さんと" loading="lazy"></div>
-    <div class="m-acts" aria-hidden="true"><span>♡</span><span>💬</span><span>↻</span><span>↗</span></div>
+    <div class="m-acts"><span class="act like">♡</span><span class="act rep">💬</span><span class="act">↻</span><span class="act">↗</span></div>
     <div class="m-foot"><time>8/2 18:22</time><button class="bizbtn" data-gender="f" data-age="10">＋ 営業リスト</button></div>
   </div>
-  <div class="card">
+  <div class="card" data-kw="me" data-acct="me">
     <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="Rin_beat" aria-label="Rin_beat の元の投稿を開く"><img class="avatar" src="faces/rin.jpg" alt=""><span class="nm">Rin_beat<span class="ext" aria-hidden="true">↗</span></span></a><span class="src tag tl">ラジオ記事</span></div>
     <div class="m-sub">投稿をシェア</div>
     <p class="m-body">ラジオの文字起こし記事読んだ。<mark>9/6のMIX LEMONeD JELLY出演おめでとうございます！</mark>絶対行きます</p>
-    <div class="m-acts" aria-hidden="true"><span>♡</span><span>💬</span><span>↻</span><span>↗</span></div>
+    <div class="m-acts"><span class="act like">♡</span><span class="act rep">💬</span><span class="act">↻</span><span class="act">↗</span></div>
     <div class="m-foot"><time>8/4 23:10</time><button class="bizbtn added" data-gender="u" data-age="40">✓ 追加済み</button></div>
   </div>
 
+
+  <div class="card" data-kw="akiba" data-acct="me">
+    <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="のえる" aria-label="のえる の元の投稿を開く"><img class="avatar" src="faces/rin.jpg" alt=""><span class="nm">のえる<span class="ext" aria-hidden="true">↗</span></span></a><span class="src tag new">🕸 秋葉原</span></div>
+    <div class="newsub">まだ あなたの名前は出していない人 ／ 新規開拓</div>
+    <p class="m-body">今日<mark>秋葉原</mark>来ました！ラジオ会館ひとまわりして、夜どこかでイベントないかな〜</p>
+    <div class="m-acts"><span class="act like">♡</span><span class="act rep">💬</span><span class="act">↻</span><span class="act">↗</span></div>
+    <div class="m-foot"><time>9/2 14:20</time><button class="bizbtn" data-gender="f" data-age="20">＋ 営業リスト</button></div>
+  </div>
+  <div class="card" data-kw="djanison" data-acct="me">
+    <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="ハルカぜ" aria-label="ハルカぜ の元の投稿を開く"><img class="avatar" src="faces/kenta.jpg" alt=""><span class="nm">ハルカぜ<span class="ext" aria-hidden="true">↗</span></span></a><span class="src tag new">🕸 #アニソンDJ</span></div>
+    <div class="newsub">まだ あなたの名前は出していない人 ／ 新規開拓</div>
+    <p class="m-body"><mark>#アニソンDJ</mark> のイベント初めて行ったけど楽しすぎた。またこういうの探したい</p>
+    <div class="m-acts"><span class="act like">♡</span><span class="act rep">💬</span><span class="act">↻</span><span class="act">↗</span></div>
+    <div class="m-foot"><time>9/1 23:47</time><button class="bizbtn" data-gender="m" data-age="20">＋ 営業リスト</button></div>
+  </div>
+  <div class="card" data-kw="bon" data-acct="me">
+    <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="ちよ" aria-label="ちよ の元の投稿を開く"><img class="avatar" src="faces/yuzuniwa.jpg" alt=""><span class="nm">ちよ<span class="ext" aria-hidden="true">↗</span></span></a><span class="src tag new">🕸 超盆踊り</span></div>
+    <div class="newsub">まだ あなたの名前は出していない人 ／ 新規開拓</div>
+    <p class="m-body">去年の<mark>超盆踊り</mark>の動画見返してた。今年こそ行きたいんだよな〜</p>
+    <div class="m-acts"><span class="act like">♡</span><span class="act rep">💬</span><span class="act">↻</span><span class="act">↗</span></div>
+    <div class="m-foot"><time>8/30 12:05</time><button class="bizbtn" data-gender="f" data-age="30">＋ 営業リスト</button></div>
+  </div>
+
+  <!-- 他人のアカウントのエゴサ（オファー候補を調べる） -->
+  <div class="card" data-kw="me" data-acct="maimai" hidden>
+    <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="ファンA" aria-label="ファンA の元の投稿を開く"><img class="avatar" src="faces/kenta.jpg" alt=""><span class="nm">tetsu_ac<span class="ext" aria-hidden="true">↗</span></span></a><span class="src tag pk">秋コス</span></div>
+    <div class="m-sub">投稿をシェア</div>
+    <p class="m-body"><mark>まいまい⊿</mark>のブラウンダストのコス、造形の精度がやばい。原作愛が伝わってくる</p>
+    <div class="m-acts"><span class="act like">♡</span><span class="act rep">💬</span><span class="act">↻</span><span class="act">↗</span></div>
+    <div class="m-foot"><time>8/29 20:11</time><button class="bizbtn" data-gender="m" data-age="30">＋ 営業リスト</button></div>
+  </div>
+  <div class="card" data-kw="me" data-acct="maimai" hidden>
+    <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="ファンB" aria-label="ファンB の元の投稿を開く"><img class="avatar" src="faces/rin.jpg" alt=""><span class="nm">みみ</span></a><span class="src tag gd">つくばキッズ盆踊り</span></div>
+    <div class="m-sub">投稿をシェア</div>
+    <p class="m-body"><mark>まいまい⊿</mark>さんに写真お願いしたら丁寧に対応してくれた…ファンになった</p>
+    <div class="m-acts"><span class="act like">♡</span><span class="act rep">💬</span><span class="act">↻</span><span class="act">↗</span></div>
+    <div class="m-foot"><time>7/27 08:30</time><button class="bizbtn" data-gender="f" data-age="10">＋ 営業リスト</button></div>
+  </div>
+  <div class="card" data-kw="me" data-acct="yuzu" hidden>
+    <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="ファンC" aria-label="ファンC の元の投稿を開く"><img class="avatar" src="faces/camera.jpg" alt=""><span class="nm">カメコ_9</span></a><span class="src tag pk">アコスタ池袋</span></div>
+    <div class="m-sub">投稿をシェア</div>
+    <p class="m-body"><mark>ゆず庭</mark>さんの合わせ、3人揃うと圧巻だった</p>
+    <div class="m-acts"><span class="act like">♡</span><span class="act rep">💬</span><span class="act">↻</span><span class="act">↗</span></div>
+    <div class="m-foot"><time>8/10 19:02</time><button class="bizbtn" data-gender="m" data-age="40">＋ 営業リスト</button></div>
+  </div>
+
   <div class="negwrap">
-    <div class="card neg">
+    <div class="card neg" data-kw="me" data-acct="me">
       <div class="m-head"><span class="avatar" style="background:#9A8B92">匿</span><span class="nm">名無し</span><span class="src tag gd">つくばキッズ盆踊り</span></div>
       <p class="m-body">正直あの時間帯は音がデカすぎて子どもには…</p>
       <div class="negbar">🛡 自動フィルタ済み <button class="reveal-neg">表示する</button><button>ブロック</button><button>削除依頼</button></div>
     </div>
-    <div class="card neg">
+    <div class="card neg" data-kw="me" data-acct="me">
       <div class="m-head"><span class="avatar" style="background:#9A8B92">匿</span><span class="nm">通りすがり</span><span class="src tag pk">秋コス</span></div>
       <p class="m-body">選曲が古いんだよなあ毎回</p>
       <div class="negbar">🛡 自動フィルタ済み <button class="reveal-neg">表示する</button><button>ブロック</button><button>削除依頼</button></div>
@@ -621,14 +751,23 @@ body[data-skin="hype"] #tab-more .main{border-radius:4px}
       <li>藤沢の市民祭り 出演</li>
       <li>9/6 hideプレゼンツ MIX LEMONeD JELLY 出演決定</li>
     </ul>
-    <div class="actions"><button class="main offer">📩 オファーする</button><button>🎬 動画ポートフォリオ</button></div>
+    <div class="egoline"><span class="egopill">エゴサ度 <b>82</b></span><span class="egosub">フォロワー 4,200</span></div>
+    <div class="actions"><button class="main offer">📩 オファーする</button><button class="repbtn" data-rep="sasakichi">📊 レポート</button><button>🎬 動画</button></div>
   </div>
   <div class="card">
     <div class="port">
       <img class="avatar" src="faces/c.jpg" alt="">
       <div><h3>コスパフォチーム COSMOS</h3><div class="role">コスプレパフォーマンス ／ 5人組（サンプル）</div></div>
     </div>
-    <div class="actions"><button class="main offer">📩 オファーする</button><button>🎬 ステージ動画</button></div>
+    <div class="egoline"><span class="egopill">エゴサ度 <b>64</b></span><span class="egosub">フォロワー 12,800</span></div>
+    <div class="actions"><button class="main offer">📩 オファーする</button><button class="repbtn" data-rep="cosmos">📊 レポート</button><button>🎬 ステージ動画</button></div>
+  </div>
+
+  <h2>🔎 呼びたい人を探す <small>フォロワー数ではなく「語られている量」で選ぶ</small></h2>
+  <div class="card">
+    <div class="chips" id="dir-fol"><button class="chip on" data-fol="all">すべて</button><button class="chip" data-fol="1">フォロワー1万人以内</button></div>
+    <div class="ranklist" id="ranklist"></div>
+    <p class="more-note">同じ予算なら、フォロワー10万でエゴサ度20の人より、フォロワー3千でエゴサ度90の人。来る客の濃さが違う</p>
   </div>
 
   <h2>⚡ 募集板 <small>SNSでは探しづらいやつ</small></h2>
@@ -750,6 +889,36 @@ body[data-skin="hype"] #tab-more .main{border-radius:4px}
     </div>
   </div>
 
+
+  <div class="card more" data-more="tokuten">
+    <button class="more-h" type="button"><span class="mi">🎟</span><span class="mt"><b>レビュー特典・スタンプ</b><small>書いてくれた人・通ってくれた人に見返りを出す</small></span><span class="chev">›</span></button>
+    <div class="more-b">
+      <div class="shop"><b>喫茶ロータス</b><small>レビュー投稿で ドリンク1杯無料</small><button class="ghost sm tst" data-t="特典を受け取りました（モック）" type="button">受け取る</button></div>
+      <div class="shop"><b>アシストウィッグ 秋葉原店</b><small>写真つきレビューで 10%オフ</small><button class="ghost sm tst" data-t="特典を受け取りました（モック）" type="button">受け取る</button></div>
+      <div class="stampcard">
+        <div class="dayhead"><b>DJ ササキチ のライブ通い</b><small>5回でチェキ1枚</small></div>
+        <div class="stamps"><i class="on">1</i><i class="on">2</i><i class="on">3</i><i>4</i><i>5</i></div>
+      </div>
+      <p class="more-note">お店・演者が自分で設定する。「宣伝してくれたら還元する」の受け皿。レビューが集まる理由になる</p>
+    </div>
+  </div>
+
+  <div class="card more" data-more="realevent">
+    <button class="more-h" type="button"><span class="mi">🎪</span><span class="mt"><b>エゴサランド（リアル交流会）</b><small>年1回。演者・ファン・仕掛ける側が集まる</small></span><span class="chev">›</span></button>
+    <div class="more-b">
+      <div class="dayhead"><b>第1回 エゴサランド</b><small>秋葉原UDX アキバスクエア（想定）／ 2日間</small></div>
+      <div class="shop"><b>① 演者ブース</b><small>出展者ごとに机。ファンが会いに来る</small></div>
+      <div class="shop"><b>② 名刺交換タイム</b><small>自治体・企業・箱の担当者が回る</small></div>
+      <div class="shop"><b>③ エゴサ大賞</b><small>その年いちばん語られた人を表彰</small></div>
+      <div class="award">
+        <div class="awrow"><span class="rk">1</span><img class="avatar" src="faces/maimai.jpg" alt=""><b>まいまい⊿</b><span class="egopill">エゴサ度 <b>91</b></span></div>
+        <div class="awrow"><span class="rk">2</span><img class="avatar" src="faces/sasakichi.jpg" alt=""><b>DJ ササキチ</b><span class="egopill">エゴサ度 <b>82</b></span></div>
+        <div class="awrow"><span class="rk">3</span><img class="avatar" src="faces/c.jpg" alt=""><b>COSMOS</b><span class="egopill">エゴサ度 <b>64</b></span></div>
+      </div>
+      <p class="more-note">クリエイターズ7（UDX・2日で1万人超）のパフォーマー版。ここが集客できると事業として立つ</p>
+    </div>
+  </div>
+
   </div>
   <div id="more-screen" hidden>
     <div class="subhead"><button type="button" id="more-back" aria-label="戻る">‹</button><b id="more-title"></b></div>
@@ -796,7 +965,35 @@ body[data-skin="hype"] #tab-more .main{border-radius:4px}
       <button class="chip" data-v="40">40代以上</button>
     </div>
     <div id="bizmodal-list"></div>
+    <div class="attachbox">
+      <b>📎 一緒に送るもの</b>
+      <label class="tog"><span>イベントの案内（9/6 MIX LEMONeD JELLY）</span><i class="sw on"></i></label>
+      <label class="tog"><span>マップのリンク（会場・行き方）</span><i class="sw on"></i></label>
+      <label class="tog"><span>自分の活動一覧ページ</span><i class="sw"></i></label>
+    </div>
     <button class="send" id="sendbtn2">📣 9/6の案内を一斉送信</button>
+  </div>
+</div>
+
+
+<!-- 誰のエゴサを見るか -->
+<div class="bizmodal" id="acctmodal" aria-hidden="true">
+  <div class="bizmodal-backdrop" id="acctmodal-backdrop"></div>
+  <div class="bizmodal-panel">
+    <div class="bizmodal-head"><b>誰のエゴサを見る？</b><button id="acctmodal-close" aria-label="閉じる">×</button></div>
+    <p class="bizmodal-sub">自分のエゴサだけでなく、オファーしたい相手のエゴサも見られる</p>
+    <div class="acctlist" id="acctlist"></div>
+    <button class="ghost" id="acctadd" type="button">＋ アカウントを追加して調べる</button>
+  </div>
+</div>
+
+<!-- 営業レポート -->
+<div class="bizmodal" id="repmodal" aria-hidden="true">
+  <div class="bizmodal-backdrop" id="repmodal-backdrop"></div>
+  <div class="bizmodal-panel">
+    <div class="bizmodal-head"><b id="rep-title">レポート</b><button id="repmodal-close" aria-label="閉じる">×</button></div>
+    <div id="rep-body"></div>
+    <p class="note">※ 画面はモック・データはすべてサンプルです</p>
   </div>
 </div>
 
@@ -817,13 +1014,13 @@ document.querySelectorAll('.postlink').forEach(function(a){
 });
 // biz list
 function refreshBiz(){var n=document.querySelectorAll('.bizbtn.added').length;
-  document.getElementById('bizcount').textContent=n;document.getElementById('bizcount2').textContent=n;
+  var bc=document.getElementById('bizcount');if(bc)bc.textContent=n;document.getElementById('bizcount2').textContent=n;
   if(document.getElementById('bizmodal').classList.contains('on'))renderBizModal();}
 document.querySelectorAll('.bizbtn').forEach(function(b){b.addEventListener('click',function(){
   b.classList.toggle('added');b.textContent=b.classList.contains('added')?'✓ 追加済み':'＋ 営業リスト';refreshBiz();})});
 function sendBlast(){
   var n=document.getElementById('bizcount2').textContent;
-  alert(n+'人に「9/6 hideプレゼンツ MIX LEMONeD JELLY」の案内を送信しました（モック）\n\nTwitterのDMでは出来なかった、エゴサ→ワンタップ営業の動線です');
+  alert(n+'人に「9/6 hideプレゼンツ MIX LEMONeD JELLY」の案内を送信しました（モック）\n\nイベントの詳細・会場マップのリンクを添えて送っています。\n受け取った人はそのまま「今日ここでやってるんだ」まで飛べます');
 }
 document.getElementById('sendbtn').addEventListener('click',sendBlast);
 document.getElementById('sendbtn2').addEventListener('click',sendBlast);
@@ -1003,6 +1200,20 @@ Object.keys(PINS).forEach(function(id){var p=PINS[id];
 });
 document.getElementById('zin').addEventListener('click',function(){egoMap.zoomIn();});
 document.getElementById('zout').addEventListener('click',function(){egoMap.zoomOut();});
+var PAST={
+ box1:[['2026/8/23','コミケ前夜祭アフター',88],['2026/8/9','バンド4組 対バン',61],['2026/7/19','アニソンDJナイト',95]],
+ box2:[['2026/8/16','生誕イベント（サンプル）',72],['2026/7/5','弾き語り企画',34]],
+ stu1:[['2026/8/28','コスパフォ合同練習',55]],
+ idle1:[['2026/8/12','貸切カフェイベント',48]],
+ idle2:[]};
+function pastHTML(id){
+  var rows=(PAST[id]||[]);
+  if(!rows.length)return '';
+  return '<div class="card"><b class="pasth">📜 これまで <small>この箱でやったイベントと盛り上がり</small></b>'+
+    rows.map(function(r){return '<div class="pastrow"><span class="pd">'+r[0]+'</span><span class="pt">'+r[1]+'</span>'+
+      '<span class="pbar"><i style="width:'+r[2]+'%"></i></span><span class="pn">'+r[2]+'</span></div>';}).join('')+
+    '<p class="more-note">箱にとっては客層と実績のデータ。演者にとっては「ここは自分に合うか」の判断材料</p></div>';
+}
 function selectSpot(id,expand){
   document.querySelectorAll('.pin').forEach(function(x){x.classList.toggle('sel',x.dataset.id===id)});
   document.querySelectorAll('.mcard').forEach(function(x){x.classList.toggle('on',x.dataset.id===id)});
@@ -1013,7 +1224,7 @@ function selectSpot(id,expand){
   document.getElementById('map-detail').innerHTML=
    '<div class="card"><span class="tag '+s.tag+'">'+s.t+'</span><p style="font-size:13px;margin-top:7px">'+s.body+'</p>'+
    (rows?'<ul class="today">'+rows+'</ul>':'')+
-   '<div class="actions" style="margin-top:10px"><button class="main offer">'+s.cta+'</button></div></div>';
+   '<div class="actions" style="margin-top:10px"><button class="main offer">'+s.cta+'</button></div></div>'+pastHTML(id);
   bindOffers();
   if(expand!==false){document.getElementById('map-sheet').classList.add('expanded');egoMap.panTo(PINS[id].ll);}
 }
@@ -1081,6 +1292,144 @@ function bindOffers(){document.querySelectorAll('.offer').forEach(function(b){
   if(b.dataset.bound)return;b.dataset.bound=1;
   b.addEventListener('click',function(){toast('（モック）実際はここから連絡・オファーが飛びます')});})}
 bindOffers();
+
+// ============ 誰のエゴサを見るか（自分／オファー候補） ============
+var ACCTS={
+ me:{name:'ササキチさん',role:'DJ・主催',face:'faces/sasakichi.jpg',score:82,men:23,ashi:148,pos:'92%',fol:'4,200',self:true},
+ maimai:{name:'まいまい⊿',role:'コスプレイヤー',face:'faces/maimai.jpg',score:91,men:57,ashi:402,pos:'96%',fol:'8,900'},
+ yuzu:{name:'ゆず庭',role:'コスプレイヤー',face:'faces/yuzuniwa.jpg',score:44,men:12,ashi:97,pos:'88%',fol:'31,000'}
+};
+var curAcct='me', curKw='all';
+function renderAcctList(){
+  document.getElementById('acctlist').innerHTML=Object.keys(ACCTS).map(function(k){
+    var a=ACCTS[k];
+    return '<button class="acctrow'+(k===curAcct?' on':'')+'" type="button" data-acct="'+k+'">'+
+      '<img class="avatar" src="'+a.face+'" alt="">'+
+      '<span class="ai"><b>'+a.name+'</b><small>'+(a.self?'自分':a.role)+'</small></span>'+
+      '<span class="rs"><span class="egopill">エゴサ度 <b>'+a.score+'</b></span>'+
+      '<small class="fol">フォロワー '+a.fol+'</small></span></button>';
+  }).join('');
+  document.querySelectorAll('.acctrow').forEach(function(r){r.addEventListener('click',function(){
+    switchAcct(r.dataset.acct);closeModal('acctmodal');});});
+}
+function switchAcct(k){
+  curAcct=k;var a=ACCTS[k];
+  document.getElementById('acct-face').src=a.face;
+  document.getElementById('acct-name').textContent=a.name;
+  document.getElementById('acct-role').textContent=a.self?'DJ・主催':'調査中';
+  document.getElementById('st-score').textContent=a.score;
+  document.getElementById('st-men').textContent=a.men;
+  document.getElementById('st-ashi').textContent=a.ashi;
+  document.getElementById('st-pos').textContent=a.pos;
+  document.body.classList.toggle('otheracct',!a.self);
+  applyKwFilter();
+  toast(a.self?'自分のエゴサに戻しました':a.name+' のエゴサを見ています（オファー検討用）');
+}
+// ============ 監視ワードで絞る ============
+function applyKwFilter(){
+  var hit=0,newhit=0;
+  document.querySelectorAll('#tab-egosa .card[data-acct]').forEach(function(c){
+    var ok=(c.dataset.acct===curAcct)&&(curKw==='all'||c.dataset.kw===curKw);
+    c.hidden=!ok;
+    if(ok&&!c.classList.contains('neg')){hit++;if(c.dataset.kw!=='me')newhit++;}
+  });
+  var el=document.getElementById('kwhit');
+  el.innerHTML=curKw==='all'
+    ? hit+'件 ／ うち <b>'+newhit+'件</b> は自分の名前を出していない人（＝新規の営業先）'
+    : hit+'件が「'+document.querySelector('#kwchips .chip.on').textContent.trim()+'」で引っかかりました';
+}
+document.getElementById('kwchips').addEventListener('click',function(e){
+  var c=e.target.closest('.chip'); if(!c||c.id==='kwadd')return;
+  document.querySelectorAll('#kwchips .chip').forEach(function(x){x.classList.remove('on')});
+  c.classList.add('on');curKw=c.dataset.kw;applyKwFilter();
+});
+document.getElementById('kwadd').addEventListener('click',function(){
+  var w=prompt('拾いたいワードを入れてください（例：まどマギ／コスプレ 秋葉原／パチスロ 来店）');
+  if(!w)return;
+  var b=document.createElement('button');b.className='chip';b.dataset.kw='x-'+w;b.textContent=w;
+  this.parentNode.insertBefore(b,this);
+  toast('「'+w+'」を網に追加しました。以後この言葉を使った人も拾います');
+});
+// ============ いいね・返信をその場で ============
+document.addEventListener('click',function(e){
+  var a=e.target.closest('.act');
+  if(a&&a.classList.contains('like')){a.classList.toggle('on');
+    toast(a.classList.contains('on')?'いいねしました。相手に通知が届きます':'いいねを取り消しました');return;}
+  if(a&&a.classList.contains('rep')){
+    var card=a.closest('.card');var box=card.querySelector('.repbox');
+    if(box){box.remove();return;}
+    box=document.createElement('div');box.className='repbox';
+    box.innerHTML='<input class="mock-in" placeholder="返信を書く（例：来てくれてありがとうございます！）"><button class="main sm" type="button">返信</button>';
+    card.querySelector('.m-foot').before(box);
+    box.querySelector('button').addEventListener('click',function(){box.remove();toast('返信しました。相手が気づいてくれる確率が上がります');});
+    box.querySelector('input').focus();return;}
+});
+// ============ 名鑑: 呼びたい人ランキング（エゴサ度順） ============
+var RANK=[
+ {n:'まいまい⊿',f:'faces/maimai.jpg',s:91,fol:8900,t:'ブラウンダスト・原作勢に強い'},
+ {n:'DJ ササキチ',f:'faces/sasakichi.jpg',s:82,fol:4200,t:'アニソンDJ・イベント運営'},
+ {n:'COSMOS',f:'faces/c.jpg',s:64,fol:12800,t:'コスパフォ5人組'},
+ {n:'Rin_beat',f:'faces/rin.jpg',s:58,fol:2100,t:'トラックメイカー'},
+ {n:'ゆず庭',f:'faces/yuzuniwa.jpg',s:44,fol:31000,t:'フォロワーは多いが言及は少ない'}
+];
+var rankFol='all';
+function renderRank(){
+  var list=RANK.filter(function(r){return rankFol==='all'||r.fol<=10000;})
+    .sort(function(a,b){return b.s-a.s;});
+  document.getElementById('ranklist').innerHTML=list.map(function(r,i){
+    return '<div class="rankrow"><span class="rk">'+(i+1)+'</span><img class="avatar" src="'+r.f+'" alt="">'+
+      '<span class="ri"><b>'+r.n+'</b><small>'+r.t+'</small></span>'+
+      '<span class="rs"><span class="egopill">エゴサ度 <b>'+r.s+'</b></span><small class="fol">フォロワー '+r.fol.toLocaleString()+'</small></span></div>';
+  }).join('');
+}
+document.getElementById('dir-fol').addEventListener('click',function(e){
+  var c=e.target.closest('.chip');if(!c)return;
+  document.querySelectorAll('#dir-fol .chip').forEach(function(x){x.classList.remove('on')});
+  c.classList.add('on');rankFol=c.dataset.fol;renderRank();
+});
+renderRank();
+// ============ 営業レポート（三方よしの判断材料） ============
+var REPORTS={
+ sasakichi:{name:'DJ ササキチ',score:82,pos:92,neg:8,
+  area:[['関東',80],['関西',8],['東海',7],['その他',5]],
+  hist:[['7/26','つくばキッズ盆踊り','DJ 4時間'],['7/13','秋コス コスパフォステージ','運営'],['9/6','MIX LEMONeD JELLY','出演予定']],
+  fan:[['10代',9],['20代',34],['30代',38],['40代以上',19]],fanm:52,fanf:41},
+ cosmos:{name:'コスパフォチーム COSMOS',score:64,pos:88,neg:12,
+  area:[['関東',62],['関西',24],['九州',9],['その他',5]],
+  hist:[['8/9','アコスタ池袋','ステージ'],['7/13','秋コス','ステージ']],
+  fan:[['10代',22],['20代',46],['30代',21],['40代以上',11]],fanm:38,fanf:55}
+};
+function openReport(k){
+  var r=REPORTS[k];if(!r)return;
+  document.getElementById('rep-title').textContent='📊 '+r.name+' のレポート';
+  var area=r.area.map(function(a){return '<div class="pastrow"><span class="pt">'+a[0]+'</span><span class="pbar"><i style="width:'+a[1]+'%"></i></span><span class="pn">'+a[1]+'%</span></div>';}).join('');
+  var fan=r.fan.map(function(a){return '<div class="pastrow"><span class="pt">'+a[0]+'</span><span class="pbar"><i style="width:'+a[1]+'%"></i></span><span class="pn">'+a[1]+'%</span></div>';}).join('');
+  var hist=r.hist.map(function(h){return '<div class="pastrow"><span class="pd">'+h[0]+'</span><span class="pt">'+h[1]+'</span><span class="pn2">'+h[2]+'</span></div>';}).join('');
+  document.getElementById('rep-body').innerHTML=
+   '<div class="stats"><div class="stat score"><b>'+r.score+'</b><small>エゴサ度</small></div>'+
+   '<div class="stat teal"><b>'+r.pos+'%</b><small>ポジ</small></div>'+
+   '<div class="stat"><b>'+r.neg+'%</b><small>ネガ</small></div></div>'+
+   '<div class="card"><b class="pasth">📍 どこで活動しているか</b>'+area+
+   '<p class="more-note">交通費を出せる範囲か、遠征を頼めるかがここで分かる</p></div>'+
+   '<div class="card"><b class="pasth">🗓 直近のイベント</b>'+hist+'</div>'+
+   '<div class="card"><b class="pasth">👥 ついているファンの属性</b>'+fan+
+   '<div class="pastrow"><span class="pt">男女比</span><span class="pbar mf"><i style="width:'+r.fanm+'%"></i></span><span class="pn">男'+r.fanm+' 女'+r.fanf+'</span></div>'+
+   '<p class="more-note">自分のイベントの客層と合うかを見る。ここが一発で見られる場所が今どこにもない</p></div>';
+  openModal('repmodal');
+}
+document.addEventListener('click',function(e){
+  var b=e.target.closest('.repbtn');if(b)openReport(b.dataset.rep);
+});
+// ============ モーダル共通 ============
+function openModal(id){var m=document.getElementById(id);m.classList.add('on');m.setAttribute('aria-hidden','false');}
+function closeModal(id){var m=document.getElementById(id);m.classList.remove('on');m.setAttribute('aria-hidden','true');}
+document.getElementById('acctbtn').addEventListener('click',function(){renderAcctList();openModal('acctmodal');});
+['acctmodal-close','acctmodal-backdrop'].forEach(function(i){document.getElementById(i).addEventListener('click',function(){closeModal('acctmodal');});});
+['repmodal-close','repmodal-backdrop'].forEach(function(i){document.getElementById(i).addEventListener('click',function(){closeModal('repmodal');});});
+document.getElementById('acctadd').addEventListener('click',function(){
+  toast('（モック）Xのアカウント名を入れると、その人のエゴサを調べられます');});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeModal('acctmodal');closeModal('repmodal');}});
+applyKwFilter();
 // devbar
 document.getElementById('devbar').addEventListener('click',function(){
   document.body.classList.toggle('pcw');
