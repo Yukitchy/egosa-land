@@ -417,6 +417,22 @@ body[data-skin="threads"] .m-media{margin-left:45px}
 .bars i:last-child{background:var(--accent);opacity:1}
 .barlab{display:flex;justify-content:space-between;font-size:13px;color:var(--sub);margin-top:4px}
 body[data-skin="hype"] .more-b .main{border-radius:4px}
+
+/* ☰ サブ画面 */
+#more-screen .subhead{display:flex;align-items:center;gap:8px;margin:0 0 10px}
+#more-screen .subhead button{border:none;background:none;font-size:30px;line-height:1;padding:0 6px 4px 0;color:var(--ink);cursor:pointer;font-family:inherit}
+#more-screen .subhead b{font-size:20px;letter-spacing:-.01em}
+#more-body .more-b{display:block;padding:0 0 12px}
+#more-body .more-note{font-size:14px;margin-top:14px;padding:10px 12px;background:var(--bg);border-radius:6px;color:var(--ink)}
+#more-body .main{margin-top:10px}
+#more-body .mock-row .main{margin-top:0;white-space:nowrap}
+.pick.tst,.shop.tst{cursor:pointer}
+.toast{position:fixed;left:50%;bottom:calc(var(--navh) + 70px);transform:translateX(-50%) translateY(8px);background:var(--ink);color:#fff;font-weight:800;font-size:14px;padding:10px 16px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s var(--ease-out);z-index:90;white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+#tab-more .main{border:none;background:var(--ink);color:#fff;border-radius:999px;padding:10px 18px;font:inherit;font-size:14px;font-weight:800;cursor:pointer;display:inline-block}
+body[data-skin="hype"] #tab-more .main{border-radius:4px}
+#tab-more h2[hidden],#tab-more .note[hidden]{display:none}
 </style>
 
 <button id="devbar">🖥 PC幅で確認</button>
@@ -626,15 +642,16 @@ body[data-skin="hype"] .more-b .main{border-radius:4px}
 
 <!-- ============ その他（候補機能のモック） ============ -->
 <section id="tab-more">
-  <h2>☰ その他 <small>候補の機能。触って「いる／いらない」を決める用</small></h2>
-  <p class="note" style="text-align:left;margin:0 0 6px">押すと簡単なモック画面が開きます。どれも作るかどうか未定です。</p>
+  <h2 id="more-h2">☰ その他 <small>候補の機能。触って決める用</small></h2>
+  <p class="note" id="more-lead" style="text-align:left;margin:0 0 6px">押すと画面が開きます。どれも作るかどうか未定です。</p>
+  <div id="more-list">
 
   <div class="card more" data-more="pickup">
     <button class="more-h" type="button"><span class="mi">📰</span><span class="mt"><b>今週のピックアップ</b><small>メディア面。ここが広告枠になる</small></span><span class="chev">›</span></button>
     <div class="more-b">
-      <div class="pick"><span class="tag pk">PR</span><b>9/6 hideプレゼンツ MIX LEMONeD JELLY</b><small>今週いちばん言及が多いイベント</small></div>
-      <div class="pick"><b>9/13 秋コス コスパフォステージ</b><small>参加表明 38人</small></div>
-      <div class="pick"><b>新店：外神田3丁目に練習スタジオ</b><small>鏡張り／1h ¥2,000</small></div>
+      <div class="pick tst" data-t="詳細ページを開く（モック）"><span class="tag pk">PR</span><b>9/6 hideプレゼンツ MIX LEMONeD JELLY</b><small>今週いちばん言及が多いイベント</small></div>
+      <div class="pick tst" data-t="詳細ページを開く（モック）"><b>9/13 秋コス コスパフォステージ</b><small>参加表明 38人</small></div>
+      <div class="pick tst" data-t="詳細ページを開く（モック）"><b>新店：外神田3丁目に練習スタジオ</b><small>鏡張り／1h ¥2,000</small></div>
       <p class="more-note">主催者が「ここに出したい」→ 週いくらで枠を買う。ニュースも混ぜる</p>
     </div>
   </div>
@@ -646,7 +663,7 @@ body[data-skin="hype"] .more-b .main{border-radius:4px}
       <div class="rep"><img class="avatar" src="faces/maimai.jpg" alt=""><span><b>まいまい⊿</b> ラジオ会館で合わせの小道具探し</span></div>
       <div class="rep"><img class="avatar" src="faces/kenta.jpg" alt=""><span><b>ケンタP</b> 息子とゲーセン→まぜ麺</span></div>
       <div class="rep"><img class="avatar" src="faces/rin.jpg" alt=""><span><b>Rin_beat</b> GEKKOの下見</span></div>
-      <button class="main offer" type="button">今日の報告を上げる</button>
+      <div class="mock-row"><input class="mock-in" id="rep-in" placeholder="今日秋葉でしたこと（例：GEKKOで下見）" style="margin:0"><button class="main" type="button" id="rep-add">上げる</button></div>
       <p class="more-note">誰がいつ秋葉に来ているかが見える＝店・イベントのマーケにもなる</p>
     </div>
   </div>
@@ -655,9 +672,9 @@ body[data-skin="hype"] .more-b .main{border-radius:4px}
     <button class="more-h" type="button"><span class="mi">✍️</span><span class="mt"><b>思い出記事を書く</b><small>Googleマップに書けない「その週のこと」を残す</small></span><span class="chev">›</span></button>
     <div class="more-b">
       <input class="mock-in" placeholder="タイトル（例：FGOコラボ最終日に行ってきた）">
-      <div class="mock-ta">今週はFGOのコラボで店内が…（本文）</div>
+      <textarea class="mock-in" rows="4" placeholder="本文（例：今週はFGOのコラボで店内が…）" style="resize:none"></textarea>
       <div class="mock-row"><button class="ghost" type="button">📷 写真を追加</button><button class="ghost" type="button">🌐 English OK</button></div>
-      <button class="main offer" type="button">公開する</button>
+      <button class="main tst" data-t="記事を公開しました（モック）" type="button">公開する</button>
       <p class="more-note">海外ゲストにも書いてもらう。記事が増えるほど店の評価になる</p>
     </div>
   </div>
@@ -665,9 +682,9 @@ body[data-skin="hype"] .more-b .main{border-radius:4px}
   <div class="card more" data-more="shops">
     <button class="more-h" type="button"><span class="mi">🛍</span><span class="mt"><b>ショップ・スタジオリスト</b><small>コスプレに必要な店と練習場所を地図に足す</small></span><span class="chev">›</span></button>
     <div class="more-b">
-      <div class="shop"><b>アシストウィッグ 秋葉原店</b><small>ウィッグ／徒歩3分</small></div>
-      <div class="shop"><b>コスパティオ</b><small>衣装／徒歩5分</small></div>
-      <div class="shop"><b>スタジオ・ネイロ</b><small>練習／鏡張り／徒歩6分</small></div>
+      <div class="shop tst" data-t="地図で開く（モック）"><b>アシストウィッグ 秋葉原店</b><small>ウィッグ／徒歩3分</small></div>
+      <div class="shop tst" data-t="地図で開く（モック）"><b>コスパティオ</b><small>衣装／徒歩5分</small></div>
+      <div class="shop tst" data-t="地図で開く（モック）"><b>スタジオ・ネイロ</b><small>練習／鏡張り／徒歩6分</small></div>
       <p class="more-note">マップの「練」ピンと同じ地図に「店」ピンを増やす形</p>
     </div>
   </div>
@@ -692,14 +709,15 @@ body[data-skin="hype"] .more-b .main{border-radius:4px}
       <input class="mock-in" placeholder="リンク（X・Instagram・動画）">
       <label class="tog"><span>名鑑に載せる</span><i class="sw on"></i></label>
       <label class="tog"><span>オファーを受け付ける</span><i class="sw on"></i></label>
+      <button class="main tst" data-t="保存しました（モック）" type="button">保存する</button>
     </div>
   </div>
 
   <div class="card more" data-more="myrsvp">
     <button class="more-h" type="button"><span class="mi">🎫</span><span class="mt"><b>参加表明の管理</b><small>自分が表明したイベントの一覧</small></span><span class="chev">›</span></button>
     <div class="more-b">
-      <div class="shop"><b>9/6 MIX LEMONeD JELLY</b><small>出演 ／ DJ</small><button class="ghost sm" type="button">変更</button></div>
-      <div class="shop"><b>9/13 秋コス</b><small>運営 ／ コスパフォステージ</small><button class="ghost sm" type="button">変更</button></div>
+      <div class="shop"><b>9/6 MIX LEMONeD JELLY</b><small>出演 ／ DJ</small><button class="ghost sm cyc" type="button">変更</button></div>
+      <div class="shop"><b>9/13 秋コス</b><small>運営 ／ コスパフォステージ</small><button class="ghost sm cyc" type="button">変更</button></div>
       <p class="more-note">表明した内容（何のコスで何人）をあとから直せる</p>
     </div>
   </div>
@@ -726,17 +744,24 @@ body[data-skin="hype"] .more-b .main{border-radius:4px}
     <button class="more-h" type="button"><span class="mi">💌</span><span class="mt"><b>後記を書く <span class="tag prem">有料</span></b><small>終わったイベントの参加者へ「お疲れ」を送る</small></span><span class="chev">›</span></button>
     <div class="more-b">
       <div class="dayhead"><b>7/26 つくばキッズ盆踊り</b><small>参加表明 12人に届く</small></div>
-      <div class="mock-ta">4時間ありがとう。最後の盆踊りで子どもたちが…（後記）</div>
-      <button class="main offer" type="button">後記を送る（プレミアム）</button>
+      <textarea class="mock-in" rows="4" style="resize:none">4時間ありがとう。最後の盆踊りで子どもたちが輪になってくれたの、忘れません。</textarea>
+      <button class="main tst" data-t="後記を12人に送りました（モック）" type="button">後記を送る（プレミアム）</button>
       <p class="more-note">「あのイベントお疲れ」を言い合う場所。ここを課金にする案</p>
     </div>
   </div>
 
-  <p class="note">※ すべてモック。数字・店名はサンプルです</p>
+  </div>
+  <div id="more-screen" hidden>
+    <div class="subhead"><button type="button" id="more-back" aria-label="戻る">‹</button><b id="more-title"></b></div>
+    <div id="more-body"></div>
+    <p class="note">※ モック。数字・店名はサンプルです</p>
+  </div>
+  <p class="note" id="more-foot">※ すべてモック。数字・店名はサンプルです</p>
 </section>
 </main>
 </div>
 
+<div class="toast" id="toast" role="status"></div>
 <nav class="bottomnav" id="bottomnav">
   <div class="bnav-inner">
     <button class="on" data-tab="egosa"><span class="ico">🔍</span><span>エゴサ</span></button>
@@ -1023,13 +1048,38 @@ document.querySelectorAll('.legend .filt').forEach(function(c){c.addEventListene
 
 
 // その他タブ: アコーディオン／トグルのモック
-document.querySelectorAll('.more-h').forEach(function(h){h.addEventListener('click',function(){h.closest('.more').classList.toggle('open');});});
+function toast(t){var el=document.getElementById('toast');el.textContent=t;el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(function(){el.classList.remove('show')},1600);}
+var moreOpen=null;
+function openMore(card){
+  var body=card.querySelector('.more-b'); if(!body) return;
+  moreOpen=card;
+  document.getElementById('more-title').textContent=card.querySelector('.mt b').childNodes[0].textContent.trim();
+  document.getElementById('more-body').appendChild(body);
+  document.getElementById('more-list').hidden=true; document.getElementById('more-foot').hidden=true; document.getElementById('more-h2').hidden=true; document.getElementById('more-lead').hidden=true;
+  document.getElementById('more-screen').hidden=false; window.scrollTo(0,0);
+}
+function closeMore(){
+  if(moreOpen){ moreOpen.appendChild(document.getElementById('more-body').querySelector('.more-b')); moreOpen=null; }
+  document.getElementById('more-screen').hidden=true; document.getElementById('more-list').hidden=false; document.getElementById('more-foot').hidden=false; document.getElementById('more-h2').hidden=false; document.getElementById('more-lead').hidden=false; window.scrollTo(0,0);
+}
+document.querySelectorAll('.more-h').forEach(function(h){h.addEventListener('click',function(){openMore(h.closest('.more'));});});
+document.getElementById('more-back').addEventListener('click',closeMore);
+document.querySelectorAll('.bottomnav button').forEach(function(b){b.addEventListener('click',function(){ if(b.dataset.tab!=='more') closeMore(); });});
+// 画面ごとの小さな操作
+document.addEventListener('click',function(e){
+  var t=e.target.closest('.tst'); if(t){toast(t.dataset.t||'（モック）');return;}
+  var c=e.target.closest('.cyc'); if(c){var roles=['出演 ／ DJ','出演 ／ コスパフォ','観に行く','カメコ参加'];var sm=c.parentElement.querySelector('small');var i=(roles.indexOf(sm.textContent)+1)%roles.length;sm.textContent=roles[i];toast('参加表明を「'+roles[i]+'」に変更');return;}
+  if(e.target.id==='rep-add'){var inp=document.getElementById('rep-in');if(!inp.value.trim()){toast('内容を入れてください');return;}
+    var row=document.createElement('div');row.className='rep';row.innerHTML='<img class="avatar" src="faces/sasakichi.jpg" alt=""><span><b>ササキチさん</b> </span>';row.querySelector('span').appendChild(document.createTextNode(inp.value.trim()));
+    var head=inp.closest('.more-b').querySelector('.dayhead');head.parentNode.insertBefore(row,head.nextSibling);
+    var cnt=head.querySelector('small');cnt.textContent=cnt.textContent.replace(/\d+/,function(n){return String(+n+1)});inp.value='';toast('今日の報告を上げました');}
+});
 document.querySelectorAll('.tog .sw').forEach(function(w){w.closest('.tog').addEventListener('click',function(e){e.preventDefault();w.classList.toggle('on');});});
 document.querySelectorAll('.seg button, #tab-more .chip').forEach(function(b){b.addEventListener('click',function(){ if(b.parentElement.classList.contains('seg')){b.parentElement.querySelectorAll('button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');} else {b.classList.toggle('on');} });});
 // generic mock buttons
 function bindOffers(){document.querySelectorAll('.offer').forEach(function(b){
   if(b.dataset.bound)return;b.dataset.bound=1;
-  b.addEventListener('click',function(){alert('（モック）実際はここからワンストップで連絡・オファーが飛びます')});})}
+  b.addEventListener('click',function(){toast('（モック）実際はここから連絡・オファーが飛びます')});})}
 bindOffers();
 // devbar
 document.getElementById('devbar').addEventListener('click',function(){
