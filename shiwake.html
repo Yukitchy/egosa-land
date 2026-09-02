@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>エゴサランド 機能仕分け</title>
+<meta name="robots" content="noindex">
+<style>
+:root{
+  --bg:#ECEEF0; --surface:#FFFFFF; --ink:#1D2125; --sub:#666E76;
+  --rule:#D5D9DD; --rule-strong:#B9BFC6;
+  --accent:#CE2B5F; --accent-tint:#F6E6EC; --teal:#0E7C77; --teal-tint:#E2F1F0;
+  --deco:rgba(29,33,37,.055);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+  font-size:15px; line-height:1.75; -webkit-font-smoothing:antialiased;
+  padding-bottom:calc(92px + env(safe-area-inset-bottom));
+}
+body,p,li,div,span,b,button,a,h1,h2,h3,small{word-break:auto-phrase;line-break:strict;overflow-wrap:anywhere}
+h1,h2,h3,.kicker,.hint{text-wrap:balance}
+.wrap{max-width:640px;margin:0 auto;padding:0 18px;position:relative;z-index:1}
+
+/* ── ヘッダー ── */
+header{position:relative;overflow:hidden;padding:36px 0 22px}
+header::before{content:"";position:absolute;pointer-events:none;top:-60px;right:-70px;width:220px;height:220px;background:var(--deco);border-radius:0 0 0 100%}
+.kicker{color:var(--accent);font-weight:800;letter-spacing:.14em;font-size:13px;text-transform:uppercase}
+h1{font-size:34px;line-height:1.2;margin:6px 0 10px;letter-spacing:-.01em;font-weight:900}
+h1 small{font-size:18px;color:var(--sub);font-weight:700;margin-left:6px}
+.lead{color:var(--sub);margin:0 0 18px;max-width:38em}
+.lead b{color:var(--ink)}
+.cta{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-weight:800;text-decoration:none;
+  padding:13px 22px;border-radius:999px;box-shadow:0 8px 22px rgba(206,43,95,.28);transition:transform .12s cubic-bezier(.34,1.56,.64,1)}
+.cta:active{transform:scale(.97)}
+.legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;font-size:13px;color:var(--sub)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.legend .iru{background:var(--teal)} .legend .ato{background:var(--rule-strong)} .legend .iranai{background:var(--accent)}
+
+/* ── セクション ── */
+section{position:relative;overflow:hidden;background:var(--surface);margin:14px 0;padding:4px 0 6px}
+section::before{content:"";position:absolute;pointer-events:none;z-index:0}
+section:nth-of-type(4n+1)::before{top:-40px;right:-60px;width:180px;height:180px;background:var(--deco);border-radius:0 0 0 100%}
+section:nth-of-type(4n+2)::before{bottom:14px;right:-10px;width:160px;height:120px;background-image:radial-gradient(var(--deco) 2px,transparent 2px);background-size:18px 18px}
+section:nth-of-type(4n+3)::before{top:40px;right:-70px;width:180px;height:180px;border-radius:50%;border:14px solid var(--deco)}
+section:nth-of-type(4n+4)::before{top:30px;right:-40px;width:140px;height:24px;border-radius:999px;background:var(--deco);box-shadow:0 48px 0 -4px var(--deco),0 96px 0 8px var(--deco)}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:18px 0 6px;border-bottom:2px solid var(--ink)}
+.sec-h h2{font-size:19px;margin:0;font-weight:900}
+.sec-h .where{font-size:13px;font-weight:700;color:var(--teal);white-space:nowrap}
+.sec-h .where.none{color:var(--sub)}
+.sec-h .where a{color:inherit;text-decoration:none;border-bottom:2px solid currentColor}
+
+/* ── 項目 ── */
+.item{padding:16px 0 14px;border-bottom:1px solid var(--rule)}
+.item:last-child{border-bottom:0}
+.item .name{font-size:17px;font-weight:800;line-height:1.4;display:flex;gap:8px;align-items:flex-start}
+.item .name .no{color:var(--accent);font-variant-numeric:tabular-nums;min-width:1.6em;font-weight:900}
+.item .what{color:var(--sub);font-size:14px;margin:4px 0 0 calc(1.6em + 8px)}
+.item .quote{margin:8px 0 0 calc(1.6em + 8px);padding:8px 12px;background:var(--bg);border-left:3px solid var(--rule-strong);font-size:14px;color:var(--ink)}
+.item .quote b{color:var(--sub);font-weight:700;font-size:13px;margin-right:6px}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 0 calc(1.6em + 8px)}
+.tri button{appearance:none;border:2px solid var(--rule);background:var(--surface);color:var(--sub);font:inherit;font-weight:800;font-size:15px;
+  min-height:46px;border-radius:12px;cursor:pointer;transition:transform .1s ease,background .12s ease,color .12s ease,border-color .12s ease}
+.tri button:active{transform:scale(.96)}
+.tri button[data-v="iru"].on{background:var(--teal);border-color:var(--teal);color:#fff}
+.tri button[data-v="ato"].on{background:var(--ink);border-color:var(--ink);color:#fff}
+.tri button[data-v="iranai"].on{background:var(--accent);border-color:var(--accent);color:#fff}
+.item.iru .name .no{color:var(--teal)} .item.iranai .name{text-decoration:line-through;text-decoration-color:var(--accent);text-decoration-thickness:2px}
+.memo{display:block;width:100%;margin:10px 0 0 calc(1.6em + 8px);width:calc(100% - 1.6em - 8px);border:0;border-bottom:1px solid var(--rule);background:transparent;font:inherit;font-size:14px;padding:6px 0;color:var(--ink)}
+.memo::placeholder{color:#9AA1A8}
+.memo:focus{outline:0;border-bottom-color:var(--accent)}
+
+/* ── 決定済み ── */
+.fixed{padding:16px 0}
+.fixed .name{font-size:17px;font-weight:800}
+.fixed .stamp{display:inline-block;background:var(--accent-tint);color:var(--accent);font-weight:900;font-size:13px;padding:2px 10px;border-radius:999px;margin-left:8px;vertical-align:middle}
+
+/* ── 決めること ── */
+.q{padding:16px 0 14px;border-bottom:1px solid var(--rule)}
+.q:last-child{border-bottom:0}
+.q .name{font-size:17px;font-weight:800}
+.q .why{color:var(--sub);font-size:14px;margin-top:3px}
+.q .memo{margin-left:0;width:100%}
+.choices{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.choices button{appearance:none;border:2px solid var(--rule);background:var(--surface);color:var(--sub);font:inherit;font-weight:800;font-size:15px;min-height:44px;padding:0 16px;border-radius:999px;cursor:pointer}
+.choices button.on{background:var(--ink);border-color:var(--ink);color:#fff}
+
+/* ── 下部バー ── */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--rule);padding:10px 18px calc(10px + env(safe-area-inset-bottom))}
+.bar .in{max-width:640px;margin:0 auto;display:flex;align-items:center;gap:10px}
+.tally{display:flex;gap:16px;flex:1;font-variant-numeric:tabular-nums;min-width:0}
+.tally div{display:flex;flex-direction:column;line-height:1.1;align-items:center}
+.tally b{font-size:22px;font-weight:900;white-space:nowrap}
+.tally small{font-size:13px;color:var(--sub);font-weight:700;white-space:nowrap;word-break:keep-all}
+.tally .t-iru b{color:var(--teal)} .tally .t-iranai b{color:var(--accent)}
+.bar button{appearance:none;border:0;font:inherit;font-weight:800;font-size:15px;min-height:44px;padding:0 16px;border-radius:999px;cursor:pointer}
+.bar .copy{background:var(--ink);color:#fff}
+.reset{appearance:none;border:2px solid var(--rule);background:transparent;color:var(--sub);font:inherit;font-weight:800;font-size:14px;min-height:40px;padding:0 14px;border-radius:999px;cursor:pointer;margin-top:10px}
+.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(10px);background:var(--ink);color:#fff;font-weight:800;padding:10px 18px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s cubic-bezier(.22,1,.36,1);z-index:30;font-size:14px}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.hint{color:var(--sub);font-size:13px;margin:6px 0 0}
+footer{color:var(--sub);font-size:13px;padding:18px 0 8px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="kicker">Feature Triage — 2026.09.02</div>
+    <h1>エゴサランド<br>機能仕分け<small>ササキチ × ユウキ</small></h1>
+    <p class="lead">8/5に話した機能を全部並べました。プロトタイプを見ながら、1つずつ<b>「いる／あとで／いらない」</b>を押していく用。押した結果はこの端末に残り、下の「結果をコピー」で文章になります。</p>
+    <a class="cta" href="prototype/" target="_blank" rel="noopener">プロトタイプを開く →</a>
+    <div class="legend"><span><i class="iru"></i>いる＝最初から入れる</span><span><i class="ato"></i>あとで＝2周目以降</span><span><i class="iranai"></i>いらない＝作らない</span></div>
+  </div>
+</header>
+
+<div class="wrap" id="app"></div>
+
+<section style="background:transparent;margin:0"><div class="wrap"><footer>元ネタの引用はすべて 2026-08-05 収録時の会話（ニコニコまぜ麺&カレー）から。創作なし。<br><button class="reset" id="reset">選択を全部リセット</button></footer></div></section>
+
+<div class="bar"><div class="in">
+  <div class="tally">
+    <div class="t-iru"><b id="n-iru">0</b><small>いる</small></div>
+    <div class="t-ato"><b id="n-ato">0</b><small>あとで</small></div>
+    <div class="t-iranai"><b id="n-iranai">0</b><small>いらない</small></div>
+    <div><b id="n-rest">0</b><small>未定</small></div>
+  </div>
+  <button class="copy" id="copy">結果をコピー</button>
+</div></div>
+<div class="toast" id="toast">コピーしました</div>
+
+<script>
+// ── 機能一覧（元ネタ＝8/5の会話の生引用） ──
+const GROUPS = [
+ { id:'egosa', title:'🔍 エゴサ', where:'プロトにある（エゴサ画面）', items:[
+  { id:'dash',   name:'エゴサダッシュボード', what:'自分への言及・足あと・ポジ率を1画面で見る', q:'俺なんか毎日自分でササキチって検索して／ミクシーで言うとこの足跡とかも含めて知りたいの' },
+  { id:'filter', name:'ネガ自動フィルタ＋ブロック', what:'嫌なコメントは自動で隠す。見ようと思えば見られる', q:'自分的にやだなって思ったらブロック／逆に把握できるじゃん、こいつやべえみたいな' },
+  { id:'sales',  name:'営業リスト（言及者にチェック→一斉送信）', what:'自分に触れてくれた人をリスト化して次のイベント案内を送る', q:'自分に興味ある人はチェック入れといて一斉送信で／名刺なんて文化腐ってきてるから' },
+ ]},
+ { id:'events', title:'🎪 イベント', where:'プロトにある（イベント画面）', items:[
+  { id:'cal',    name:'イベントカレンダー（直近＋月）', what:'今日・今週・来週以降と、月のカレンダー検索', q:'どこで何が今日やってるのか。コスプレカレンダー／いつまでに参加申し込みの締め切りが分かるとなお' },
+  { id:'rsvp',   name:'参加表明（何のコスで何人・カメコ別マーク）', what:'ツイプラの足りない部分を足したもの', q:'なんのコスプレで、何人で参加します／カメラマンも別でマーク付けといて／カメコも行きやすい' },
+  { id:'evrev',  name:'イベントレビュー（画像つき）', what:'行ってきたよ報告。合わせの記録', q:'今週のアコスタ行ってきたよレビュー／画像貼れて／今日ここで合わせしてきました' },
+ ]},
+ { id:'map', title:'🗺 マップ（箱）', where:'プロトにある（マップ画面）', items:[
+  { id:'hako',   name:'箱マップ（地図→一覧→詳細・常連度）', what:'ライブハウス・イベント会場を地図から探す。サウナイキタイ式', q:'箱が先／Googleだとすごい、ちょっと調べるのに面倒くさい／行った回数とかでその人が常連さんみたいになってる' },
+  { id:'idle',   name:'空き時間物件（飲食店のアイドルタイム）', what:'店の空き時間と、イベントをやりたい人をつなぐ', q:'ササキチカフェやりたい人とのマッチング／生誕イベント・バースデーイベントの場所探し' },
+  { id:'shop',   name:'スタジオ・ショップリスト', what:'練習場所と衣装・小道具の店を箱と同じ地図に載せる', q:'コスプレに必要なショップリストと、練習するスタジオとか、関連したものがくっつけれたら' },
+  { id:'shoprev',name:'店へのオタク目線レビュー／思い出記事', what:'Googleマップに書けない「その週のコラボ」を書く場所', q:'今週はFGOのコラボやってたから…それをレビューには書けない／海外の人が思い出として記事を書いて残して欲しい' },
+  { id:'inb',    name:'インバウンド向け表示（英語）', what:'酒を飲みながらバンドを聴きたい海外客が箱を探せる', q:'ライブハウスに行きたいインバウンドの人たちが探しやすいのかな／酒飲みながらバンドが聞きてえな、みたいないっぱいいる' },
+ ]},
+ { id:'dir', title:'📖 名鑑・募集', where:'プロトにある（名鑑画面）', items:[
+  { id:'djdir',  name:'DJ／演者名鑑（ポートフォリオ＋オファー）', what:'タレント名鑑のDJ版。動画・連絡・営業をワンストップ', q:'DJさんって何かに登録してる人とかしないから。DJさんを探すの大変／タレント名鑑のDJ版' },
+  { id:'team',   name:'コスパフォのチーム登録', what:'チーム単位でプロフィールを持ち、オファーを受ける', q:'コスパフォのチームが登録できたらすごい楽／オファーしやすい' },
+  { id:'recruit',name:'メンバー募集板', what:'「あと1人足りない」を出す場所', q:'あと3ヶ月後のこのイベントにラブライブで出たいんですけど、高坂穂乃果いるんですけど、あと1人必要／SNSだと探しづらい' },
+ ]},
+ { id:'future', title:'💴 まだ画面が無いもの（構想だけ）', where:'プロトに無い', none:true, items:[
+  { id:'koki',   name:'イベント後記（プレミアム課金）', what:'終わった後に演者と観客が「お疲れ」を言い合う場。ここを有料に', q:'みんなね、あのイベントお疲れ、お疲れが言われたい／今日のライブのあのシーンのあそこ最高でした' },
+  { id:'pickup', name:'今週のピックアップ＝広告枠／ニュース', what:'メディア面。広告をもらってピックアップに出す', q:'今週のピックアップみたいな。それが広告もらえればピックアップでここに出すよ／ニュースサイトもありつつ' },
+  { id:'akibacal',name:'秋葉報告カレンダー', what:'「今日秋葉でこれしてきた」を上げてもらう。誰が来ていたかが分かる', q:'今日秋葉でこういうのしてきたよを上げてもらう／今日こういう人たちが秋葉に来てましたってのが分かる。マーケティングにもなる' },
+  { id:'genre',  name:'ジャンル拡張（バンド・アイドル・アミューズメント）', what:'コスプレ×DJ×バンド箱の外へ広げる', q:'エンタメに一番パーンて作って、そこにジャンルで。バンド、アイドル、コスプレって作れば全部網羅／最終的にアミューズメントも' },
+ ]},
+];
+const FIXED = [
+ { name:'カメコ × レイヤーの個人マッチング仲介', q:'トラブルになった時に怖いんで、あんまりそこは', note:'8/5にササキチさんが明言。人と人のマッチングはやらない。上の「空き時間物件」は人と場所なので別' },
+];
+const DECIDE = [
+ { id:'name',  name:'名前は「エゴサランド」で確定するか', why:'8/5に「じゃあエゴサランドだ」「そう、エゴサランド」で仮決まりのまま', choices:['エゴサランドで確定','別の名前にする'], memo:'別案があれば' },
+ { id:'hako0', name:'最初に載せる箱を、誰が何軒集めるか', why:'箱マップは初期データが全て。人力で集まる数で規模が決まる', memo:'例：ササキチ声がけで◯軒／ユウキが◯軒' },
+ { id:'test96',name:'9/6 MIX LEMONeD JELLY を最初のテストにするか', why:'参加表明→レビュー→エゴサ→後記を1周まわす想定だった日', choices:['やる','やらない','次のイベントで'], memo:'やるなら誰に参加表明を頼むか' },
+ { id:'dj0',   name:'DJ名鑑に最初から載ってくれそうな人', why:'実名が何人出るかで、出すか畳むかが決まる', memo:'名前を書く' },
+ { id:'next',  name:'次に会って見る日', why:'今日の結果を反映した版を見せる日', memo:'日付' },
+];
+
+const KEY='egosa-shiwake-v1';
+let state={}; try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const LABEL={iru:'いる',ato:'あとで',iranai:'いらない'};
+
+function render(){
+  const app=document.getElementById('app'); let h='';
+  GROUPS.forEach(g=>{
+    h+=`<section><div class="wrap"><div class="sec-h"><h2>${g.title}</h2><span class="where ${g.none?'none':''}">${g.none?g.where:`<a href="prototype/" target="_blank" rel="noopener">${g.where} →</a>`}</span></div>`;
+    g.items.forEach((it,i)=>{
+      const v=state[it.id]?.v||''; const m=state[it.id]?.m||'';
+      h+=`<div class="item ${v}" data-id="${it.id}">
+        <div class="name"><span class="no">${String(i+1).padStart(2,'0')}</span><span>${esc(it.name)}</span></div>
+        <div class="what">${esc(it.what)}</div>
+        <div class="quote"><b>ササキチ</b>「${esc(it.q)}」</div>
+        <div class="tri">${['iru','ato','iranai'].map(k=>`<button type="button" data-v="${k}" class="${v===k?'on':''}">${LABEL[k]}</button>`).join('')}</div>
+        <input class="memo" placeholder="ひとこと（変えたい所・条件など）" value="${esc(m)}">
+      </div>`;
+    });
+    h+=`</div></section>`;
+  });
+  h+=`<section><div class="wrap"><div class="sec-h"><h2>🚫 決定済み：やらない</h2></div>`;
+  FIXED.forEach(f=>{ h+=`<div class="fixed"><div class="name">${esc(f.name)}<span class="stamp">やらない</span></div><div class="quote"><b>ササキチ</b>「${esc(f.q)}」</div><div class="hint">${esc(f.note)}</div></div>`; });
+  h+=`</div></section>`;
+  h+=`<section><div class="wrap"><div class="sec-h"><h2>✍️ 今日決めること</h2></div>`;
+  DECIDE.forEach(d=>{
+    const v=state[d.id]?.v||''; const m=state[d.id]?.m||'';
+    h+=`<div class="q" data-id="${d.id}"><div class="name">${esc(d.name)}</div><div class="why">${esc(d.why)}</div>`;
+    if(d.choices) h+=`<div class="choices">${d.choices.map(c=>`<button type="button" data-c="${esc(c)}" class="${v===c?'on':''}">${esc(c)}</button>`).join('')}</div>`;
+    h+=`<input class="memo" placeholder="${esc(d.memo)}" value="${esc(m)}"></div>`;
+  });
+  h+=`</div></section>`;
+  app.innerHTML=h; tally();
+}
+function tally(){
+  const c={iru:0,ato:0,iranai:0}; let total=0;
+  GROUPS.forEach(g=>g.items.forEach(it=>{ total++; const v=state[it.id]?.v; if(c[v]!==undefined) c[v]++; }));
+  document.getElementById('n-iru').textContent=c.iru;
+  document.getElementById('n-ato').textContent=c.ato;
+  document.getElementById('n-iranai').textContent=c.iranai;
+  document.getElementById('n-rest').textContent=total-c.iru-c.ato-c.iranai;
+}
+document.getElementById('app').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  const box=b.closest('[data-id]'); const id=box.dataset.id; state[id]=state[id]||{};
+  if(b.dataset.v){ state[id].v = state[id].v===b.dataset.v ? '' : b.dataset.v;
+    box.className='item '+(state[id].v||''); box.querySelectorAll('.tri button').forEach(x=>x.classList.toggle('on',x.dataset.v===state[id].v)); }
+  else if(b.dataset.c){ state[id].v = state[id].v===b.dataset.c ? '' : b.dataset.c;
+    box.querySelectorAll('.choices button').forEach(x=>x.classList.toggle('on',x.dataset.c===state[id].v)); }
+  save(); tally();
+});
+document.getElementById('app').addEventListener('input',e=>{
+  const m=e.target.closest('.memo'); if(!m) return;
+  const id=m.closest('[data-id]').dataset.id; state[id]=state[id]||{}; state[id].m=m.value; save();
+});
+function report(){
+  const d=new Date(); const lines=[`エゴサランド 機能仕分け ${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`,''];
+  ['iru','ato','iranai'].forEach(k=>{
+    const rows=[]; GROUPS.forEach(g=>g.items.forEach(it=>{ if(state[it.id]?.v===k) rows.push(`・${it.name}${state[it.id]?.m?`（${state[it.id].m}）`:''}`); }));
+    lines.push(`【${LABEL[k]}】${rows.length}件`); lines.push(...(rows.length?rows:['（なし）'])); lines.push('');
+  });
+  const rest=[]; GROUPS.forEach(g=>g.items.forEach(it=>{ if(!state[it.id]?.v) rest.push(`・${it.name}`); }));
+  if(rest.length){ lines.push(`【未定】${rest.length}件`); lines.push(...rest); lines.push(''); }
+  lines.push('【決定済み：やらない】'); FIXED.forEach(f=>lines.push(`・${f.name}`)); lines.push('');
+  lines.push('【今日決めること】'); DECIDE.forEach(x=>{ const s=state[x.id]||{}; lines.push(`・${x.name} → ${s.v||'未決'}${s.m?`／${s.m}`:''}`); });
+  return lines.join('\n');
+}
+function toast(t){ const el=document.getElementById('toast'); el.textContent=t; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),1600); }
+document.getElementById('copy').addEventListener('click',async()=>{
+  const t=report();
+  try{ await navigator.clipboard.writeText(t); toast('コピーしました'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); toast('コピーしました'); }catch(_){ toast('コピーできませんでした'); } ta.remove(); }
+});
+document.getElementById('reset').addEventListener('click',()=>{ if(confirm('全部の選択を消しますか？')){ state={}; save(); render(); } });
+render();
+</script>
+</body>
+</html>
