@@ -372,6 +372,14 @@ body[data-skin="fable"] .cal-day.has-perform{background:#F1ECE4}
 body[data-skin="fable"] .map-sheet{background:#FAF7F2}
 body[data-skin="fable"] .bizbtn{background:var(--ink);color:#fff;border:none;border-radius:999px}
 body[data-skin="fable"] .bizbtn.added{background:#EFE9E0;color:#6B655B}
+
+/* 投稿の画像（1枚＝横長・2枚＝正方形2分割） */
+.m-media{display:grid;gap:4px;margin:10px 0 8px;border-radius:12px;overflow:hidden}
+.m-media img{display:block;width:100%;height:100%;object-fit:cover;background:var(--rule)}
+.m-media.one{aspect-ratio:4/3}
+.m-media.two{grid-template-columns:1fr 1fr;aspect-ratio:2/1}
+body[data-skin="hype"] .m-media{border-radius:4px;margin:12px 0 10px}
+body[data-skin="threads"] .m-media{margin-left:45px}
 </style>
 
 <button id="devbar">🖥 PC幅で確認</button>
@@ -404,6 +412,7 @@ body[data-skin="fable"] .bizbtn.added{background:#EFE9E0;color:#6B655B}
     <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="まいまい⊿" aria-label="まいまい⊿ の元の投稿を開く"><img class="avatar" src="faces/maimai.jpg" alt=""><span class="nm">まいまい⊿<span class="ext" aria-hidden="true">↗</span></span></a><span class="src tag gd">つくばキッズ盆踊り</span></div>
     <div class="m-sub">投稿をシェア</div>
     <p class="m-body"><mark>4時間ぶっ通しDJ</mark>すごすぎた…！最後のメインステージの盆踊り、子どもたちめちゃくちゃ楽しそうだった👏</p>
+    <div class="m-media one"><img src="media/bonodori.jpg" alt="盆踊りのステージ" loading="lazy"></div>
     <div class="m-acts" aria-hidden="true"><span>♡</span><span>💬</span><span>↻</span><span>↗</span></div>
     <div class="m-foot"><time>7/26 21:04</time><button class="bizbtn" data-gender="f" data-age="20">＋ 営業リスト</button></div>
   </div>
@@ -418,6 +427,7 @@ body[data-skin="fable"] .bizbtn.added{background:#EFE9E0;color:#6B655B}
     <div class="m-head"><a class="postlink" tabindex="0" role="button" data-name="ゆず庭" aria-label="ゆず庭 の元の投稿を開く"><img class="avatar" src="faces/yuzuniwa.jpg" alt=""><span class="nm">ゆず庭<span class="ext" aria-hidden="true">↗</span></span></a><span class="src tag pk">秋コス</span></div>
     <div class="m-sub">投稿をシェア</div>
     <p class="m-body">コスパフォステージの運営さん神対応だった。<mark>10年以上続いてるの納得</mark>。次回も絶対出たい</p>
+    <div class="m-media two"><img src="media/akicos1.jpg" alt="秋コスの合わせ" loading="lazy"><img src="media/akicos2.jpg" alt="ステージ" loading="lazy"></div>
     <div class="m-acts" aria-hidden="true"><span>♡</span><span>💬</span><span>↻</span><span>↗</span></div>
     <div class="m-foot"><time>8/2 18:22</time><button class="bizbtn" data-gender="f" data-age="10">＋ 営業リスト</button></div>
   </div>
