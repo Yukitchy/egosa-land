@@ -380,6 +380,43 @@ body[data-skin="fable"] .bizbtn.added{background:#EFE9E0;color:#6B655B}
 .m-media.two{grid-template-columns:1fr 1fr;aspect-ratio:2/1}
 body[data-skin="hype"] .m-media{border-radius:4px;margin:12px 0 10px}
 body[data-skin="threads"] .m-media{margin-left:45px}
+
+/* その他タブ（候補機能のアコーディオン） */
+.more{padding:0}
+.more-h{width:100%;display:flex;align-items:center;gap:12px;padding:14px 0;border:none;background:none;text-align:left;cursor:pointer;font-family:inherit;color:var(--ink)}
+.more-h .mi{font-size:22px;width:30px;text-align:center;flex:none}
+.more-h .mt{flex:1;min-width:0}
+.more-h .mt b{display:block;font-size:16px}
+.more-h .mt small{display:block;font-size:13px;color:var(--sub);font-weight:600}
+.more-h .chev{font-size:22px;color:var(--sub);transition:transform .2s var(--ease-out)}
+.more.open .chev{transform:rotate(90deg)}
+.more-b{display:none;padding:0 0 16px 42px}
+.more.open .more-b{display:block}
+.more-note{font-size:13px;color:var(--sub);margin:10px 0 0}
+.pick,.shop,.rep{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;padding:9px 0;border-bottom:1px solid var(--rule);font-size:14px}
+.pick b,.shop b{flex:1 1 100%;font-size:15px}
+.pick small,.shop small{color:var(--sub);font-size:13px}
+.rep{flex-wrap:nowrap}.rep .avatar{width:26px;height:26px}
+.rep span{font-size:14px;min-width:0}
+.dayhead{display:flex;justify-content:space-between;align-items:baseline;padding:4px 0 8px;border-bottom:1px solid var(--rule)}
+.dayhead small{color:var(--sub);font-size:13px}
+.mock-in{display:block;width:100%;border:1.5px solid var(--rule);border-radius:6px;padding:9px 10px;font:inherit;font-size:14px;margin:8px 0;background:var(--surface);color:var(--ink)}
+.mock-ta{border:1.5px solid var(--rule);border-radius:6px;padding:9px 10px;font-size:14px;color:var(--sub);min-height:64px;margin:8px 0}
+.mock-row{display:flex;gap:8px;align-items:center;margin:8px 0}
+.ghost{border:1.5px solid var(--rule);background:none;border-radius:6px;padding:7px 12px;font:inherit;font-size:13px;font-weight:800;color:var(--ink);cursor:pointer}
+.ghost.sm{padding:4px 10px;margin-left:auto}
+.tog{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--rule);font-size:14px;font-weight:700}
+.sw{width:40px;height:24px;border-radius:999px;background:var(--rule-strong);position:relative;flex:none}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .15s}
+.sw.on{background:var(--ink)}.sw.on::after{left:19px}
+.seg{display:inline-flex;border:1.5px solid var(--ink);border-radius:6px;overflow:hidden;margin-top:10px}
+.seg button{border:none;background:none;padding:7px 14px;font:inherit;font-size:13px;font-weight:800;color:var(--ink);cursor:pointer}
+.seg button.on{background:var(--ink);color:#fff}
+.bars{display:flex;align-items:flex-end;gap:6px;height:80px;margin-top:6px}
+.bars i{flex:1;background:var(--ink);border-radius:3px 3px 0 0;opacity:.85}
+.bars i:last-child{background:var(--accent);opacity:1}
+.barlab{display:flex;justify-content:space-between;font-size:13px;color:var(--sub);margin-top:4px}
+body[data-skin="hype"] .more-b .main{border-radius:4px}
 </style>
 
 <button id="devbar">🖥 PC幅で確認</button>
@@ -586,6 +623,117 @@ body[data-skin="threads"] .m-media{margin-left:45px}
   </div>
   <p class="note">※ 画面はモック・データはすべてサンプルです</p>
 </section>
+
+<!-- ============ その他（候補機能のモック） ============ -->
+<section id="tab-more">
+  <h2>☰ その他 <small>候補の機能。触って「いる／いらない」を決める用</small></h2>
+  <p class="note" style="text-align:left;margin:0 0 6px">押すと簡単なモック画面が開きます。どれも作るかどうか未定です。</p>
+
+  <div class="card more" data-more="pickup">
+    <button class="more-h" type="button"><span class="mi">📰</span><span class="mt"><b>今週のピックアップ</b><small>メディア面。ここが広告枠になる</small></span><span class="chev">›</span></button>
+    <div class="more-b">
+      <div class="pick"><span class="tag pk">PR</span><b>9/6 hideプレゼンツ MIX LEMONeD JELLY</b><small>今週いちばん言及が多いイベント</small></div>
+      <div class="pick"><b>9/13 秋コス コスパフォステージ</b><small>参加表明 38人</small></div>
+      <div class="pick"><b>新店：外神田3丁目に練習スタジオ</b><small>鏡張り／1h ¥2,000</small></div>
+      <p class="more-note">主催者が「ここに出したい」→ 週いくらで枠を買う。ニュースも混ぜる</p>
+    </div>
+  </div>
+
+  <div class="card more" data-more="akibacal">
+    <button class="more-h" type="button"><span class="mi">📅</span><span class="mt"><b>秋葉報告カレンダー</b><small>「今日秋葉でこれしてきた」が日別に並ぶ</small></span><span class="chev">›</span></button>
+    <div class="more-b">
+      <div class="dayhead"><b>今日 9/2(火)</b><small>秋葉に来ていた 14人</small></div>
+      <div class="rep"><img class="avatar" src="faces/maimai.jpg" alt=""><span><b>まいまい⊿</b> ラジオ会館で合わせの小道具探し</span></div>
+      <div class="rep"><img class="avatar" src="faces/kenta.jpg" alt=""><span><b>ケンタP</b> 息子とゲーセン→まぜ麺</span></div>
+      <div class="rep"><img class="avatar" src="faces/rin.jpg" alt=""><span><b>Rin_beat</b> GEKKOの下見</span></div>
+      <button class="main offer" type="button">今日の報告を上げる</button>
+      <p class="more-note">誰がいつ秋葉に来ているかが見える＝店・イベントのマーケにもなる</p>
+    </div>
+  </div>
+
+  <div class="card more" data-more="article">
+    <button class="more-h" type="button"><span class="mi">✍️</span><span class="mt"><b>思い出記事を書く</b><small>Googleマップに書けない「その週のこと」を残す</small></span><span class="chev">›</span></button>
+    <div class="more-b">
+      <input class="mock-in" placeholder="タイトル（例：FGOコラボ最終日に行ってきた）">
+      <div class="mock-ta">今週はFGOのコラボで店内が…（本文）</div>
+      <div class="mock-row"><button class="ghost" type="button">📷 写真を追加</button><button class="ghost" type="button">🌐 English OK</button></div>
+      <button class="main offer" type="button">公開する</button>
+      <p class="more-note">海外ゲストにも書いてもらう。記事が増えるほど店の評価になる</p>
+    </div>
+  </div>
+
+  <div class="card more" data-more="shops">
+    <button class="more-h" type="button"><span class="mi">🛍</span><span class="mt"><b>ショップ・スタジオリスト</b><small>コスプレに必要な店と練習場所を地図に足す</small></span><span class="chev">›</span></button>
+    <div class="more-b">
+      <div class="shop"><b>アシストウィッグ 秋葉原店</b><small>ウィッグ／徒歩3分</small></div>
+      <div class="shop"><b>コスパティオ</b><small>衣装／徒歩5分</small></div>
+      <div class="shop"><b>スタジオ・ネイロ</b><small>練習／鏡張り／徒歩6分</small></div>
+      <p class="more-note">マップの「練」ピンと同じ地図に「店」ピンを増やす形</p>
+    </div>
+  </div>
+
+  <div class="card more" data-more="notify">
+    <button class="more-h" type="button"><span class="mi">🔔</span><span class="mt"><b>エゴサ通知</b><small>新しい言及が来たら知らせる</small></span><span class="chev">›</span></button>
+    <div class="more-b">
+      <label class="tog"><span>新しい言及</span><i class="sw on"></i></label>
+      <label class="tog"><span>ネガを検知したとき</span><i class="sw on"></i></label>
+      <label class="tog"><span>足あとが急に増えたとき</span><i class="sw"></i></label>
+      <label class="tog"><span>まとめて1日1回（21:00）</span><i class="sw on"></i></label>
+      <p class="more-note">毎日自分で検索しなくてよくなる、が売り</p>
+    </div>
+  </div>
+
+  <div class="card more" data-more="mypage">
+    <button class="more-h" type="button"><span class="mi">👤</span><span class="mt"><b>マイページ</b><small>名鑑に載る自分の情報を直す</small></span><span class="chev">›</span></button>
+    <div class="more-b">
+      <div class="mock-row"><img class="avatar" src="faces/sasakichi.jpg" alt="" style="width:44px;height:44px"><button class="ghost" type="button">写真を変える</button></div>
+      <input class="mock-in" value="DJ ササキチ">
+      <input class="mock-in" value="DJ ／ イベント主催 ／ コスパフォステージ運営">
+      <input class="mock-in" placeholder="リンク（X・Instagram・動画）">
+      <label class="tog"><span>名鑑に載せる</span><i class="sw on"></i></label>
+      <label class="tog"><span>オファーを受け付ける</span><i class="sw on"></i></label>
+    </div>
+  </div>
+
+  <div class="card more" data-more="myrsvp">
+    <button class="more-h" type="button"><span class="mi">🎫</span><span class="mt"><b>参加表明の管理</b><small>自分が表明したイベントの一覧</small></span><span class="chev">›</span></button>
+    <div class="more-b">
+      <div class="shop"><b>9/6 MIX LEMONeD JELLY</b><small>出演 ／ DJ</small><button class="ghost sm" type="button">変更</button></div>
+      <div class="shop"><b>9/13 秋コス</b><small>運営 ／ コスパフォステージ</small><button class="ghost sm" type="button">変更</button></div>
+      <p class="more-note">表明した内容（何のコスで何人）をあとから直せる</p>
+    </div>
+  </div>
+
+  <div class="card more" data-more="genre">
+    <button class="more-h" type="button"><span class="mi">🎛</span><span class="mt"><b>ジャンル・言語</b><small>コスプレ以外に広げる／英語表示</small></span><span class="chev">›</span></button>
+    <div class="more-b">
+      <div class="chips" style="margin-top:0"><button class="chip on" type="button">コスプレ</button><button class="chip on" type="button">DJ</button><button class="chip on" type="button">バンド</button><button class="chip" type="button">アイドル</button><button class="chip" type="button">アミューズメント</button></div>
+      <div class="seg"><button class="on" type="button">日本語</button><button type="button">English</button></div>
+      <p class="more-note">最初はコスプレ×DJ×バンド箱だけ。英語はインバウンドが箱を探す用</p>
+    </div>
+  </div>
+
+  <div class="card more" data-more="weekly">
+    <button class="more-h" type="button"><span class="mi">📊</span><span class="mt"><b>週次レポート</b><small>エゴサの数字の推移</small></span><span class="chev">›</span></button>
+    <div class="more-b">
+      <div class="bars"><i style="height:30%"></i><i style="height:45%"></i><i style="height:40%"></i><i style="height:70%"></i><i style="height:55%"></i><i style="height:85%"></i><i style="height:100%"></i></div>
+      <div class="barlab"><span>7/20</span><span>今週</span></div>
+      <p class="more-note">言及 23（先週比 +9）／ポジ率 92%／営業リストに入れた 2人</p>
+    </div>
+  </div>
+
+  <div class="card more" data-more="koki">
+    <button class="more-h" type="button"><span class="mi">💌</span><span class="mt"><b>後記を書く <span class="tag prem">有料</span></b><small>終わったイベントの参加者へ「お疲れ」を送る</small></span><span class="chev">›</span></button>
+    <div class="more-b">
+      <div class="dayhead"><b>7/26 つくばキッズ盆踊り</b><small>参加表明 12人に届く</small></div>
+      <div class="mock-ta">4時間ありがとう。最後の盆踊りで子どもたちが…（後記）</div>
+      <button class="main offer" type="button">後記を送る（プレミアム）</button>
+      <p class="more-note">「あのイベントお疲れ」を言い合う場所。ここを課金にする案</p>
+    </div>
+  </div>
+
+  <p class="note">※ すべてモック。数字・店名はサンプルです</p>
+</section>
 </main>
 </div>
 
@@ -595,6 +743,7 @@ body[data-skin="threads"] .m-media{margin-left:45px}
     <button data-tab="events"><span class="ico">🎪</span><span>イベント</span></button>
     <button data-tab="map"><span class="ico">🗺</span><span>マップ</span></button>
     <button data-tab="dir"><span class="ico">📖</span><span>名鑑</span></button>
+    <button data-tab="more"><span class="ico">☰</span><span>その他</span></button>
   </div>
 </nav>
 
@@ -872,6 +1021,11 @@ document.querySelectorAll('.legend .filt').forEach(function(c){c.addEventListene
 });});
 
 
+
+// その他タブ: アコーディオン／トグルのモック
+document.querySelectorAll('.more-h').forEach(function(h){h.addEventListener('click',function(){h.closest('.more').classList.toggle('open');});});
+document.querySelectorAll('.tog .sw').forEach(function(w){w.closest('.tog').addEventListener('click',function(e){e.preventDefault();w.classList.toggle('on');});});
+document.querySelectorAll('.seg button, #tab-more .chip').forEach(function(b){b.addEventListener('click',function(){ if(b.parentElement.classList.contains('seg')){b.parentElement.querySelectorAll('button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');} else {b.classList.toggle('on');} });});
 // generic mock buttons
 function bindOffers(){document.querySelectorAll('.offer').forEach(function(b){
   if(b.dataset.bound)return;b.dataset.bound=1;
