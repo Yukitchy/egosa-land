@@ -812,8 +812,10 @@ var PINS={box1:{ll:[35.7016,139.7692],k:'箱',c:'#CE2B5F',n:42,lb:'GEKKO'},
  stu1:{ll:[35.6986,139.7694],k:'練',c:'#0E7C77',n:9,lb:'ネイロ'},
  idle1:{ll:[35.6979,139.7724],k:'空',c:'#B98A2E',n:5,lb:'ロータス'},
  idle2:{ll:[35.7000,139.7713],k:'空',c:'#B98A2E',n:3,lb:'まぜ麺店'}};
-var egoMap=L.map('map-canvas',{zoomControl:false,attributionControl:true}).setView([35.6998,139.7712],16);
-L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',{maxZoom:18,attribution:'<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院</a>'}).addTo(egoMap);
+var egoMap=L.map('map-canvas',{zoomControl:false,attributionControl:true,maxZoom:16,minZoom:12}).setView([35.6998,139.7712],16);
+// 撮影クエストと同じ淡いグレーの地図。CARTO light_all は2026-09時点で「API KEY REQUIRED」透かしが入るため、同系統のEsri Light Gray Canvasを使う
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',{maxZoom:16,attribution:'Tiles &copy; Esri'}).addTo(egoMap);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',{maxZoom:16,pane:'tilePane',opacity:.9}).addTo(egoMap);
 var markers={};
 Object.keys(PINS).forEach(function(id){var p=PINS[id];
   var html='<div class="pin" data-id="'+id+'" data-tag="'+SPOTS[id].tag+'" style="--c:'+p.c+'"><div class="shape"></div><div class="k">'+p.k+'</div><div class="n">'+p.n+'</div><div class="lb">'+p.lb+'</div></div>';
@@ -865,7 +867,7 @@ document.querySelectorAll('.legend .filt').forEach(function(c){c.addEventListene
 });});
 
 // 見た目切替（Refero参照3案）
-(function(){var k='egosa-skin';var v='base';try{v=localStorage.getItem(k)||'base'}catch(e){}
+(function(){var k='egosa-skin';var v='hype';try{v=localStorage.getItem(k)||'hype'}catch(e){}
  function apply(x){document.body.dataset.skin=x;document.querySelectorAll('.skin').forEach(function(b){b.classList.toggle('on',b.dataset.skin===x)});}
  apply(v);
  document.querySelectorAll('.skin').forEach(function(b){b.addEventListener('click',function(){apply(b.dataset.skin);try{localStorage.setItem(k,b.dataset.skin)}catch(e){}});});
